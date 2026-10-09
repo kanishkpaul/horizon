@@ -79,6 +79,7 @@ export function Cockpit() {
           ))}
         </div>
         <div className="stack" style={{ gap: 14 }}>
+          <Schedule bump={items.data?.length ?? 0} />
           {log && (
             <section className="panel"><header><h2>Log a real outcome</h2></header>
               <div className="body stack">
@@ -134,6 +135,32 @@ function Forecasts({ data, reload }: { data: any; reload: () => void }) {
           </div>
         ))}
         {data?.scores?.calibration && <p className="faint" style={{ fontSize: 11.5 }}>{data.scores.note}</p>}
+      </div></section>
+  );
+}
+
+function Schedule({ bump }: { bump: number }) {
+  const [wd, setWd] = useState(5);
+  const [we, setWe] = useState(9);
+  const [res, setRes] = useState<any>(null);
+  const [busy, setBusy] = useState(false);
+  const go = async () => { setBusy(true); try { setRes(await api("/api/plan/schedule", { body: { days: 14, weekday_hours: wd, weekend_hours: we, max_tasks_per_day: 2 } })); } finally { setBusy(false); } };
+  return (
+    <section className="panel"><header><h2>Next 14 days, day by day</h2><span className="hint">CP-SAT schedule of open actions</span></header>
+      <div className="body stack">
+        <div className="row">
+          <label className="field" style={{ flex: 1 }}>Weekday hours<input className="input" type="number" min={0} max={16} value={wd} onChange={(e) => setWd(+e.target.value)} /></label>
+          <label className="field" style={{ flex: 1 }}>Weekend hours<input className="input" type="number" min={0} max={16} value={we} onChange={(e) => setWe(+e.target.value)} /></label>
+        </div>
+        <button className="btn" onClick={go} disabled={busy || bump === 0}>{busy && <span className="spin" />}Schedule</button>
+        {res && res.unscheduled?.length > 0 && <div className="note">⚠ Not enough time before due date: {res.unscheduled.map((u: any) => `${u.title.slice(0, 40)} (short ${u.short_by_h} h)`).join("; ")}</div>}
+        {res && res.days.map((d: any) => (
+          <div key={d.date} style={{ borderTop: "1px solid var(--rule-2)", paddingTop: 4 }}>
+            <div className="row" style={{ justifyContent: "space-between" }}><b className="num">{fdate(d.date)}</b><span className="faint num">{d.tasks.reduce((a: number, t: any) => a + t.hours, 0)} / {d.capacity_h} h</span></div>
+            {d.tasks.map((t: any) => <div key={t.id} style={{ fontSize: 12 }}>{t.hours} h · {t.title}</div>)}
+          </div>
+        ))}
+        {res && <p className="faint" style={{ fontSize: 11.5 }}>{res.method}</p>}
       </div></section>
   );
 }

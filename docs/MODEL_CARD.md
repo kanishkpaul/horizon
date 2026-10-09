@@ -37,7 +37,7 @@ See [VALIDATION.md](VALIDATION.md): 19 tests against analytic answers, convergen
 
 ## Known limitations
 1. **The action catalogue is the boundary of the model.** Opportunities nobody wrote down cannot appear; created opportunities enter only through 8 curated hypothesis actions plus generic outreach.
-2. **Breadth is cheap in the model.** Beyond hours, switching costs and a concurrency-based quality-dilution variant, the costs of carrying many commitments over a year are not modelled: fatigue, reduced quality per item, reputation risk from weak applications. Strategy search exploits this.
+2. **Breadth is still relatively cheap.** Hours are now charged in every value model, but fatigue, lower quality per item, and reputation risk from weak applications are not modelled, and the concurrency-based quality-dilution variant rarely binds. Strategy search exploits whatever is left.
 3. **The academic calendar is a placeholder** (20 h/week in semester, 35 in exams, 14 in semester 8).
 4. **Effort estimates are mine, not yours.** The October-paper decision depends almost entirely on your own remaining-hours estimate.
 5. **Offers are binary per class**, and compensation is one draw per class per world.
@@ -45,6 +45,16 @@ See [VALIDATION.md](VALIDATION.md): 19 tests against analytic answers, convergen
 7. **No acceptance or rejection decisions.** Holding several offers counts as optionality; real deadlines for accepting offers are not modelled.
 8. **Weekly granularity.** Same-week ordering of events is approximate.
 9. **The utility function rewards outputs up to saturation caps**, so quantity is partly rewarded regardless of quality.
+
+## Changes after adversarial review (0.3 → 0.3.1)
+- Per-batch random effects for application batches.
+- A value-of-time term in every value model; costs are never capped.
+- Saturating evidence effects; new-output-only evidence tokens.
+- Rule-enabled fallbacks get high priority; a revise-and-resubmit action.
+- Optionality and autonomy count positions only.
+- The Unify attempt is no longer gated on unknown code availability.
+- A harsh combined scenario; an academic-load scale.
+See [ADVERSARIAL_REVIEW.md](ADVERSARIAL_REVIEW.md).
 
 ## Reproducibility
 Every run stores: seed, model fingerprint (hash of actions, parameters, offer classes and exogenous events), dataset version (hash of the source workbooks), scenario, value model, parameter distributions, warnings, limitations, and world-level metric arrays (`data/runs/<id>.npz`). The same seed and fingerprint reproduce identical results (tested).

@@ -24,7 +24,7 @@ _DIST_RE = re.compile(r"^\s*(\w+)\s*\(([^)]*)\)\s*$")
 
 def stream(seed: int, *key: str) -> np.random.Generator:
     """Independent generator for a named purpose, stable across processes."""
-    h = hashlib.sha256(("|".join(key)).encode()).digest()
+    h = hashlib.sha256(("|".join(str(k) for k in key)).encode()).digest()
     words = [int.from_bytes(h[i:i + 4], "little") for i in range(0, 16, 4)]
     return np.random.default_rng(np.random.SeedSequence([seed, *words]))
 

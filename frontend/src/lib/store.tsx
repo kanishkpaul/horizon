@@ -57,7 +57,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [theme]);
   useEffect(() => {
     if (!runId) {
-      api<any[]>("/api/runs").then((rs) => { if (rs.length) setRunIdState(rs[0].id); }).catch(() => {});
+      // default to the newest run that is not an experiment variant (experiment runs are labelled "EXP …")
+      api<any[]>("/api/runs").then((rs) => {
+        const pick = rs.find((r) => !(r.label || "").startsWith("EXP")) ?? rs[0];
+        if (pick) setRunIdState(pick.id);
+      }).catch(() => {});
       return;
     }
     api(`/api/runs/${runId}`).then(setRun).catch(() => { setRun(null); });

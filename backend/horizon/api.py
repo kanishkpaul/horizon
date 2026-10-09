@@ -460,6 +460,13 @@ def generate_plan(body: dict = Body(default={})):
     return _json(gp(con(), body.get("run_id"), body.get("strategy")))
 
 
+@app.post("/api/plan/schedule")
+def plan_schedule(body: dict = Body(default={})):
+    from .schedule import plan_days
+    return _json(plan_days(con(), int(body.get("days", 14)), float(body.get("weekday_hours", 5)),
+                           float(body.get("weekend_hours", 9)), int(body.get("max_tasks_per_day", 2))))
+
+
 @app.post("/api/outcomes")
 def log_outcome(body: dict = Body(...)):
     from .execution import record_outcome

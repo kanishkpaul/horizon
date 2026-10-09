@@ -1,0 +1,802 @@
+{
+ "central": {
+  "front": [
+   {
+    "spec": {
+     "id": "search_1",
+     "name": "Discovered #1",
+     "actions": [
+      "phd_applications",
+      "kolkata_events",
+      "reg_paper_arr_next",
+      "semeval_2027",
+      "msr_bengali_pilot",
+      "predoc_applications",
+      "bigtech_applications",
+      "startup_applications",
+      "remote_global_applications",
+      "arxiv_endorsement",
+      "mcw_writeup",
+      "mcw_submit_tmlr",
+      "mcw_post_arxiv",
+      "reg_preprint",
+      "startup_mvp",
+      "mcw_benchmark_release",
+      "collab_research_2",
+      "collab_research_1",
+      "unify_continual_arc",
+      "collab_industry_1",
+      "collab_industry_2",
+      "outreach_faculty",
+      "outreach_founders",
+      "epoch_work_sample",
+      "learn_ml_systems"
+     ],
+     "rules": [
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_resubmit"
+     ],
+     "max_parallel": 4,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 25 actions, max 4 in parallel."
+    },
+    "score": 8.291784506458612,
+    "se": 0.042158186038711624,
+    "position_by_grad": 0.9179166666666667,
+    "crunch_weeks": 0.10625,
+    "peer_reviewed": 1.0479166666666666,
+    "optionality": 3.330416666666667,
+    "feasible": true,
+    "actions_not_in_any_preset": [
+     "learn_ml_systems"
+    ]
+   },
+   {
+    "spec": {
+     "id": "search_2",
+     "name": "Discovered #2",
+     "actions": [
+      "outreach_faculty",
+      "mcw_benchmark_release",
+      "outreach_founders",
+      "unify_continual_arc",
+      "arxiv_endorsement",
+      "phd_applications",
+      "kolkata_events",
+      "reg_paper_arr_next",
+      "semeval_2027",
+      "msr_bengali_pilot",
+      "predoc_applications",
+      "bigtech_applications",
+      "startup_applications",
+      "remote_global_applications",
+      "mcw_writeup",
+      "mcw_submit_tmlr",
+      "mcw_post_arxiv",
+      "reg_preprint",
+      "startup_mvp",
+      "collab_research_2",
+      "collab_research_1",
+      "collab_industry_1",
+      "collab_industry_2",
+      "epoch_work_sample",
+      "learn_ml_systems"
+     ],
+     "rules": [
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_resubmit"
+     ],
+     "max_parallel": 4,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 25 actions, max 4 in parallel."
+    },
+    "score": 8.104093987297203,
+    "se": 0.04395224786675701,
+    "position_by_grad": 0.93375,
+    "crunch_weeks": 1.1508333333333334,
+    "peer_reviewed": 0.9445833333333333,
+    "optionality": 3.46875,
+    "feasible": true,
+    "actions_not_in_any_preset": [
+     "learn_ml_systems"
+    ]
+   },
+   {
+    "spec": {
+     "id": "search_7",
+     "name": "Discovered #7",
+     "actions": [
+      "arxiv_endorsement",
+      "bigtech_applications",
+      "reg_paper_arr_next",
+      "outreach_faculty",
+      "startup_applications",
+      "remote_global_applications",
+      "mcw_post_arxiv",
+      "msr_bengali_pilot",
+      "mcw_benchmark_release",
+      "unify_continual_arc",
+      "predoc_applications",
+      "accelerator_application",
+      "collab_industry_2",
+      "wmt_challenge_set",
+      "epoch_work_sample",
+      "mcw_submit_tmlr",
+      "collab_research_1",
+      "startup_mvp",
+      "mcw_writeup",
+      "collab_industry_1",
+      "outreach_founders"
+     ],
+     "rules": [
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      },
+      {
+       "label": "Two research replies \u2192 second collaboration",
+       "when": {
+        "token": "leads_research",
+        "op": ">=",
+        "value": 2
+       },
+       "enable": [
+        "collab_research_2"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_resubmit",
+      "collab_research_2"
+     ],
+     "max_parallel": 4,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 21 actions, max 4 in parallel."
+    },
+    "score": 7.710487089466682,
+    "se": 0.043205173168074214,
+    "position_by_grad": 0.88375,
+    "crunch_weeks": 0.05458333333333333,
+    "peer_reviewed": 1.0441666666666667,
+    "optionality": 2.9008333333333334,
+    "feasible": true,
+    "actions_not_in_any_preset": []
+   },
+   {
+    "spec": {
+     "id": "search_11",
+     "name": "Discovered #11",
+     "actions": [
+      "outreach_faculty",
+      "unify_continual_arc",
+      "arxiv_endorsement",
+      "remote_global_applications",
+      "outreach_founders",
+      "predoc_applications",
+      "msr_bengali_pilot",
+      "reg_paper_arr_next",
+      "startup_applications",
+      "phd_applications",
+      "collab_industry_2",
+      "collab_industry_1",
+      "bigtech_applications",
+      "kolkata_events",
+      "mcw_submit_tmlr",
+      "mcw_post_arxiv",
+      "mcw_writeup",
+      "collab_research_1",
+      "startup_mvp",
+      "epoch_work_sample",
+      "eacl_srw"
+     ],
+     "rules": [
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      },
+      {
+       "label": "Two research replies \u2192 second collaboration",
+       "when": {
+        "token": "leads_research",
+        "op": ">=",
+        "value": 2
+       },
+       "enable": [
+        "collab_research_2"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_resubmit",
+      "collab_research_2"
+     ],
+     "max_parallel": 4,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 21 actions, max 4 in parallel."
+    },
+    "score": 7.402255134769224,
+    "se": 0.043872129667834006,
+    "position_by_grad": 0.935,
+    "crunch_weeks": 2.0029166666666667,
+    "peer_reviewed": 0.80375,
+    "optionality": 3.3954166666666667,
+    "feasible": true,
+    "actions_not_in_any_preset": []
+   },
+   {
+    "spec": {
+     "id": "search_5",
+     "name": "Discovered #5",
+     "actions": [
+      "outreach_faculty",
+      "unify_continual_arc",
+      "outreach_founders",
+      "arxiv_endorsement",
+      "remote_global_applications",
+      "predoc_applications",
+      "collab_industry_1",
+      "startup_applications",
+      "mcw_post_arxiv",
+      "bigtech_applications",
+      "collab_industry_2",
+      "reg_paper_arr_next",
+      "mcw_submit_tmlr",
+      "phd_applications",
+      "msr_bengali_pilot",
+      "collab_research_1",
+      "startup_mvp",
+      "mcw_writeup",
+      "collab_research_2"
+     ],
+     "rules": [
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_resubmit"
+     ],
+     "max_parallel": 4,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 19 actions, max 4 in parallel."
+    },
+    "score": 7.373472344261266,
+    "se": 0.04487595889187018,
+    "position_by_grad": 0.9204166666666667,
+    "crunch_weeks": 0.71625,
+    "peer_reviewed": 0.9366666666666666,
+    "optionality": 3.297083333333333,
+    "feasible": true,
+    "actions_not_in_any_preset": []
+   },
+   {
+    "spec": {
+     "id": "search_3",
+     "name": "Discovered #3",
+     "actions": [
+      "semeval_2027",
+      "reg_paper_arr_next",
+      "outreach_faculty",
+      "mcw_post_arxiv",
+      "msr_bengali_pilot",
+      "bigtech_applications",
+      "arxiv_endorsement",
+      "unify_continual_arc",
+      "startup_applications",
+      "epoch_work_sample",
+      "remote_global_applications",
+      "mcw_writeup",
+      "outreach_founders",
+      "mcw_submit_tmlr",
+      "mcw_benchmark_release",
+      "collab_research_2",
+      "collab_research_1",
+      "collab_industry_1",
+      "collab_industry_2",
+      "learn_ml_systems"
+     ],
+     "rules": [
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_resubmit"
+     ],
+     "max_parallel": 4,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 20 actions, max 4 in parallel."
+    },
+    "score": 6.979517095181621,
+    "se": 0.044446638479708554,
+    "position_by_grad": 0.8395833333333333,
+    "crunch_weeks": 0.010833333333333334,
+    "peer_reviewed": 1.06125,
+    "optionality": 2.2620833333333334,
+    "feasible": true,
+    "actions_not_in_any_preset": [
+     "learn_ml_systems"
+    ]
+   }
+  ],
+  "preset_scores": {
+   "disc_jan": 8.291784506458612,
+   "disc_oct": 8.067188101718479,
+   "disc_jan_early": 8.09897901827371,
+   "research_first": 5.0352797168400665,
+   "research_engineer": 5.889162714062404,
+   "founder": 3.8949404186784204,
+   "barbell": 6.663019154315657,
+   "artifact_led": 5.959796190760639,
+   "creation_portfolio": 6.255063523569647,
+   "conventional": 2.4576192791608165,
+   "defer_depth": 5.52194297512327,
+   "max_parallel": 6.01879429997298
+  }
+ },
+ "harsh": {
+  "front": [
+   {
+    "spec": {
+     "id": "search_1",
+     "name": "Discovered #1",
+     "actions": [
+      "startup_applications",
+      "mcw_benchmark_release",
+      "predoc_applications",
+      "arr_service_contributor",
+      "collab_industry_2",
+      "outreach_faculty",
+      "bigtech_applications",
+      "arxiv_endorsement",
+      "unify_continual_arc",
+      "reg_paper_arr_oct",
+      "outreach_founders",
+      "collab_industry_1",
+      "kolkata_events",
+      "reg_preprint",
+      "remote_global_applications",
+      "collab_research_1",
+      "epoch_work_sample",
+      "startup_mvp",
+      "collab_research_2"
+     ],
+     "rules": [
+      {
+       "label": "Missed October ARR \u2192 January cycle",
+       "when": {
+        "missed": "reg_paper_arr_oct"
+       },
+       "enable": [
+        "reg_paper_arr_next"
+       ]
+      },
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_arr_next",
+      "reg_paper_resubmit"
+     ],
+     "max_parallel": 4,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 19 actions, max 4 in parallel."
+    },
+    "score": 6.247103512648441,
+    "se": 0.04672536073229432,
+    "position_by_grad": 0.8420833333333333,
+    "crunch_weeks": 1.3054166666666667,
+    "peer_reviewed": 0.5995833333333334,
+    "optionality": 2.8679166666666664,
+    "feasible": true,
+    "actions_not_in_any_preset": []
+   },
+   {
+    "spec": {
+     "id": "search_10",
+     "name": "Discovered #10",
+     "actions": [
+      "startup_applications",
+      "bigtech_applications",
+      "predoc_applications",
+      "epoch_work_sample",
+      "mcw_post_arxiv",
+      "remote_global_applications",
+      "collab_industry_1",
+      "reg_preprint",
+      "arxiv_endorsement",
+      "mcw_submit_tmlr",
+      "kolkata_events",
+      "arr_service_contributor",
+      "mcw_writeup",
+      "outreach_faculty",
+      "startup_mvp",
+      "accelerator_application",
+      "reg_paper_arr_next",
+      "mcw_benchmark_release",
+      "snorkel_benchmark_grant",
+      "outreach_founders"
+     ],
+     "rules": [
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      },
+      {
+       "label": "Two research replies \u2192 second collaboration",
+       "when": {
+        "token": "leads_research",
+        "op": ">=",
+        "value": 2
+       },
+       "enable": [
+        "collab_research_2"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_resubmit",
+      "collab_research_2"
+     ],
+     "max_parallel": 2,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 20 actions, max 2 in parallel."
+    },
+    "score": 6.114103977770055,
+    "se": 0.052500873212505406,
+    "position_by_grad": 0.7783333333333333,
+    "crunch_weeks": 0.7541666666666667,
+    "peer_reviewed": 0.8025,
+    "optionality": 2.654166666666667,
+    "feasible": true,
+    "actions_not_in_any_preset": []
+   },
+   {
+    "spec": {
+     "id": "search_12",
+     "name": "Discovered #12",
+     "actions": [
+      "unify_continual_arc",
+      "startup_applications",
+      "collab_industry_2",
+      "outreach_founders",
+      "mcw_benchmark_release",
+      "arxiv_endorsement",
+      "bigtech_applications",
+      "collab_industry_1",
+      "remote_global_applications",
+      "arr_service_contributor",
+      "collab_research_1",
+      "predoc_applications",
+      "mcw_post_arxiv",
+      "reg_paper_arr_oct",
+      "mcw_writeup",
+      "outreach_faculty",
+      "accelerator_application",
+      "startup_mvp",
+      "reg_preprint"
+     ],
+     "rules": [
+      {
+       "label": "Missed October ARR \u2192 January cycle",
+       "when": {
+        "missed": "reg_paper_arr_oct"
+       },
+       "enable": [
+        "reg_paper_arr_next"
+       ]
+      },
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      },
+      {
+       "label": "Two research replies \u2192 second collaboration",
+       "when": {
+        "token": "leads_research",
+        "op": ">=",
+        "value": 2
+       },
+       "enable": [
+        "collab_research_2"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_arr_next",
+      "reg_paper_resubmit",
+      "collab_research_2"
+     ],
+     "max_parallel": 3,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 19 actions, max 3 in parallel."
+    },
+    "score": 5.942647372000993,
+    "se": 0.04580692384764535,
+    "position_by_grad": 0.8491666666666666,
+    "crunch_weeks": 1.7354166666666666,
+    "peer_reviewed": 0.6191666666666666,
+    "optionality": 2.7641666666666667,
+    "feasible": true,
+    "actions_not_in_any_preset": []
+   },
+   {
+    "spec": {
+     "id": "search_8",
+     "name": "Discovered #8",
+     "actions": [
+      "startup_applications",
+      "bigtech_applications",
+      "mcw_post_arxiv",
+      "predoc_applications",
+      "outreach_founders",
+      "collab_industry_1",
+      "epoch_work_sample",
+      "reg_preprint",
+      "mcw_submit_tmlr",
+      "remote_global_applications",
+      "arr_service_contributor",
+      "outreach_faculty",
+      "startup_mvp",
+      "collab_research_1",
+      "arxiv_endorsement",
+      "reg_paper_arr_next",
+      "mcw_writeup",
+      "kolkata_events",
+      "mcw_benchmark_release"
+     ],
+     "rules": [
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      },
+      {
+       "label": "Two research replies \u2192 second collaboration",
+       "when": {
+        "token": "leads_research",
+        "op": ">=",
+        "value": 2
+       },
+       "enable": [
+        "collab_research_2"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_resubmit",
+      "collab_research_2"
+     ],
+     "max_parallel": 5,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 19 actions, max 5 in parallel."
+    },
+    "score": 5.922837061702932,
+    "se": 0.04921583308275315,
+    "position_by_grad": 0.8145833333333333,
+    "crunch_weeks": 0.7754166666666666,
+    "peer_reviewed": 0.5145833333333333,
+    "optionality": 2.7670833333333333,
+    "feasible": true,
+    "actions_not_in_any_preset": []
+   },
+   {
+    "spec": {
+     "id": "search_4",
+     "name": "Discovered #4",
+     "actions": [
+      "bigtech_applications",
+      "arxiv_endorsement",
+      "startup_applications",
+      "collab_industry_2",
+      "mcw_benchmark_release",
+      "research_intern_applications",
+      "kolkata_events",
+      "predoc_applications",
+      "collab_industry_1",
+      "outreach_founders",
+      "epoch_work_sample",
+      "outreach_faculty",
+      "startup_mvp",
+      "remote_global_applications",
+      "collab_research_1",
+      "phd_applications",
+      "collab_research_2",
+      "oss_eval_contribs",
+      "unify_continual_arc"
+     ],
+     "rules": [],
+     "contingent": [],
+     "max_parallel": 3,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 19 actions, max 3 in parallel."
+    },
+    "score": 5.75728781565909,
+    "se": 0.04297687473640702,
+    "position_by_grad": 0.8754166666666666,
+    "crunch_weeks": 1.0254166666666666,
+    "peer_reviewed": 0.0,
+    "optionality": 3.2204166666666665,
+    "feasible": true,
+    "actions_not_in_any_preset": []
+   },
+   {
+    "spec": {
+     "id": "search_6",
+     "name": "Discovered #6",
+     "actions": [
+      "outreach_founders",
+      "mcw_benchmark_release",
+      "startup_applications",
+      "arxiv_endorsement",
+      "predoc_applications",
+      "unify_continual_arc",
+      "bigtech_applications",
+      "collab_industry_2",
+      "collab_industry_1",
+      "outreach_faculty",
+      "collab_research_1",
+      "arr_service_contributor",
+      "remote_global_applications",
+      "mcw_writeup",
+      "accelerator_application",
+      "reg_paper_arr_oct",
+      "mcw_post_arxiv",
+      "learn_ml_systems",
+      "epoch_work_sample",
+      "startup_mvp"
+     ],
+     "rules": [
+      {
+       "label": "Missed October ARR \u2192 January cycle",
+       "when": {
+        "missed": "reg_paper_arr_oct"
+       },
+       "enable": [
+        "reg_paper_arr_next"
+       ]
+      },
+      {
+       "label": "Register paper rejected \u2192 revise and resubmit",
+       "when": {
+        "token": "reg_rejected",
+        "op": ">=",
+        "value": 1
+       },
+       "enable": [
+        "reg_paper_resubmit"
+       ]
+      },
+      {
+       "label": "Two research replies \u2192 second collaboration",
+       "when": {
+        "token": "leads_research",
+        "op": ">=",
+        "value": 2
+       },
+       "enable": [
+        "collab_research_2"
+       ]
+      }
+     ],
+     "contingent": [
+      "reg_paper_arr_next",
+      "reg_paper_resubmit",
+      "collab_research_2"
+     ],
+     "max_parallel": 3,
+     "hours_scale": 1.0,
+     "description": "Found by NSGA-II search under 'Balanced'. 20 actions, max 3 in parallel."
+    },
+    "score": 5.739655455862622,
+    "se": 0.045736183934958305,
+    "position_by_grad": 0.84875,
+    "crunch_weeks": 1.2683333333333333,
+    "peer_reviewed": 0.61875,
+    "optionality": 2.7204166666666665,
+    "feasible": true,
+    "actions_not_in_any_preset": [
+     "learn_ml_systems"
+    ]
+   }
+  ],
+  "preset_scores": {
+   "disc_jan": 5.117960822595081,
+   "disc_oct": 4.692553874599536,
+   "disc_jan_early": 4.558786207452094,
+   "disc2_central": 5.117960822595081,
+   "research_first": 1.754236278982982,
+   "research_engineer": 4.968092841785395,
+   "founder": 3.462334384884472,
+   "barbell": 5.0072127627095595,
+   "artifact_led": 4.733873237128102,
+   "creation_portfolio": 4.18506271190499,
+   "conventional": 2.2910969384753934,
+   "defer_depth": 2.36895828215023,
+   "max_parallel": 2.308265450471607
+  }
+ }
+}

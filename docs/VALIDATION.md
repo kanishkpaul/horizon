@@ -24,7 +24,7 @@ Run everything with `cd backend && uv run pytest -q` (30 tests, ~2 s).
 | Constraint statistics | p90 of 0..99 = 89.1 | exact |
 | Derived metrics cannot be written by actions | Validator raises | passes |
 | Resolve-time probability | A registration that lands after submission counts at decision time, not at submission | passes |
-| Quality-dilution penalty | Many open commitments lower success odds | passes |
+| Quality-dilution penalty | Many open commitments lower success odds | passes (note: in real strategies concurrency rarely exceeds 3, so this variant barely binds; see adversarial review #3) |
 
 ## 2. End-to-end acceptance (`tests/test_acceptance.py`, 11 tests, Part 28)
 
@@ -47,16 +47,15 @@ These run against a WAL-safe snapshot of the real database through the HTTP API:
 **UI (all workspaces)** was exercised in a headless browser (gstack browse): Brief, Atlas search + inspector, Lab what-if run (9 strategies × 3,000 worlds in 1.1 s), Tradeoffs, Uncertainty, Theater, Graph and unlock map, Cockpit plan generation. Zero application console errors. Screenshots are in `.gstack/browse-reports/`. Defects found and fixed: axis tick collisions, unreadable unlock-map layout, a misleading Pareto line (7-metric front drawn as a 2-D line), long titles, and `index.html` caching that served stale bundles.
 
 ## 3. Retrieval benchmark (`uv run horizon eval-search`)
+12 queries. Relevance is defined by word-boundary regexes over names and organisations, written before looking at outputs (revised after adversarial review #12, which found ~29% spurious substring matches). 2,000-sample bootstrap CIs:
 
-12 labelled queries. Relevance is defined by name patterns written before looking at outputs.
-
-| Mode | nDCG@10 | Recall@10 |
+| Mode | nDCG@10 [95% CI] | Recall@10 |
 |---|---|---|
-| Lexical (FTS5 BM25) | 0.606 | 0.517 |
-| Dense (bge-small-en-v1.5) | 0.510 | 0.488 |
-| Hybrid (RRF, k = 60) | 0.602 | **0.559** |
+| Lexical (FTS5 BM25) | 0.62 [0.49, 0.75] | 0.60 |
+| Dense (bge-small-en-v1.5) | 0.54 [0.38, 0.71] | 0.54 |
+| Hybrid (RRF, k = 60) | 0.63 [0.48, 0.78] | **0.64** |
 
-Hybrid gives the best recall and ties lexical on nDCG. Dense alone fails location queries ("hackathon in Kolkata": nDCG 0.00), and hybrid inherits part of that (0.19 vs lexical 0.69). Fusion weights were **not** tuned on these queries, to avoid overfitting. A field-aware boost for location terms or a cross-encoder reranker is the next step.
+The modes are **not** statistically distinguishable on nDCG with 12 queries. Hybrid has the best recall. Dense alone fails location and programme-name queries ("hackathon in Kolkata": 0.00; "PhD program in Europe": 0.00), and hybrid inherits part of that. Fusion weights were not tuned on these queries. Next steps: hand-labelled relevance sets, a location-aware boost, a cross-encoder reranker.
 
 ## 4. Convergence (every run)
 

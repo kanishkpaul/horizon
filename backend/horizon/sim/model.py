@@ -13,7 +13,7 @@ import yaml
 from .conditions import compile_cond, describe
 from .params import Dist, Param
 
-MODEL_VERSION = "horizon-sim 0.3.0"
+MODEL_VERSION = "horizon-sim 0.3.1"
 # outcome metrics an action may write; derived metrics (best_comp_lpa, position_by_grad, ...) are computed
 SUM_METRICS = ("peer_reviewed", "workshop", "public_outputs", "ties", "adoption", "cash_lpa")
 MAX_METRICS = ("founder_stage",)

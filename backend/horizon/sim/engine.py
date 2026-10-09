@@ -53,6 +53,7 @@ class Scenario:
     allow_relocation: bool = True
     param_overrides: dict = field(default_factory=dict)
     effort_overrides: dict = field(default_factory=dict)   # action id -> [low, mode, high] hours
+    academic_scale: float = 1.0    # multiplies the academic calendar (your real course load vs the placeholder)
     breadth_penalty: float = 0.0   # logit penalty per open commitment beyond focus_k when an outcome is set (quality dilution)
     disruption_hours_factor: float = 0.4
 
@@ -70,7 +71,7 @@ class Scenario:
     def academic_hours(self, week: int) -> float:
         for lo, hi, h in self.academic:
             if lo <= week < hi:
-                return float(h)
+                return float(h) * self.academic_scale
         return 0.0
 
 
@@ -217,6 +218,7 @@ class Simulator:
         acts = m.actions
         S = State(n, acts)
         cond_state = _CondView(S)
+        self._open = None  # reset per run so results never depend on run order
 
         for name, v in m.initial_tokens.items():
             if isinstance(v, dict):
@@ -313,6 +315,11 @@ class Simulator:
                     if o.p is not None and o.p.at == "resolve":
                         p = self._p(o.p, S)
                     if o.count:
+                        # one random effect per batch: applications in a batch share a CV, a screen
+                        # and an interview skill, so they are not independent tries (adversarial review #2)
+                        if "batch_logit_sd" in self.m.params:
+                            eb = stream(self.seed, "batch", a.id, si, oi).normal(0.0, 1.0, n) * self.P["batch_logit_sd"]
+                            p = sigmoid(logit(np.clip(p, 1e-6, 1 - 1e-6)) + eb)
                         k = stats.binom.ppf(u, o.count, np.clip(p, 0, 1))
                         k = np.where(np.isnan(k), 0, k)
                         hit = remaining & (k > 0)
@@ -376,8 +383,10 @@ class Simulator:
                         if a.requires_relocation and not self.sc.allow_relocation:
                             continue
                         S.status[i] = np.where(hit & (S.status[i] == OFF), TODO, S.status[i])
-                        if aid not in prio:
-                            prio[aid] = len(prio)
+                        # an action switched on by a rule is a deliberate response: it goes to the front
+                        # of the non-urgent queue rather than the back (adversarial review #6)
+                        if aid not in order:
+                            prio[aid] = -100 + ri
                 for aid in r.get("disable", []):
                     if aid in S.idx:
                         i = S.idx[aid]
@@ -495,6 +504,8 @@ class Simulator:
         n_classes = np.zeros(n)
         for c, v in m.offer_classes.items():
             o = offers[c]
+            if not v.get("position"):
+                continue  # internships are bridges, not pathways: they no longer count toward optionality/autonomy
             n_classes += o
             autonomy = np.where(o, np.maximum(autonomy, float(v.get("autonomy", 0))), autonomy)
             if v.get("position"):

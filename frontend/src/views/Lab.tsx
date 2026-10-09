@@ -18,7 +18,7 @@ const WHATIF: { id: string; label: string; apply: (s: any) => any }[] = [
 ];
 
 const TABS = ["Overview", "Over time", "Tradeoffs", "Uncertainty", "Robustness", "Sensitivity", "Search", "Assumptions"];
-const PRESET = { adverse: { weekly_hours: 50, ai_multiplier: 0.85, effort_bias: 1.75 }, central: { weekly_hours: 60, ai_multiplier: 1.25, effort_bias: 1.4 }, aggressive: { weekly_hours: 72, ai_multiplier: 2.0, effort_bias: 1.1 } } as Record<string, any>;
+const PRESET = { adverse: { weekly_hours: 50, ai_multiplier: 0.85, effort_bias: 1.75, academic_scale: 1 }, central: { weekly_hours: 60, ai_multiplier: 1.25, effort_bias: 1.4, academic_scale: 1 }, aggressive: { weekly_hours: 72, ai_multiplier: 2.0, effort_bias: 1.1, academic_scale: 1 } } as Record<string, any>;
 
 export function Lab() {
   const { run, setRunId, refresh, say, setInspect, bump } = useStore();
@@ -65,6 +65,7 @@ export function Lab() {
             <div className="field">Effort scenario
               <div className="seg">{Object.keys(PRESET).map((p) => <button key={p} aria-pressed={preset === p} onClick={() => { setPreset(p); setKnobs(PRESET[p]); }}>{p}</button>)}</div></div>
             <Slider label="Total weekly work hours (incl. classes)" min={35} max={90} step={1} v={knobs.weekly_hours} on={(v) => setKnobs({ ...knobs, weekly_hours: v })} fmt={(v) => `${v} h`} />
+            <Slider label="Academic load vs placeholder calendar (20 h/wk semester, 35 h exams)" min={0.5} max={2} step={0.05} v={knobs.academic_scale ?? 1} on={(v) => setKnobs({ ...knobs, academic_scale: v })} fmt={(v) => `×${v.toFixed(2)}`} />
             <Slider label="AI speed-up on automatable work" min={0.7} max={3} step={0.05} v={knobs.ai_multiplier} on={(v) => setKnobs({ ...knobs, ai_multiplier: v })} fmt={(v) => `×${v.toFixed(2)}`} />
             <Slider label="Effort overrun vs. estimates" min={0.9} max={2.2} step={0.05} v={knobs.effort_bias} on={(v) => setKnobs({ ...knobs, effort_bias: v })} fmt={(v) => `×${v.toFixed(2)}`} />
             <p className="faint" style={{ fontSize: 11.5 }}>Evidence: people take ~1.64× their own estimates (Buehler 1994); measured AI effects range from 19% slower (METR 2025) to 56% faster (Copilot RCT). Output flattens above ~49 h/week.</p>

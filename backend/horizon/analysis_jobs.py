@@ -19,6 +19,9 @@ DEFAULT_SCENARIOS = [
                          "bonus_targeted_demo": 0}},
     {"name": "no relocation", "preset": "central", "allow_relocation": False},
     {"name": "quality dilution", "preset": "central", "breadth_penalty": 0.15},
+    {"name": "harsh (adverse + heavy academics + strong correlation)", "preset": "adverse",
+     "academic": [[0, 7.3, 25], [7.3, 10.3, 40], [10.3, 12.4, 5], [12.4, 33.3, 22], [33.3, 37.0, 35]],
+     "factor_corr": 0.5, "param_overrides": {"load_portfolio": 1.0, "load_market": 0.7, "batch_logit_sd": 1.5}},
 ]
 
 

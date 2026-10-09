@@ -52,7 +52,8 @@ def utility(metrics: dict[str, np.ndarray], profile: dict, defaults: dict) -> np
         if k not in metrics or w == 0:
             continue
         g = metrics[k] / float(refs.get(k, 1.0))
-        g = np.minimum(g, float(caps.get(k, 1.0)))
+        if w > 0:  # costs are never capped (adversarial review #5); benefits saturate at an explicit cap
+            g = np.minimum(g, float(caps.get(k, 3.0)))
         u = u + float(w) * g
     return u
 

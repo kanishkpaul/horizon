@@ -532,17 +532,16 @@ actions:
     kind: collaboration
     effort: [15, 30, 60]
     automatable: 0.5
-    requires: {token: continual_arc_code, op: ">=", value: 1}
-    effects: {tokens: {public_outputs: 1}, metrics: {public_outputs: 1}}
+    # the code's availability is unknown when you start; if it never appears the hours are spent for nothing (review #8)
     stages:
       - name: Unify's response
         delay: delay_reply
         outcomes:
           - label: Joint result / continued collaboration
-            p: {base: p_warm_collab}
-            tokens: {collaborations: 1, referrals: 1}
-            metrics: {ties: 1}
-        otherwise: {label: Acknowledged, no collaboration}
+            p: {base: p_warm_collab, shifts: [{param: logit_blocked, token: continual_arc_missing, cap: 1}]}
+            tokens: {collaborations: 1, referrals: 1, public_outputs: 1}
+            metrics: {ties: 1, public_outputs: 1}
+        otherwise: {label: No usable result (code unavailable or no interest)}
 
   - id: epoch_work_sample
     name: Publish one benchmark review as a work sample, then apply to Epoch AI's Benchmarking Reviews role (HYP-0006)
@@ -728,8 +727,9 @@ initial_tokens:
   arxiv_endorsed: {param: has_arxiv_endorsement}
   arr_contributor_missing: 1   # until the service-contributor form is filed
   continual_arc_code: {param: continual_arc_code_available}
+  continual_arc_missing: {param: continual_arc_code_available, invert: true}
   collaborations: 1          # Prof. Naskar and the TU Munich collaborator (one collaboration)
-  public_outputs: 3          # public repos with write-ups: Virgil, ButterflyGate, ResonatorLM audit
+  public_outputs: 0          # counts NEW outputs only; existing repos are already reflected in the base rates (review #7)
 
 exogenous:
   # W(t): events outside the person's control. Weekly hazard; `unless` blocks the event.

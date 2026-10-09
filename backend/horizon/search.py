@@ -185,7 +185,10 @@ def evaluate_retrieval(con, qrels: list[dict], k: int = 10) -> dict:
             idcg = sum(1 / np.log2(i + 2) for i in range(min(len(rel), k)))
             ndcgs.append(dcg / idcg if idcg else 0.0)
             recalls.append(len(rel & set(got)) / len(rel) if rel else 0.0)
+        rng = np.random.default_rng(0)
+        boots = [float(np.mean(rng.choice(ndcgs, len(ndcgs)))) for _ in range(2000)]
         res[mode] = {"ndcg@%d" % k: float(np.mean(ndcgs)), "recall@%d" % k: float(np.mean(recalls)),
+                     "ndcg_ci95": [float(np.quantile(boots, 0.025)), float(np.quantile(boots, 0.975))],
                      "per_query": [{"query": q["query"], "ndcg": n, "recall": r}
                                    for q, n, r in zip(qrels, ndcgs, recalls)]}
     return res

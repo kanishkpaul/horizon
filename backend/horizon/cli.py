@@ -65,7 +65,7 @@ def main(argv=None):
         qrels = resolve(con)
         res = search.evaluate_retrieval(con, qrels)
         for m, v in res.items():
-            print(m, {k: round(x, 3) for k, x in v.items() if k != "per_query"})
+            print(m, {k: (round(x, 3) if isinstance(x, float) else [round(y, 3) for y in x]) for k, x in v.items() if k != "per_query"})
         for i, q in enumerate(qrels):
             print(f"  {q['query'][:48]:48s} rel={len(q['relevant']):3d} " +
                   " ".join(f"{m}={res[m]['per_query'][i]['ndcg']:.2f}" for m in res))

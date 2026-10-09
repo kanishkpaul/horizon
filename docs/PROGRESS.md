@@ -14,16 +14,27 @@
 - **Tests.** 30 passing (19 analytic validation, 11 end-to-end acceptance).
 - **Docs.** AUDIT, METHODOLOGY_REGISTRY, MODEL_CARD, ASSUMPTIONS, VALIDATION, DECISIONS, RESEARCH_LEDGER, RECOMMENDATIONS, ADVERSARIAL_REVIEW.
 
-### Model changes made after self-review
+### Model changes after self-review and adversarial review (model 0.3.1)
+See the Response table in ADVERSARIAL_REVIEW.md. Highlights:
+- Value of time in every value model.
+- Per-batch application correlation.
+- Saturating, new-only evidence.
+- High-priority fallbacks.
+- Positions-only optionality.
+- Harsh scenario and an academic-load control.
+- Eligibility regex fixes; idempotent ingest; regex-labelled retrieval benchmark with confidence intervals.
+- A CP-SAT 14-day scheduler in the Cockpit.
+
+### Earlier self-review changes
 1. A revise-and-resubmit action, and an adjustable rushed-paper penalty. The original model was biased toward deferral.
 2. Evidence shifts saturate (`evidence_shift_cap`). Stacked bonuses had raised per-application predoc odds from 7.5% to 45%; now about 19%.
 3. Strategy search evolves priority order, not just inclusion.
 4. A quality-dilution scenario (breadth penalty).
 
 ### Next
-1. Address the open adversarial-review findings (see ADVERSARIAL_REVIEW.md); re-run `backend/scripts/experiments.py`.
+1. Open review items: per-employer referral tokens; EVSI for realistic information actions; sprint capacity as a choice; per-sub-attribute claim supersession; hand-labelled retrieval sets.
 2. Replace the placeholder academic calendar and the profile unknowns with your real answers; log the first outreach outcomes.
-3. CP-SAT week planner for the 14–30 day horizon (OR-Tools is installed).
+3. Feed the CP-SAT scheduler from calendar availability (it currently uses weekday/weekend hours).
 4. Regression-based EVPPI; hierarchical pooling once there are ~30 logged outcomes.
 5. Per-program heterogeneity inside application batches; offer-acceptance decisions.
 6. Retrieval: location-aware boost or cross-encoder reranking.

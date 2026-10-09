@@ -25,14 +25,15 @@ NATIONALITY_BLOCK = re.compile(
     re.I,
 )
 PHD_ONLY = re.compile(r"(phd|doctoral)\s+(students?|candidates?)\s+(only|enrolled)|must be (enrolled in|pursuing) a (phd|doctoral)"
-                      r"|current(ly)? (enrolled )?(phd|doctoral) students?|phd eligibility stated", re.I)
+                      r"|(?<!level of a )current(ly)? (enrolled )?(phd|doctoral) students? only|phd eligibility stated", re.I)
 MASTERS_ONLY = re.compile(r"(master'?s|graduate) students? only", re.I)
 GRADUATE_REQ = re.compile(r"(must|should) (have|hold) (a |an )?(completed )?(bachelor'?s?|undergraduate|degree|master'?s?)"
-                          r"|(bachelor'?s?|undergraduate) degree (is )?required|recent graduates?|graduates? only"
+                          r"|(bachelor'?s?|undergraduate) degree (is )?required|\b(?<!under)graduates? only\b"
                           r"|completed (a |an )?(bachelor|degree)|degree completion", re.I)
+UNDERGRAD_OK = re.compile(r"\bundergraduates?\b(?! (are )?not)|\b(3rd|third|4th|fourth|final)[- ]year\b", re.I)
 EXPERIENCE = re.compile(r"(\d+)\+?\s*(?:-\s*\d+\s*)?years?(?:'| of)? (?:professional |industry |relevant |work )?experience", re.I)
 GROUP_RESTRICT = re.compile(r"\b(women|female|underrepresented|minorit|veteran|indigenous|black|latin[ao]|lgbt)", re.I)
-AGE_RESTRICT = re.compile(r"\b(age[sd]?|under|below|aged)\s*(\d{2})\b|\b(\d{2})\s*(years? old|or younger|and under)", re.I)
+AGE_RESTRICT = re.compile(r"\b(under|below|aged)\s*(\d{2})\b|\bage[sd]?\s*(limit|cap|between|under)|\b(\d{2})\s*(years? old|or younger|and under)", re.I)
 ENTITY_REQ = re.compile(r"(registered|incorporated) (company|startup|entity)|dpiit|startup entity|existing (company|startup)", re.I)
 ENROLLED_THROUGH = re.compile(r"enrolled .{0,60}(entire|whole|full) (internship|duration)", re.I)
 TEAM_ONLY = re.compile(r"existing registered teams only|registered[- ]team[- ]only|invite[- ]only|invitation only", re.I)
@@ -86,7 +87,7 @@ def assess(opp: dict, profile: dict, now: datetime | None = None) -> tuple[str, 
         hard.append("Restricted to existing/invited participants")
     if ENTITY_REQ.search(text):
         soft.append("Requires a registered startup entity")
-    if GRADUATE_REQ.search(text):
+    if GRADUATE_REQ.search(text) and not UNDERGRAD_OK.search(text):
         later.append(f"Requires a completed degree (graduation expected {profile.get('graduation', 'unknown')})")
     for em in EXPERIENCE.finditer(text):
         yrs = int(em.group(1))
@@ -98,7 +99,9 @@ def assess(opp: dict, profile: dict, now: datetime | None = None) -> tuple[str, 
     if AGE_RESTRICT.search(text):
         soft.append("Age limit stated; age not in profile")
     sheet = (opp.get("sheet_eligibility") or "").lower()
-    if sheet.startswith("not currently eligible") or sheet.startswith("not eligible"):
+    if sheet.startswith("not eligible"):
+        hard.append(f"Workbook assessment: {opp.get('sheet_eligibility')}")
+    elif sheet.startswith("not currently eligible"):
         later.append(f"Workbook assessment: {opp.get('sheet_eligibility')}")
     elif sheet.startswith("eligible later"):
         later.append("Workbook assessment: eligible later")

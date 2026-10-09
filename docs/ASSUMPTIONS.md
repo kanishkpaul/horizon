@@ -38,6 +38,13 @@ These are not identified from data. The **"evidence has no effect"** scenario se
 - **A-E4** Disruption weeks: ~4% chance per week; hours ×0.4.
 - **A-E5** Switching cost: 4% of hours per concurrent action beyond 3. The quality-dilution variant also lowers outcome odds.
 
+## Added after adversarial review
+- **A-R1** Applications in one batch share a random effect: SD 0.5–1.6 logits (within-batch correlation). Position probabilities are upper bounds if your applications are even more alike than this.
+- **A-R2** Time has value. Every value model charges hours used, uncapped (Balanced: −1 point per 800 h).
+- **A-R3** Evidence tokens count only *new* outputs; your existing record is already in the base rates.
+- **A-R4** Combined evidence effects saturate at about 1.2 logits (`evidence_shift_cap`).
+- **A-R5** Optionality and autonomy count post-graduation positions only, not internships.
+
 ## Value assumptions
 - **A-V1** No single objective is privileged. Eight value models are provided; all metrics are reported separately.
 - **A-V2** Each metric saturates at a cap of 2–3× its reference value, so even "more outputs" stops counting after a point.

@@ -53,7 +53,7 @@ export function Brief() {
   const now = Date.now();
   const urgent = (model.data?.actions ?? []).filter((a: any) => a.deadline && !a.id.startsWith("opp_") && new Date(a.deadline).getTime() > now && new Date(a.deadline).getTime() - now < 21 * 86400000)
     .sort((a: any, b: any) => a.deadline.localeCompare(b.deadline));
-  const voi = (run?.analysis.voi ?? []).filter((v: any) => v.evppi > 0).slice(0, 7);
+  const voi = (run?.analysis.voi ?? []).filter((v: any) => v.evppi > 0.001).slice(0, 7);
 
   return (
     <div className="page">
@@ -79,7 +79,16 @@ export function Brief() {
           <div className="body" style={{ padding: "18px 20px" }}>
             <p className="verdict">
               Under <em>{profName}</em> values, <b>{names[top.strategy] ?? top.strategy}</b> ranks first
-              {tvr && !tvr.resolved ? <>, but it is <em>statistically tied</em> with {names[tvr.runner_up]} (it wins in {pct(tvr.p_world_top_better)} of paired worlds)</> : tvr ? <>; it beats {names[tvr.runner_up]} in {pct(tvr.p_world_top_better)} of paired worlds</> : null}.
+              {tvr && (() => {
+                const dom = re?.dominance ?? run.analysis.dominance;
+                const i = dom.ids.indexOf(tvr.top), j = dom.ids.indexOf(tvr.runner_up);
+                const win = tvr.p_world_top_better, lose = i >= 0 && j >= 0 ? dom.p_better[j][i] : null;
+                const tie = lose != null ? Math.max(0, 1 - win - lose) : null;
+                const wl = <> (better in {pct(win)} of paired worlds, worse in {pct(lose)}, equal in {pct(tie)})</>;
+                return tvr.resolved
+                  ? <>, ahead of {names[tvr.runner_up]} by {tvr.mean_diff.toFixed(2)} ± {tvr.se.toFixed(2)}{wl}</>
+                  : <>, but it is <em>statistically tied</em> with {names[tvr.runner_up]}{wl}</>;
+              })()}.
               {tr && <> It secures a post-graduation position in {pct(tr.metrics.position_by_grad.mean)} of simulated worlds, with {tr.metrics.peer_reviewed.mean.toFixed(2)} peer-reviewed papers and {tr.metrics.crunch_weeks.mean.toFixed(1)} deadline-crunch weeks on average.</>}
             </p>
             <p className="muted" style={{ marginTop: 10, maxWidth: 900 }}>

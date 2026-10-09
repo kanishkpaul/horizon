@@ -1,122 +1,130 @@
-# Recommendations (2026-10-09)
+# Recommendations (2026-10-09, after adversarial review)
 
-These come from simulated comparisons under explicit assumptions. They are not forecasts. Reference run: `RUN-20261009-181117-f49e`, 4,000 worlds, Balanced values, central scenario. All experiment outputs are in `research/experiments/`. Read [ADVERSARIAL_REVIEW.md](ADVERSARIAL_REVIEW.md) before acting on any number.
+These are comparisons of policies under explicit assumptions, not forecasts.
+- Reference run: `RUN-20261009-181957-7290` (4,000 worlds, Balanced values, central scenario).
+- Robustness: 9 model variants, including a "harsh" variant (adverse effort, heavier academics, strongly correlated applications).
+- Experiment files: `research/experiments/` (`regret_v2.json`, `search_v2.json`, `oct_vs_jan_v2.json`).
+- The review that changed several conclusions: [ADVERSARIAL_REVIEW.md](ADVERSARIAL_REVIEW.md).
 
-## 1. The decision due this weekend: the register paper
+## The short version
 
-The ARR October deadline is **12 Oct, 23:59 AoE** (13 Oct, 17:29 IST). The next cycle is **4 Jan 2027** (ACL 2027).
+1. **Register paper: January (4 Jan, ACL 2027) unless it is nearly done *and* validated.** If you do submit on 12 Oct, a qualified co-author must file the ARR service-contributor form within 48 h.
+2. **Do the shared core regardless of anything else.** Both winning policies (one for normal capacity, one for tight capacity) contain the same 17 actions. Front-load the cheap, informative ones: the public MCW benchmark, faculty and founder outreach, and the Unify message.
+3. **Add the research-depth layer only if you can sustain ~60 h/week of total work and want a research or PhD path.** That layer is the MCW paper to TMLR, the MSR-targeted Bengali pilot, PhD applications, SemEval-2027 and GPU-systems depth.
+4. **Your real weekly capacity and what you value decide between the two.** Set them in the Scenario lab (weekly hours, academic load) and with the value-model selector.
 
-| Where the paper really is | Better choice in the model | Margin |
+## 1. The register paper (due this weekend)
+
+| State of the paper | Oct − Jan (value points) | Choose |
 |---|---|---|
-| About 25+ hours of work left, or confirmatory runs / human labels / κ not done | **January** | Clear (central: 9.91 vs 9.64) |
-| 6–16 hours left but validation still incomplete | January, narrowly | Small |
-| 6–16 hours left **and** validated | **October** | Small (9.97 vs 9.91) |
+| About 32 h of work left (central estimate from the 27 Sep TODO) | −0.23 | January |
+| You can sprint about 25 h before 12 Oct | −0.16 | January |
+| 6–16 h left, validation incomplete | ±0.00 | Either; January is safer |
+| 6–16 h left **and** confirmatory runs, labels and κ are done | +0.09 | October |
 
-Your 27 September TODO listed open confirmatory runs, the oracle-v2 run, ~150 human labels including Prof. Naskar's κ pass, and cutting 11 pages to 8. On that evidence January looks right, but you know the current state and the model does not.
+Why January wins unless the paper is near done:
+- Only about 19 working hours remain before 13 Oct 17:29 IST once classes are counted.
+- An unvalidated submission is penalised.
+- A failed October attempt wastes hours and creates crunch.
 
-**If you submit in October:** a co-author with reviewing qualifications (Prof. Naskar, or the TUM collaborator if they have ≥3 qualifying papers) must file the ARR **service-contributor** form within 48 hours, i.e. by about 14 Oct AoE. Otherwise the paper goes into a lottery and may be desk-rejected. Undergraduates cannot fill this role. The original spreadsheet missed this rule.
+Both paths keep a revise-and-resubmit fallback. Tell your co-authors your decision this weekend.
 
-**Either way:** tell your co-authors your decision by Saturday.
+## 2. Which policy
 
-## 2. The policy that does best: a broad, sequenced portfolio
-
-The strategy search found policies that beat every hand-designed preset by about 2 value points. They hold up in every model variant tested: adverse hours, no AI speed-up, outcomes independent, evidence having no causal effect, no relocation, and quality dilution. They are the minimax-regret choice under the Balanced, Robust, Research, Compensation and Optionality value models.
-
-**What it is** (`disc_jan`; the outreach-first variant is `disc_jan_early`):
-1. Faculty outreach plus a public MCW benchmark release early (Oct–Nov).
-2. Register paper to the January ARR cycle, with a revise-and-resubmit fallback.
-3. MCW written up → TMLR (rolling, judged on correctness) + arXiv.
-4. SemEval-2027 system paper.
-5. A Bengali register pilot built for MSR India, then predoc applications (~Feb).
-6. PhD applications (Dec), only if a PhD interests you.
-7. Targeted applications to Indian AI startups, big-tech and remote evaluation roles.
-8. Collaborations from outreach replies; the Unify Continual-ARC baseline (via Daniel Lenton); an Epoch AI work sample; a small MVP; GPU/inference depth.
-9. At most 4 things in parallel.
-
-**Why it wins in the model:** it uses your available hours across the whole year (~1,200 h of career work, ~23 h/week on top of classes), where the presets leave capacity idle, and it does not burn the first week on an unlikely October push.
-
-**The honest caveats:**
-- It only makes sense if you will actually sustain ~60 hours of total work a week through semester 8. Under the adverse 50 h/week scenario it still ranks first.
-- The model under-counts the costs of carrying many commitments: application quality, energy, reputational risk from weak applications. See the adversarial review.
-- About half its value comes from items with **placeholder or judgment parameters** (offer odds, pay). The ranking is robust to swinging each of them; the absolute numbers are not meaningful.
-
-**Among hand-designed strategies**, the Optionality barbell is the minimax-regret choice. Use it if you want fewer, deeper commitments.
-
-## 3. What the model says not to do
-- **Do not enter ARC Prize 2026 hoping to win the leaderboard.** ARC-AGI-3 is near saturation by frontier models (62.7–99.9% depending on harness). Virgil's value is as a cheap CPU-only baseline (the Unify route) or a paper-track note.
-- **Conventional placement alone is dominated.** It has the lowest value under every value model.
-- **The maximum-parallel portfolio** buys a little extra placement security (93%) at about 8 deadline-crunch weeks and fewer papers.
-- **The founder track as the primary plan** only leads under the entrepreneurial value model, and even there only narrowly.
-
-## 4. How your values change the answer (reference run, same simulated worlds)
-The discovered portfolio ranks first under **all eight** value models. Among the hand-designed presets:
-
-| Value model | Top presets | Infeasible (violates a hard constraint) |
+| Value model | Least-regret choice across 9 model variants | Runner-up |
 |---|---|---|
-| Balanced | Barbell, max-parallel, defer-depth | — |
-| Research impact | Defer-depth, creation portfolio, research-first | — |
-| Compensation | Max-parallel, research-engineering, barbell | — |
-| Entrepreneurial | Max-parallel, founder, barbell | — |
-| Optionality | Max-parallel, barbell, artifact-led | — |
-| Autonomy | Defer-depth, creation portfolio, barbell | — |
-| Robust (CVaR-20% + ≥80% position) | Max-parallel, barbell, artifact-led | defer-depth, research-first, founder, conventional |
-| Bounded upside (p90 + position + crunch limits) | Barbell, creation portfolio, artifact-led | defer-depth, max-parallel, research-first, conventional |
+| Balanced | Broad portfolio (`disc_jan`), max regret 1.19 | Lean industry-first (`disc2_harsh`), 1.55 |
+| Robust (CVaR-20%, ≥80% position floor) | **Lean industry-first**, 1.78 | Broad, 1.92 |
+| Research impact | Opportunity-creation portfolio, 0.69 | Broad, 0.77 |
+| Compensation | Research-engineering track, 0.45 | Lean industry-first, 0.49 |
 
-## 5. Plan
+Which policy is best in each scenario:
+- **Broad portfolio:** central, no AI speed-up, evidence-has-no-effect, quality dilution, independent outcomes.
+- **Its outreach-first variant:** aggressive hours, no relocation.
+- **Lean industry-first:** adverse hours and the harsh variant.
 
-All messages below are drafts for you to send; Horizon sends nothing.
+| Reference run | Position by graduation | Peer-reviewed papers | Open pathways | Hours used | Crunch weeks | Median best pay (₹L) |
+|---|---|---|---|---|---|---|
+| Broad portfolio | 0.93 | 1.06 | 3.4 | 1,251 | 0.1 | 29.6 |
+| Lean industry-first | 0.89 | 0.64 | 3.0 | 741 | 0.8 | 21.7 |
+| Optionality barbell | 0.89 | 0.94 | 2.5 | 729 | 2.9 | 18.9 |
+| Conventional placement | 0.68 | 0 | 0.8 | 147 | 0 | 14.6 |
 
-**Next 24 hours**
-- Decide October vs January (section 1). If October: line up the service-contributor registration today.
-- Two-minute checks that remove model unknowns:
-  - Can you post to arXiv in cs.CL without a new endorsement? (Start a submission to see.)
-  - Is a full-time 8th-semester internship allowed at HIT? (One email to the department.)
+**How to read this:**
+- **Position by graduation is an upper bound.** Even with the new within-batch correlation, it assumes applications are less correlated than they may be. The review's ρ = 0.8 stress puts every strategy at about 0.75.
+- **Pay figures are placeholders.** Read them only as relative.
+- **The broad portfolio's lead is conditional on hours.** It wins because it uses about 1,250 hours across the year (about 32 h/week of projects through semester 8). At ~50 h/week total or heavier coursework, the lean policy is as good or better. Time now has a cost in every value model (−1 point per 800 h in Balanced; editable).
 
-**Next 72 hours**
-- Write the first 3–5 faculty emails, each with one concrete, scoped proposal and a link to an artifact. Log the replies in the Cockpit, which recalibrates the reply-rate parameter. Targets: the first wave in Research → Outreach (e.g. Lingo Labs IITGN, which explicitly invites remote interns), plus the discovery hypotheses.
-- Message Daniel Lenton: is Continual-ARC code coming, and would a zero-API Virgil baseline help? This uses an existing relationship.
+## 3. The shared core (both winning policies)
 
-**Next 7–14 days**
-- Decide whether Daedalus/MCW becomes public. Two 2026 papers overlap; a public benchmark release stops the scoop clock and unlocks the Snorkel grant, EACL SRW and the Unify route.
-- Optional, if they fit:
-  - Predictive AI Evaluation Competition (30 Oct AoE). Strong fit for evaluation work; not in the model's portfolio, so treat it as unmodelled upside.
-  - ELLIS PhD (31 Oct AoE), only if a European PhD interests you.
+Ordered as I would do them; the Cockpit has dated items.
+1. **Release a public MCW/Daedalus benchmark subset with harness and baselines.** It stops the scoop clock (two 2026 papers overlap), creates evidence for every application, and unlocks the Snorkel grant and EACL SRW. It is the one decision only you can make: is Daedalus going public?
+2. **Faculty outreach, then founder and engineering-lead outreach.** Ten each, each with one scoped proposal and a link to an artifact. Log replies in the Cockpit; the reply-rate parameter recalibrates.
+3. **Message Daniel Lenton** about the Continual-ARC code and a zero-API Virgil baseline. This is an existing relationship.
+4. **Collaborations from replies** (up to 2 research, 2 industry).
+5. **Applications:**
+   - India predoc / MSR Research Fellow: about mid-Feb, inferred from past cycles; confirm in December.
+   - Targeted Indian AI startups: Nov–Apr.
+   - Big-tech: by Mar.
+   - Remote evaluation roles: by May.
+   - Epoch AI work sample: check the role is open and India-eligible first.
+6. **Kolkata events, plus FIRE 2026** (Kolkata, 17–20 Dec).
+7. **A small MVP from Blindfold or Maiku.** Low weight, kept because it adds a different kind of evidence.
 
-**Next 30 days**
-- EACL 2027 SRW pre-submission mentorship draft (6 Nov).
-- Founder/engineering-lead outreach with a working artifact.
-- Start the MCW write-up.
+## 4. The research-depth layer (broad policy only)
+- MCW full paper → TMLR (rolling) + arXiv (check whether you need an endorsement).
+- The Bengali register-and-agents pilot, aimed at MSR India's multilingual group, before the predoc application.
+- PhD applications (~10 Dec), only if a PhD is a real option. In the model they matter little until the paper is accepted.
+- SemEval-2027 (evaluation 10–31 Jan; one task includes Hindi).
+- GPU/inference-systems depth.
 
-**Next 90 days**
-- PhD applications (~10 Dec, assumed), if relevant.
-- FIRE 2026 in Kolkata (17–20 Dec).
+## 5. What the model says not to do
+- **Do not chase the ARC Prize leaderboard.** ARC-AGI-3 is near saturation by frontier models (62.7–99.9% depending on harness).
+- **Do not rely on conventional placement alone.** It is last or near-last under every value model.
+- **Avoid maximum parallelism.** It means about 8 crunch weeks for a few points of placement security.
+- **The founder track as the primary plan** is not supported unless your values are strongly entrepreneurial.
+
+## 6. Next steps (drafts only; Horizon sends nothing)
+
+**24 hours**
+- Make the October/January decision (section 1).
+- Check whether you can post to arXiv in cs.CL without a new endorsement.
+- Email the department about the 8th-semester internship policy.
+
+**72 hours**
+- Decide on Daedalus going public.
+- Send the first 3–5 faculty emails. Lingo Labs (IIT Gandhinagar) explicitly invites remote interns.
+- Message Daniel Lenton.
+- Enter your real weekly hours and academic load in the Lab and re-run. This is the input that picks between the broad and lean policies.
+
+**7–14 days**
+- Benchmark release (aim for end of October).
+- Founder outreach.
+- Optional, unmodelled upside: Predictive AI Evaluation Competition (30 Oct AoE), which fits your evaluation work.
+- ELLIS PhD (31 Oct AoE), only if a European PhD is a real option.
+
+**30 days**
+- EACL SRW mentorship draft (6 Nov), if MCW is going public.
+- First collaboration projects.
+- Startup applications open.
+
+**90 days**
+- FIRE (17–20 Dec).
 - EACL SRW paper (15 Dec).
-- January ARR submission (4 Jan).
-- SemEval-2027 evaluation (10–31 Jan).
+- January ARR (4 Jan).
+- SemEval (10–31 Jan), broad layer only.
 
-**Next 6 months**
-- MSR India Research Fellow application (~mid-Feb, inferred), carrying the Bengali pilot as the targeted demonstration.
-- MCW to TMLR.
-- Startup and remote applications (Jan–May).
-- Resubmit the register paper if needed.
+**6 months**
+- Predoc/MSR application (~Feb).
+- MCW to TMLR, broad layer only.
+- Startup and remote hiring windows.
+- Resubmission if needed.
 
-The full dated list, with reasons, dependencies, success and failure criteria, and review dates, is in the **Cockpit** (generated from the reference run).
+## 7. What would change this
+1. **Your sustainable weekly hours and real academic calendar.** These pick broad vs lean.
+2. **What you value.** PhD and research vs industry pay vs founder upside; use the value model.
+3. **The register paper's real state.** This decides October vs January.
+4. **Logged reply rates from the first emails.**
+5. **Citizenship and relocation.** These open or close international routes.
 
-## 6. Created opportunities worth testing first
-
-These are hypotheses about useful work you could offer, not vacancies. Ranked by plausibility × cost of testing.
-
-| Target | Smallest demonstration | Cheapest test |
-|---|---|---|
-| Unify / Daniel Lenton | Virgil as a zero-API baseline on Continual-ARC | Ask whether the code is coming |
-| Prof. Naskar + TUM collaborator | Turn the 56k-translation register data into a WMT27 challenge set or FIRE 2027 track | Raise it after the ARR decision |
-| MSR India (multilingual group) | Bengali register-and-agents pilot | Read the group's recent papers; ask a current Research Fellow how they were selected |
-| Epoch AI | One public benchmark review as a work sample | Check the role is open and India-eligible |
-| Snorkel Open Benchmarks | A public MCW subset as a benchmark proposal | Check undergraduate eligibility |
-
-## 7. What would change these recommendations
-1. Your real remaining hours on the paper (section 1).
-2. Your real sustainable weekly hours and the HIT academic calendar.
-3. Whether you want a PhD, an industry research-engineering role, or a startup. Set this through a value model.
-4. Real outreach reply rates (log them).
-5. Citizenship and relocation, which unlock or remove several international routes.
+With the corrected model, no single unknown parameter changes the recommended policy (EVPPI is about 0 for the top set). The remaining uncertainty is about *you* (hours and values), not about the world's parameters.

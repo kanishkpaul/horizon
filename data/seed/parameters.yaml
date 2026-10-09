@@ -356,3 +356,12 @@ evidence_shift_cap:
   dist: normal(1.2, 0.3)
   origin: expert_judgment
   notes: Added after review showed stacked bonuses raised predoc per-application odds from 7.5% to ~45%. With the cap, all evidence together moves a 7.5% base to at most ~20–25%.
+batch_logit_sd:
+  description: SD of a shared random effect (logits) across all applications in one batch (same CV, screen, interview skill)
+  dist: triangular(0.5, 1.0, 1.6)
+  origin: expert_judgment
+  notes: Added after adversarial review #2. Implies within-batch correlation of roughly 0.07–0.4 on the latent scale.
+logit_blocked:
+  description: Logit shift when an action's precondition outside your control turns out false (e.g. code never released)
+  dist: fixed(-8)
+  origin: scenario_assumption

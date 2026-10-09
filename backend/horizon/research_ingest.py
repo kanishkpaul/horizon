@@ -54,6 +54,11 @@ def ingest_verify(con: sqlite3.Connection, path: Path | None = None) -> dict:
     claims = [json.loads(l) for l in path.read_text().splitlines() if l.strip()]
     stats = {"claims": 0, "superseded": 0, "contradicted": 0, "new_opportunities": 0, "fields_updated": 0}
     with tx(con):
+        # idempotent re-ingest: remove segments appended by a previous run before re-applying (review #11)
+        for oid, txt in con.execute("SELECT id, eligibility_text FROM opportunity WHERE eligibility_text LIKE '%[verified %' "
+                                    "OR eligibility_text LIKE '%[VERIFIED BLOCK]%'").fetchall():
+            cleaned = re.split(r" \| \[(?:verified \d{4}-\d{2}-\d{2}|VERIFIED BLOCK)\]", txt)[0]
+            con.execute("UPDATE opportunity SET eligibility_text=? WHERE id=?", (cleaned or None, oid))
         con.execute("DELETE FROM claim WHERE recorded_by='agent:verify'")
         con.execute("UPDATE claim SET status='active', superseded_by=NULL WHERE superseded_by LIKE 'AGT-VER-%'")
         con.execute("DELETE FROM opportunity WHERE origin='verify_agent'")
