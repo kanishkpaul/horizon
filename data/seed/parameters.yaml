@@ -1,0 +1,226 @@
+# Uncertain parameters used by the simulator. Each is drawn once per simulated world
+# (epistemic uncertainty), then outcomes are drawn given that value (aleatory), so
+# value-of-information analysis can separate the two.
+#
+# dist: beta(a,b) | normal(mu,sd) | lognormal(median, gsd) | triangular(low,mode,high) | fixed(v) | bernoulli(p)
+# origin: observed_base_rate | published_empirical | historical_user | calibrated |
+#         expert_judgment | scenario_assumption | illustrative_placeholder | unknown
+# Probabilities are per attempt for this person unless stated.
+
+# --- peer review -------------------------------------------------------------
+p_arr_main:
+  description: P(main-conference acceptance | ARR submission of a typical-quality *ACL long paper)
+  dist: beta(22, 78)
+  origin: expert_judgment
+  notes: Near the historical ~20-25% main-track range of ACL venues. Replace with the published rates from the params worker.
+p_arr_findings_given_not_main:
+  description: P(Findings | not accepted to main), ARR-based venue
+  dist: beta(22, 78)
+  origin: expert_judgment
+logit_rushed_paper:
+  description: Logit shift on acceptance for submitting before confirmatory runs and human labels are complete
+  dist: normal(-0.5, 0.35)
+  origin: expert_judgment
+  notes: Causal assumption. Unfinished validation lowers reviewer scores. Sign is well motivated, size is not.
+p_workshop_accept:
+  description: P(acceptance at a relevant ML/NLP workshop)
+  dist: beta(11, 9)
+  origin: expert_judgment
+p_ml_main_accept:
+  description: P(acceptance | submission to ICML/NeurIPS-class venue, first-author undergrad benchmark paper)
+  dist: beta(18, 82)
+  origin: expert_judgment
+
+# --- selection into positions ---------------------------------------------
+p_predoc_offer:
+  description: P(offer | complete application) for India research predoc / research-fellow programs (MSR India RF, Google Research India predoc class)
+  dist: beta(3, 37)
+  origin: expert_judgment
+  notes: Highly selective; acceptance counts are rarely published.
+p_research_intern_offer:
+  description: P(offer | application) for research internships at labs/startups with posted openings
+  dist: beta(4, 36)
+  origin: expert_judgment
+p_startup_offer_targeted:
+  description: P(offer | targeted application with a relevant artifact) at an Indian AI startup
+  dist: beta(6, 34)
+  origin: expert_judgment
+p_job_offer_cold_apply:
+  description: P(offer | online application without referral) for an ML/research-engineer role
+  dist: beta(2, 48)
+  origin: expert_judgment
+p_phd_admit:
+  description: P(admit | application) to a strong PhD program for an Indian undergrad with preprints but no peer-reviewed paper
+  dist: beta(2, 18)
+  origin: expert_judgment
+p_accelerator_accept:
+  description: P(acceptance | application) to a top accelerator (YC-class)
+  dist: beta(2, 98)
+  origin: expert_judgment
+p_hackathon_place:
+  description: P(prize placement | entering a hackathon), given a strong prior record
+  dist: beta(3, 7)
+  origin: historical_user
+  notes: 7-8 wins reported (user-supplied), number of entries unknown, so the prior is deliberately wide.
+p_arc_prize_award:
+  description: P(prize or paper award | serious ARC Prize entry)
+  dist: beta(1, 60)
+  origin: expert_judgment
+
+# --- outreach and relationships ------------------------------------------------
+p_reply_faculty:
+  description: P(substantive reply | personalised cold email to faculty with a concrete proposal and artifact)
+  dist: beta(8, 17)
+  origin: expert_judgment
+p_reply_founder:
+  description: P(substantive reply | personalised cold email to founder/engineering lead with a relevant artifact)
+  dist: beta(4, 16)
+  origin: expert_judgment
+p_reply_to_project:
+  description: P(scoped project or collaboration | substantive reply)
+  dist: beta(5, 13)
+  origin: expert_judgment
+p_project_to_offer:
+  description: P(offer, paid role, or strong referral | completed scoped project)
+  dist: beta(6, 12)
+  origin: expert_judgment
+p_oss_merge:
+  description: P(merge | well-targeted pull request to an evaluation/infra repository)
+  dist: beta(12, 6)
+  origin: expert_judgment
+p_benchmark_adoption:
+  description: P(external use or citation of a released benchmark within ~6 months)
+  dist: beta(2, 8)
+  origin: expert_judgment
+p_event_tie:
+  description: P(new professionally useful tie | attending a relevant meetup or conference)
+  dist: beta(3, 7)
+  origin: expert_judgment
+
+# --- evidence effects (logit shifts; causal assumptions, see ASSUMPTIONS.md A-C*) -------
+bonus_peer_reviewed:
+  description: Logit shift on research-position selection from one peer-reviewed paper
+  dist: normal(0.5, 0.35)
+  origin: expert_judgment
+bonus_preprint:
+  description: Logit shift from a public preprint or benchmark release
+  dist: normal(0.2, 0.2)
+  origin: expert_judgment
+bonus_referral:
+  description: Logit shift from a referral or warm introduction
+  dist: normal(1.0, 0.4)
+  origin: expert_judgment
+  notes: Referral advantages are well documented in labour economics; size for this population is unknown.
+bonus_artifact:
+  description: Logit shift from a relevant, inspectable technical artifact
+  dist: normal(0.25, 0.2)
+  origin: expert_judgment
+bonus_hackathon:
+  description: Logit shift on engineering/startup roles from a recent hackathon win
+  dist: normal(0.1, 0.15)
+  origin: expert_judgment
+
+# --- latent factors (shared across outcomes) -----------------------------------------
+load_portfolio:
+  description: Loading of selection outcomes on the latent 'portfolio strength as judged by evaluators' factor
+  dist: normal(0.5, 0.15)
+  origin: scenario_assumption
+  notes: Induces positive correlation between applications. Set to 0 in the 'independent outcomes' model variant.
+load_market:
+  description: Loading of hiring outcomes on the latent hiring-market factor
+  dist: normal(0.35, 0.1)
+  origin: scenario_assumption
+
+# --- delays (weeks) ---------------------------------------------------------------------
+delay_arr_decision:
+  description: Weeks from ARR submission to venue acceptance decision
+  dist: triangular(16, 20, 26)
+  origin: expert_judgment
+delay_app_response:
+  description: Weeks from application to final decision
+  dist: triangular(3, 7, 14)
+  origin: expert_judgment
+delay_reply:
+  description: Weeks to a reply to outreach
+  dist: triangular(0.3, 1, 3)
+  origin: expert_judgment
+delay_project:
+  description: Weeks to run a scoped collaboration project
+  dist: triangular(3, 6, 12)
+  origin: expert_judgment
+delay_phd_decision:
+  description: Weeks from PhD application to decision
+  dist: triangular(10, 14, 18)
+  origin: expert_judgment
+
+# --- values -----------------------------------------------------------------------------
+comp_predoc_lpa:
+  description: Annual stipend/salary of an India research predoc or research fellow (INR lakh per year)
+  dist: lognormal(12, 1.4)
+  origin: illustrative_placeholder
+comp_startup_re_lpa:
+  description: Annual compensation of a research/ML engineer at an Indian AI startup (INR lakh per year)
+  dist: lognormal(20, 1.5)
+  origin: illustrative_placeholder
+comp_bigtech_lpa:
+  description: Annual compensation, ML/SWE new-grad role at a large tech company in India (INR lakh per year)
+  dist: lognormal(30, 1.4)
+  origin: illustrative_placeholder
+comp_phd_lpa:
+  description: PhD stipend, nominal INR lakh per year (US/EU program)
+  dist: lognormal(32, 1.3)
+  origin: illustrative_placeholder
+comp_remote_global_lpa:
+  description: Remote role at a non-Indian AI company (INR lakh per year)
+  dist: lognormal(45, 1.7)
+  origin: illustrative_placeholder
+prize_hackathon_lpa:
+  description: Hackathon prize money (INR lakh, one-off)
+  dist: lognormal(0.5, 2.0)
+  origin: illustrative_placeholder
+
+# --- execution ----------------------------------------------------------------------------
+p_disruption_week:
+  description: Weekly probability that available hours drop by ~60% (illness, family, travel, institutional events)
+  dist: beta(2, 48)
+  origin: scenario_assumption
+effort_noise_gsd:
+  description: Geometric SD of actual/estimated effort (planning-fallacy spread)
+  dist: fixed(1.35)
+  origin: expert_judgment
+  notes: Software estimate overruns are commonly right-skewed (lognormal-like). Mean bias is set per scenario.
+p_degree_on_time:
+  description: P(degree completed by June 2027)
+  dist: beta(97, 3)
+  origin: expert_judgment
+
+# --- added with the action catalog ------------------------------------------------------
+sem8_internship_allowed:
+  description: Whether the institution allows a full-time research internship in the 8th semester (Jan–Jun 2027)
+  dist: bernoulli(0.5)
+  origin: unknown
+  notes: A pure unknown. Resolved by the verify_sem8_policy information action.
+logit_no_sem8_internship:
+  description: Logit shift on research-internship offers if 8th-semester internships are not allowed (fewer usable openings)
+  dist: normal(-0.8, 0.3)
+  origin: expert_judgment
+bonus_skill_mlsys:
+  description: Logit shift on engineering roles from demonstrated GPU/inference systems depth
+  dist: normal(0.25, 0.2)
+  origin: expert_judgment
+logit_remote_global:
+  description: Logit shift for competing in global remote hiring pools from India without a referral
+  dist: normal(-0.7, 0.4)
+  origin: expert_judgment
+p_startup_traction:
+  description: P(real usage or design partners within ~3 months | MVP shipped)
+  dist: beta(3, 7)
+  origin: expert_judgment
+bonus_traction:
+  description: Logit shift on accelerator acceptance from demonstrated traction
+  dist: normal(0.8, 0.3)
+  origin: expert_judgment
+p_grant_award:
+  description: P(award | grant application) for small research/compute grants
+  dist: beta(3, 12)
+  origin: expert_judgment

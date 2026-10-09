@@ -1,0 +1,78 @@
+# Objective profiles (value models). Each metric is mapped to g(x) = min(x / ref, cap) so
+# that no single metric can dominate through scale alone, then weighted. Weights express
+# priorities, not exchange rates discovered from data. Constraints are evaluated on the
+# strategy-level statistic and can be hard (strategy infeasible) or soft (flagged).
+# risk.measure: mean | cvar (mean of the worst alpha share of worlds) | quantile
+
+defaults:
+  refs: {peer_reviewed: 1, workshop: 1, public_outputs: 3, best_comp_lpa: 30, position_by_grad: 1,
+         position_by_horizon: 1, optionality: 3, autonomy: 3, founder_stage: 3, ties: 5, adoption: 1,
+         cash_lpa: 5, crunch_weeks: 6, hours_used: 800}
+  caps: {peer_reviewed: 2, public_outputs: 2, best_comp_lpa: 3, optionality: 2, ties: 2, cash_lpa: 2,
+         crunch_weeks: 3}
+
+profiles:
+  - id: balanced
+    name: Balanced
+    description: Research, career security, compensation and optionality weighted evenly; crunch penalised.
+    weights: {peer_reviewed: 1.5, public_outputs: 1, best_comp_lpa: 1, position_by_grad: 2, optionality: 1.5,
+              autonomy: 1, founder_stage: 0.5, ties: 0.5, crunch_weeks: -1}
+    risk: {measure: mean}
+    constraints: []
+
+  - id: research_impact
+    name: Maximum research impact
+    description: Peer-reviewed work, public research outputs, uptake and research autonomy.
+    weights: {peer_reviewed: 3, workshop: 0.5, public_outputs: 1.5, adoption: 1.5, autonomy: 1.5, ties: 0.5,
+              crunch_weeks: -0.5}
+    risk: {measure: mean}
+    constraints: []
+
+  - id: compensation
+    name: Maximum compensation
+    description: Best secured annual compensation and the security of having a position.
+    weights: {best_comp_lpa: 3, position_by_grad: 1.5, cash_lpa: 0.5, crunch_weeks: -0.5}
+    risk: {measure: mean}
+    constraints: []
+
+  - id: entrepreneurial
+    name: Maximum entrepreneurial upside
+    description: Founder progress, network, cash for runway; a position matters less.
+    weights: {founder_stage: 3, ties: 1, cash_lpa: 1, public_outputs: 0.5, position_by_horizon: 0.5,
+              crunch_weeks: -0.5}
+    risk: {measure: mean}
+    constraints: []
+
+  - id: optionality
+    name: Maximum long-term optionality
+    description: Number of distinct open pathways, ties and public evidence (capability-expansion view).
+    weights: {optionality: 3, ties: 1, public_outputs: 1, peer_reviewed: 1, position_by_horizon: 1,
+              crunch_weeks: -0.5}
+    risk: {measure: mean}
+    constraints: []
+
+  - id: autonomy
+    name: Maximum intellectual autonomy
+    description: Research freedom of the best available position plus research outputs.
+    weights: {autonomy: 3, peer_reviewed: 1, public_outputs: 1, position_by_grad: 1, crunch_weeks: -0.5}
+    risk: {measure: mean}
+    constraints: []
+
+  - id: robust
+    name: Maximum robustness
+    description: Balanced value judged on the worst 20% of worlds, with a hard floor on securing a position.
+    weights: {peer_reviewed: 1.5, public_outputs: 1, best_comp_lpa: 1, position_by_grad: 2, optionality: 1.5,
+              autonomy: 1, founder_stage: 0.5, ties: 0.5, crunch_weeks: -1}
+    risk: {measure: cvar, alpha: 0.2}
+    constraints:
+      - {metric: position_by_grad, stat: mean, op: ">=", value: 0.8, hard: true}
+
+  - id: upside_bounded
+    name: Plausible upside, bounded downside
+    description: Optimise the 90th percentile of balanced value subject to a position floor and limited crunch.
+    weights: {peer_reviewed: 1.5, public_outputs: 1, best_comp_lpa: 1, position_by_grad: 2, optionality: 1.5,
+              autonomy: 1, founder_stage: 0.5, ties: 0.5, crunch_weeks: -1}
+    risk: {measure: quantile, alpha: 0.9}
+    constraints:
+      - {metric: position_by_grad, stat: mean, op: ">=", value: 0.75, hard: true}
+      - {metric: crunch_weeks, stat: p90, op: "<=", value: 8, hard: true}

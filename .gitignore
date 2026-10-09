@@ -1,0 +1,14 @@
+# private originals (CV, evidence ledger, workbooks) stay out of version control; checksums are tracked
+data/raw/*
+!data/raw/SHA256SUMS
+data/horizon.sqlite3*
+data/derived/
+data/backups/
+media/renders/
+**/.venv/
+**/node_modules/
+**/__pycache__/
+.pytest_cache/
+frontend/dist/
+*.log
+.DS_Store

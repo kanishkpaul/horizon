@@ -1,0 +1,491 @@
+# Curated strategic actions. Opportunity applications from the database are added by
+# horizon/model.py using the templates at the bottom of this file.
+#
+# effort: [low, mode, high] human hours before AI assistance (triangular), then a
+#   lognormal planning-fallacy noise and the scenario's AI multiplier on the
+#   `automatable` share are applied.
+# requires: condition DSL, see horizon/sim/conditions.py
+# stages: external responses resolved after `delay` weeks. Outcomes are tried in order
+#   with conditional probabilities; `otherwise` applies if none fires. `count: n` makes an
+#   outcome a Binomial(n, p) draw (batch of independent attempts sharing one p).
+# metrics: contributions to outcome metrics (see horizon/sim/engine.py METRICS).
+# deadline_basis: verified | sheet | assumed  (assumed dates are listed in ASSUMPTIONS.md)
+
+start_date: "2026-10-09"
+horizon_weeks: 52
+graduation: "2027-06-30"
+
+actions:
+  # ---------------------------------------------------------------- register paper
+  - id: reg_paper_arr_oct
+    name: Finish the Indic register paper and submit to ARR (October cycle)
+    kind: research
+    effort: [18, 32, 60]
+    automatable: 0.35
+    deadline: "2026-10-13T11:59:00Z"     # 12 Oct AoE
+    deadline_basis: user_repo_todo
+    max_hours_week: 70
+    group: register_paper
+    external_dependency: "Co-author checks (~50 Hindi items, κ second pass) must land before the deadline."
+    effects: {tokens: {reg_submitted: 1}}
+    stages:
+      - name: ARR review and venue decision
+        delay: delay_arr_decision
+        outcomes:
+          - label: Accepted to main conference
+            p: {base: p_arr_main, shifts: [logit_rushed_paper], factors: {portfolio: 0.15}}
+            tokens: {peer_reviewed: 1, reg_accepted: 1}
+            metrics: {peer_reviewed: 1, ties: 1}
+          - label: Accepted to Findings
+            p: {base: p_arr_findings_given_not_main, shifts: [logit_rushed_paper]}
+            tokens: {peer_reviewed: 1, reg_accepted: 1}
+            metrics: {peer_reviewed: 1}
+        otherwise: {label: Not accepted, tokens: {reg_rejected: 1}}
+
+  - id: reg_paper_arr_next
+    name: Complete validation and submit the register paper to the next ARR cycle
+    kind: research
+    effort: [30, 55, 100]
+    automatable: 0.35
+    deadline: "2027-01-06T11:59:00Z"
+    deadline_basis: assumed
+    group: register_paper
+    effects: {tokens: {reg_submitted: 1}}
+    stages:
+      - name: ARR review and venue decision
+        delay: delay_arr_decision
+        outcomes:
+          - label: Accepted to main conference
+            p: {base: p_arr_main, factors: {portfolio: 0.15}}
+            tokens: {peer_reviewed: 1, reg_accepted: 1}
+            metrics: {peer_reviewed: 1, ties: 1}
+          - label: Accepted to Findings
+            p: {base: p_arr_findings_given_not_main}
+            tokens: {peer_reviewed: 1, reg_accepted: 1}
+            metrics: {peer_reviewed: 1}
+        otherwise: {label: Not accepted, tokens: {reg_rejected: 1}}
+
+  - id: reg_preprint
+    name: Post the register paper as an arXiv preprint
+    kind: research
+    effort: [2, 4, 8]
+    automatable: 0.3
+    requires: {token: reg_submitted, op: ">=", value: 1}
+    effects: {tokens: {public_outputs: 1, reg_preprint: 1}, metrics: {public_outputs: 1}}
+
+  # ---------------------------------------------------------------- MCW / Daedalus
+  - id: mcw_preprint
+    name: Write up Mechanic Composition Worlds and post the preprint
+    kind: research
+    effort: [50, 90, 170]
+    automatable: 0.4
+    effects: {tokens: {public_outputs: 1, mcw_preprint: 1}, metrics: {public_outputs: 1}}
+
+  - id: mcw_benchmark_release
+    name: Release the MCW benchmark, harness and baseline results publicly
+    kind: build
+    effort: [20, 40, 80]
+    automatable: 0.5
+    effects: {tokens: {public_outputs: 1, benchmark_public: 1}, metrics: {public_outputs: 1}}
+    stages:
+      - name: External uptake of the benchmark
+        delay: {dist: "triangular(8, 16, 30)"}
+        outcomes:
+          - label: Used or cited by an outside group
+            p: {base: p_benchmark_adoption, shifts: [{param: bonus_preprint, token: mcw_preprint, cap: 1}]}
+            tokens: {benchmark_adopted: 1, referrals: 1}
+            metrics: {ties: 2, adoption: 1}
+        otherwise: {label: No visible uptake yet}
+
+  - id: mcw_submit_ml_venue
+    name: Submit MCW to an ICML-class venue (with workshop fallback)
+    kind: research
+    effort: [15, 30, 60]
+    automatable: 0.35
+    requires: {token: mcw_preprint, op: ">=", value: 1}
+    deadline: "2027-01-29T23:59:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Review
+        delay: {dist: "triangular(12, 15, 18)"}
+        outcomes:
+          - label: Accepted (main track)
+            p: {base: p_ml_main_accept, factors: {portfolio: 0.15}}
+            tokens: {peer_reviewed: 1}
+            metrics: {peer_reviewed: 1, ties: 1}
+          - label: Accepted at a workshop
+            p: {base: p_workshop_accept}
+            tokens: {workshop: 1}
+            metrics: {workshop: 1}
+        otherwise: {label: Rejected}
+
+  # ---------------------------------------------------------------- competitions
+  - id: arc_prize_entry
+    name: Serious ARC Prize entry building on Virgil and Daedalus, with a write-up
+    kind: competition
+    effort: [30, 60, 120]
+    automatable: 0.45
+    deadline: "2026-11-03T23:59:00Z"
+    deadline_basis: assumed
+    effects: {tokens: {public_outputs: 1}, metrics: {public_outputs: 1}}
+    stages:
+      - name: Final standings / paper awards
+        delay: {dist: "triangular(3, 5, 8)"}
+        outcomes:
+          - label: Prize or paper award
+            p: {base: p_arc_prize_award, factors: {portfolio: 0.2}}
+            tokens: {award: 1, referrals: 1}
+            metrics: {cash_lpa: 4, ties: 2}
+        otherwise: {label: No award}
+
+  - id: hackathons_q4
+    name: Enter two well-chosen hackathons (Oct–Dec)
+    kind: competition
+    effort: [30, 50, 90]
+    automatable: 0.5
+    deadline: "2026-12-20T23:59:00Z"
+    deadline_basis: sheet
+    stages:
+      - name: Results
+        delay: {dist: "triangular(0.5, 1, 3)"}
+        outcomes:
+          - label: Prize placement
+            count: 2
+            p: {base: p_hackathon_place}
+            tokens: {hackathon_wins: 1}
+            metrics: {cash_lpa: prize_hackathon_lpa, ties: 1}
+        otherwise: {label: No placement}
+
+  # ---------------------------------------------------------------- open source
+  - id: oss_eval_contribs
+    name: Three targeted pull requests to evaluation harnesses (e.g. Indic or register tasks)
+    kind: build
+    effort: [12, 25, 50]
+    automatable: 0.5
+    stages:
+      - name: Review by maintainers
+        delay: {dist: "triangular(1, 3, 6)"}
+        outcomes:
+          - label: Merged
+            count: 3
+            p: {base: p_oss_merge}
+            tokens: {oss_merged: 1}
+            metrics: {public_outputs: 0.34, ties: 0.34}
+        otherwise: {label: Not merged}
+
+  # ---------------------------------------------------------------- outreach and created opportunities
+  - id: outreach_faculty
+    name: Outreach wave to 10 faculty/lab leads with a concrete, scoped proposal
+    kind: outreach
+    effort: [8, 15, 30]
+    automatable: 0.4
+    stages:
+      - name: Replies
+        delay: delay_reply
+        outcomes:
+          - label: Substantive reply
+            count: 10
+            p: {base: p_reply_faculty, shifts: [{param: bonus_artifact, token: public_outputs, cap: 1}]}
+            tokens: {leads_research: 1}
+        otherwise: {label: No reply}
+
+  - id: outreach_founders
+    name: Outreach wave to 10 founders/engineering leads with a working artifact
+    kind: outreach
+    effort: [6, 12, 25]
+    automatable: 0.4
+    stages:
+      - name: Replies
+        delay: delay_reply
+        outcomes:
+          - label: Substantive reply
+            count: 10
+            p: {base: p_reply_founder, shifts: [{param: bonus_artifact, token: public_outputs, cap: 1}]}
+            tokens: {leads_industry: 1}
+        otherwise: {label: No reply}
+
+  - id: collab_research
+    name: Scoped research collaboration with a responding lab
+    kind: collaboration
+    instances: 2
+    effort: [15, 30, 60]
+    automatable: 0.4
+    requires: {token: leads_research, op: ">=", value: "$i"}
+    effects: {tokens: {collaborations: 1}, metrics: {ties: 1}}
+    stages:
+      - name: Project runs
+        delay: delay_project
+        outcomes:
+          - label: Offer, paid role or strong referral
+            p: {base: p_project_to_offer, factors: {portfolio: 0.3}}
+            tokens: {referrals: 1, offer_research_intern: 1}
+            metrics: {offer: research_intern, public_outputs: 0.5}
+          - label: Co-authored output without an offer
+            p: {dist: "beta(4, 6)"}
+            tokens: {public_outputs: 1}
+            metrics: {public_outputs: 1}
+        otherwise: {label: Collaboration fizzles}
+
+  - id: collab_industry
+    name: Scoped paid or trial project with a responding startup
+    kind: collaboration
+    instances: 2
+    effort: [10, 25, 50]
+    automatable: 0.5
+    requires: {token: leads_industry, op: ">=", value: "$i"}
+    effects: {tokens: {collaborations: 1}, metrics: {ties: 1}}
+    stages:
+      - name: Project runs
+        delay: delay_project
+        outcomes:
+          - label: Offer or strong referral
+            p: {base: p_project_to_offer, factors: {portfolio: 0.3, market: 0.3}}
+            tokens: {referrals: 1, offer_startup: 1}
+            metrics: {offer: startup_job}
+        otherwise: {label: No offer}
+
+  - id: kolkata_events
+    name: Attend six relevant meetups/conferences (Kolkata and online)
+    kind: network
+    effort: [12, 18, 30]
+    automatable: 0.0
+    deadline: "2027-01-04T23:59:00Z"
+    deadline_basis: sheet
+    stages:
+      - name: Follow-ups
+        delay: {dist: "triangular(1, 2, 4)"}
+        outcomes:
+          - label: Useful new tie
+            count: 6
+            p: {base: p_event_tie}
+            tokens: {event_ties: 1}
+            metrics: {ties: 1}
+        otherwise: {label: No lasting tie}
+
+  # ---------------------------------------------------------------- applications (batches)
+  - id: predoc_applications
+    name: Apply to India research predoc / research-fellow programs (4 programs)
+    kind: application
+    effort: [10, 20, 35]
+    automatable: 0.3
+    deadline: "2026-12-15T18:29:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Selection
+        delay: delay_app_response
+        outcomes:
+          - label: Offer
+            count: 4
+            p:
+              base: p_predoc_offer
+              shifts:
+                - {param: bonus_peer_reviewed, token: peer_reviewed, cap: 1}
+                - {param: bonus_preprint, token: public_outputs, cap: 2}
+                - {param: bonus_referral, token: referrals, cap: 1}
+              factors: {portfolio: load_portfolio}
+            tokens: {offer_predoc: 1}
+            metrics: {offer: predoc}
+        otherwise: {label: Not selected}
+
+  - id: research_intern_applications
+    name: Apply to research internships at labs and AI startups (6 applications)
+    kind: application
+    effort: [8, 15, 30]
+    automatable: 0.35
+    deadline: "2027-02-28T18:29:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Selection
+        delay: delay_app_response
+        outcomes:
+          - label: Offer
+            count: 6
+            p:
+              base: p_research_intern_offer
+              shifts:
+                - {param: bonus_preprint, token: public_outputs, cap: 2}
+                - {param: bonus_referral, token: referrals, cap: 1}
+                - {param: logit_no_sem8_internship, token: sem8_blocked, cap: 1}
+              factors: {portfolio: load_portfolio, market: load_market}
+            tokens: {offer_research_intern: 1}
+            metrics: {offer: research_intern}
+        otherwise: {label: Not selected}
+
+  - id: startup_applications
+    name: Targeted applications to Indian AI startups for post-graduation roles (8)
+    kind: application
+    effort: [8, 16, 30]
+    automatable: 0.4
+    start: "2026-11-01"
+    deadline: "2027-04-30T18:29:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Selection
+        delay: delay_app_response
+        outcomes:
+          - label: Offer
+            count: 8
+            p:
+              base: p_startup_offer_targeted
+              shifts:
+                - {param: bonus_artifact, token: public_outputs, cap: 1}
+                - {param: bonus_referral, token: referrals, cap: 1}
+                - {param: bonus_hackathon, token: hackathon_wins, cap: 1}
+                - {param: bonus_skill_mlsys, token: skill_mlsys, cap: 1}
+              factors: {portfolio: load_portfolio, market: load_market}
+            tokens: {offer_startup: 1}
+            metrics: {offer: startup_job}
+        otherwise: {label: Not selected}
+
+  - id: bigtech_applications
+    name: Big-tech / campus and off-campus ML/SWE applications (10)
+    kind: application
+    effort: [10, 20, 40]
+    automatable: 0.4
+    deadline: "2027-03-31T18:29:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Selection
+        delay: delay_app_response
+        outcomes:
+          - label: Offer
+            count: 10
+            p:
+              base: p_job_offer_cold_apply
+              shifts:
+                - {param: bonus_referral, token: referrals, cap: 1}
+                - {param: bonus_skill_mlsys, token: skill_mlsys, cap: 1}
+              factors: {portfolio: 0.3, market: load_market}
+            tokens: {offer_bigtech: 1}
+            metrics: {offer: bigtech}
+        otherwise: {label: Not selected}
+
+  - id: remote_global_applications
+    name: Applications to remote evaluation/agent roles at non-Indian AI companies (10)
+    kind: application
+    effort: [10, 20, 40]
+    automatable: 0.4
+    deadline: "2027-05-31T18:29:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Selection
+        delay: delay_app_response
+        outcomes:
+          - label: Offer
+            count: 10
+            p:
+              base: p_job_offer_cold_apply
+              shifts:
+                - logit_remote_global
+                - {param: bonus_preprint, token: public_outputs, cap: 2}
+                - {param: bonus_referral, token: referrals, cap: 1}
+                - {param: bonus_peer_reviewed, token: peer_reviewed, cap: 1}
+              factors: {portfolio: load_portfolio, market: load_market}
+            tokens: {offer_remote: 1}
+            metrics: {offer: remote_global}
+        otherwise: {label: Not selected}
+
+  - id: phd_applications
+    name: PhD applications for Fall 2027 (6 programs)
+    kind: application
+    effort: [40, 70, 120]
+    automatable: 0.3
+    deadline: "2026-12-10T23:59:00Z"
+    deadline_basis: assumed
+    requires_relocation: true
+    stages:
+      - name: Admissions decisions
+        delay: delay_phd_decision
+        outcomes:
+          - label: Admit with funding
+            count: 6
+            p:
+              base: p_phd_admit
+              shifts:
+                - {param: bonus_preprint, token: public_outputs, cap: 2}
+                - {param: bonus_peer_reviewed, token: peer_reviewed, cap: 1}
+              factors: {portfolio: load_portfolio}
+            tokens: {offer_phd: 1}
+            metrics: {offer: phd}
+        otherwise: {label: Not admitted}
+
+  # ---------------------------------------------------------------- founder track
+  - id: startup_mvp
+    name: Build an MVP from an existing asset (e.g. Blindfold or Maiku) and put it in front of users
+    kind: build
+    effort: [60, 120, 250]
+    automatable: 0.6
+    effects: {tokens: {founder_stage: 1, public_outputs: 1}, metrics: {founder_stage: 1, public_outputs: 1}}
+    stages:
+      - name: Early traction
+        delay: {dist: "triangular(4, 8, 14)"}
+        outcomes:
+          - label: Real usage / design partners
+            p: {base: p_startup_traction}
+            tokens: {founder_stage: 1, traction: 1}
+            metrics: {founder_stage: 2, ties: 2}
+        otherwise: {label: No traction yet}
+
+  - id: accelerator_application
+    name: Apply to a top accelerator
+    kind: application
+    effort: [10, 20, 35]
+    automatable: 0.3
+    requires: {token: founder_stage, op: ">=", value: 1}
+    deadline: "2027-03-15T23:59:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Selection
+        delay: {dist: "triangular(4, 6, 10)"}
+        outcomes:
+          - label: Accepted
+            p: {base: p_accelerator_accept, shifts: [{param: bonus_traction, token: traction, cap: 1}]}
+            tokens: {founder_stage: 1, offer_founder: 1}
+            metrics: {founder_stage: 3, offer: founder, cash_lpa: 40, ties: 3}
+        otherwise: {label: Not accepted}
+
+  # ---------------------------------------------------------------- capability and information
+  - id: learn_ml_systems
+    name: Build GPU/inference systems depth (kernels, serving) with a public artifact
+    kind: learning
+    effort: [40, 70, 120]
+    automatable: 0.25
+    effects: {tokens: {skill_mlsys: 1, public_outputs: 1}, metrics: {public_outputs: 0.5}}
+
+  - id: verify_sem8_policy
+    name: Ask the department whether a full-time 8th-semester research internship is allowed
+    kind: information
+    effort: [0.5, 1, 2]
+    automatable: 0.0
+    reveals: [sem8_internship_allowed]
+
+templates:
+  # Applied to opportunities shortlisted from the database (see horizon/model.py).
+  research_internship: {effort: [4, 8, 15], automatable: 0.35, base: p_research_intern_offer, offer: research_intern}
+  research_fellowship: {effort: [6, 12, 25], automatable: 0.3, base: p_predoc_offer, offer: predoc}
+  fellowship: {effort: [6, 12, 25], automatable: 0.3, base: p_predoc_offer, offer: predoc}
+  research_job: {effort: [4, 8, 15], automatable: 0.35, base: p_research_intern_offer, offer: research_engineer}
+  job: {effort: [2, 4, 8], automatable: 0.4, base: p_job_offer_cold_apply, offer: startup_job}
+  internship: {effort: [2, 5, 10], automatable: 0.4, base: p_research_intern_offer, offer: research_intern}
+  competition: {effort: [20, 40, 90], automatable: 0.45, base: p_arc_prize_award, offer: null}
+  hackathon: {effort: [15, 25, 45], automatable: 0.5, base: p_hackathon_place, offer: null}
+  grant: {effort: [8, 15, 30], automatable: 0.35, base: p_grant_award, offer: null}
+  accelerator: {effort: [10, 20, 35], automatable: 0.3, base: p_accelerator_accept, offer: founder}
+
+initial_tokens:
+  # token: constant, or {param: name, invert: bool} drawn per world
+  sem8_blocked: {param: sem8_internship_allowed, invert: true}
+  collaborations: 1          # Prof. Naskar and the TU Munich collaborator (one collaboration)
+  public_outputs: 3          # public repos with write-ups: Virgil, ButterflyGate, ResonatorLM audit
+
+offer_classes:
+  # comp: parameter for annual compensation (INR lakh); autonomy: 0-3 ordinal;
+  # position: counts as a post-graduation position; relocation: requires moving abroad
+  predoc:          {label: "Research predoc / fellow (India)", comp: comp_predoc_lpa, autonomy: 3, position: true, relocation: false}
+  research_intern: {label: "Research internship", comp: null, autonomy: 2, position: false, relocation: false}
+  research_engineer: {label: "Research engineer", comp: comp_startup_re_lpa, autonomy: 2, position: true, relocation: false}
+  startup_job:     {label: "AI startup role (India)", comp: comp_startup_re_lpa, autonomy: 2, position: true, relocation: false}
+  bigtech:         {label: "Big-tech ML/SWE role", comp: comp_bigtech_lpa, autonomy: 1, position: true, relocation: false}
+  remote_global:   {label: "Remote role, global AI company", comp: comp_remote_global_lpa, autonomy: 2, position: true, relocation: false}
+  phd:             {label: "Funded PhD admit", comp: comp_phd_lpa, autonomy: 3, position: true, relocation: true}
+  founder:         {label: "Accelerator-backed founder", comp: null, autonomy: 3, position: true, relocation: false}

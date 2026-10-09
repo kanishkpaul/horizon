@@ -1,0 +1,51 @@
+# Personal model seed. Loaded into the profile_item table on first run; edits made in the
+# app are stored in the database with revision history. Evidence status vocabulary follows
+# the CV evidence ledger: measured | reported | user-supplied | planned | assumed | unknown.
+# Nothing here is inferred about health, psychology, or private traits.
+education:
+  - {key: degree, label: Degree, value: "B.Tech, Computer Science & Engineering", evidence_status: user-supplied, source_ref: cv/Kanishk_Paul_CV.tex}
+  - {key: institution, label: Institution, value: "Heritage Institute of Technology, Kolkata", evidence_status: user-supplied, source_ref: cv/Kanishk_Paul_CV.tex}
+  - {key: graduation, label: Expected graduation, value: "2027-06", evidence_status: user-supplied, source_ref: cv/Kanishk_Paul_CV.tex}
+  - {key: academic_standing, label: Academic results (CGPA), value: null, evidence_status: unknown, notes: "Not in the CV. Several fellowships and PhD programs screen on it."}
+  - {key: sem8_internship_policy, label: 8th-semester full-time internship allowed?, value: null, evidence_status: unknown, notes: "Decides whether a Jan–Jun 2027 full-time research internship is feasible. High value of information."}
+research:
+  - {key: register_paper, label: "Indic register ('deference floor') MT paper", value: "Manuscript in preparation with Prof. Sudip Naskar and a TU Munich collaborator; ARR Oct-2026 target; open runs and human labels as of 2026-09-27", evidence_status: measured, source_ref: "cv/evidence_ledger.md; Indic-cat/TODO.md"}
+  - {key: mcw_benchmark, label: "Daedalus / Mechanic Composition Worlds benchmark", value: "96 fixtures, 18 families, 1,301 probes, 172 contrasts; private; solo manuscript in preparation", evidence_status: measured, source_ref: cv/evidence_ledger.md}
+  - {key: virgil, label: "Virgil ARC-AGI-3 symbolic agent", value: "2.23% explore-then-replay; 0.56% single-play rules; reproduced from frozen code", evidence_status: measured, source_ref: cv/evidence_ledger.md}
+  - {key: superfly, label: "Superfly / ButterflyGate sub-quadratic mixer", value: "1.05–2.2x forward speed from 4K tokens on real weights; accuracy collapses untrained; confounds documented", evidence_status: measured, source_ref: cv/evidence_ledger.md}
+  - {key: resonator_audit, label: ResonatorLM reproduction audit, value: "Matched model ordering; found sign error; emailed authors (no reply)", evidence_status: measured, source_ref: cv/evidence_ledger.md}
+  - {key: publications, label: Peer-reviewed publications, value: "0 (two manuscripts in preparation)", evidence_status: measured, source_ref: cv/Kanishk_Paul_CV.tex}
+engineering:
+  - {key: languages, label: Languages, value: "Python, TypeScript, JavaScript, Rust, SQL", evidence_status: user-supplied}
+  - {key: agent_systems, label: Agent systems, value: "Maiku runtime (501 tests), ChromeClaw, Blindfold (SIH 2026, top committer), ReasonTrace, Casca", evidence_status: measured, source_ref: cv/evidence_ledger.md}
+  - {key: ml_stack, label: ML stack, value: "PyTorch, HF Transformers, MLX, llama.cpp, ONNX Runtime, 4-bit inference, IndicTrans2/NLLB evaluation", evidence_status: user-supplied}
+  - {key: oss, label: Open-source record, value: "unifyai/unify-agent#171 merged by founder; nossa-y/activity-frames#47 open", evidence_status: measured}
+entrepreneurship:
+  - {key: openmind, label: OpenMind (co-founded), value: "AI code editor MVP in 21 days; 100+ beta users in 8 hours (user definition unclear)", evidence_status: user-supplied}
+  - {key: buildspace, label: buildspace S5, value: "Offline Android LLM runner; demo day", evidence_status: user-supplied}
+  - {key: prettiflow, label: PrettiFlow Cohort 2, value: "Offered a place (in person); declined 2026-09-02", evidence_status: measured}
+network:
+  - {key: naskar, label: "Prof. Sudip Naskar (Jadavpur University)", value: "Active co-author", evidence_status: reported}
+  - {key: tum_collab, label: TU Munich collaborator, value: "Co-author; PhD-level, unnamed in CV", evidence_status: user-supplied}
+  - {key: lenton, label: "Daniel Lenton (Unify AI)", value: "Design partner; merged PR; Unify pivoted 2026-08-27", evidence_status: measured}
+  - {key: disco, label: DisCo Cohort 001, value: "Selected", evidence_status: measured}
+  - {key: communities, label: Communities founded, value: "College AI research group (150 members); nonprofit AI collective with IIEST/ISI/Sarvam/AI4Bharat participants (did not last)", evidence_status: user-supplied}
+  - {key: hackathons, label: Hackathon record, value: "7 wins claimed (website says 8); 3 consecutive Hack Heritage wins; SIH national round", evidence_status: user-supplied, notes: "Count conflicts between sources."}
+geography:
+  - {key: location, label: Current location, value: "Kolkata, India", evidence_status: user-supplied}
+  - {key: citizenship, label: Citizenship / passport, value: null, evidence_status: unknown, notes: "Assumed India-based. Needed for nationality-gated programs."}
+  - {key: relocation, label: Willing to relocate abroad, value: null, evidence_status: unknown}
+  - {key: travel_abroad, label: Short international travel feasible, value: null, evidence_status: unknown}
+resources:
+  - {key: hardware, label: Hardware, value: "Apple M5, 10 cores, 16 GB RAM", evidence_status: measured, source_ref: "sysctl, 2026-10-09"}
+  - {key: gpu_access, label: GPU access, value: "Free-tier Kaggle GPUs; Hugging Face Pro (ZeroGPU daily quota)", evidence_status: user-supplied}
+  - {key: ai_tools, label: AI coding tools, value: "Claude Code, Codex", evidence_status: measured, source_ref: "this session; workbooks built by Codex"}
+  - {key: capital, label: Personal capital for the plan, value: null, evidence_status: unknown}
+constraints:
+  - {key: academic_load, label: Weekly academic load (hours), value: "20", evidence_status: assumed, notes: "Placeholder for semester weeks; edit."}
+  - {key: exam_weeks, label: End-semester exam window, value: "2026-11-30..2026-12-20", evidence_status: assumed, notes: "Placeholder; edit to the real HIT calendar."}
+preferences:
+  - {key: interests, label: Research interests, value: "AI evaluation; world models and causal induction; multilingual/low-resource NLP; efficient inference", evidence_status: user-supplied, source_ref: cv/Kanishk_Paul_CV.tex}
+  - {key: path_preference, label: "PhD vs research-engineering vs startup", value: null, evidence_status: unknown, notes: "Set through the value model; the system compares all three."}
+  - {key: min_compensation, label: Minimum acceptable compensation, value: null, evidence_status: unknown}
+  - {key: risk_tolerance, label: Risk tolerance, value: null, evidence_status: unknown, notes: "Represented by CVaR level and hard constraints in objective profiles."}
