@@ -56,10 +56,15 @@ def _repair(genes: set[str], rng) -> set[str]:
     return g
 
 
-def to_strategy(genes: set[str], max_parallel: int, model, sid: str) -> Strategy:
-    acts = [model.action(a) for a in genes]
-    acts.sort(key=lambda a: (a.deadline_week if a.deadline_week is not None else 1e9, KIND_RANK.get(a.kind, 9)))
-    order = [a.id for a in acts]
+def to_strategy(genes: set[str], max_parallel: int, model, sid: str, order: list[str] | None = None) -> Strategy:
+    """Priority order comes from the evolved permutation when given; otherwise deadline, then kind.
+    Deadline urgency is handled by the scheduler's critical-ratio rule either way."""
+    if order is None:
+        acts = [model.action(a) for a in genes]
+        acts.sort(key=lambda a: (a.deadline_week if a.deadline_week is not None else 1e9, KIND_RANK.get(a.kind, 9)))
+        order = [a.id for a in acts]
+    else:
+        order = [a for a in order if a in genes] + sorted(set(genes) - set(order))
     rules, contingent = [], []
     if "reg_paper_arr_oct" in genes:
         contingent.append("reg_paper_arr_next")
@@ -126,11 +131,11 @@ def search_strategies(con, objective_id="balanced", scenario=None, generations=8
     rng = np.random.default_rng(seed)
     cache: dict[tuple, dict] = {}
 
-    def evaluate(genes: frozenset, mp: int) -> dict:
-        key = (genes, mp)
+    def evaluate(order: tuple, mp: int) -> dict:
+        key = (order, mp)
         if key in cache:
             return cache[key]
-        st = to_strategy(set(genes), mp, model, "cand")
+        st = to_strategy(set(order), mp, model, "cand", list(order))
         r = sim.run(st)
         u = A.utility(r["metrics"], prof, defaults)
         cons = A.check_constraints(r["metrics"], prof.get("constraints", []))
@@ -141,33 +146,49 @@ def search_strategies(con, objective_id="balanced", scenario=None, generations=8
         cache[key] = {"f": f, "feasible": feasible}
         return cache[key]
 
-    # seed population with presets plus random portfolios
-    presets = [s for s in S.strategies(con)]
-    popn: list[tuple[frozenset, int]] = []
-    for p in presets:
-        genes = {a for a in p["actions"] if a in pool}
-        popn.append((frozenset(_repair(genes, rng)), int(p.get("max_parallel", 4))))
+    # genome = (priority order of included actions, max_parallel); the order is evolved too (random-key style)
+    def repair_order(order, rng_):
+        genes = _repair(set(order), rng_)
+        kept = [a for a in order if a in genes]
+        return tuple(kept + sorted(genes - set(kept)))
+
+    presets = [s for s in S.strategies(con) if s.get("origin") == "preset"]
+    popn: list[tuple[tuple, int]] = []
+    for p in S.strategies(con):  # presets plus previously saved discoveries
+        popn.append((repair_order([a for a in p["actions"] if a in pool], rng), int(p.get("max_parallel", 4))))
     while len(popn) < population:
-        k = rng.integers(5, 18)
-        genes = set(rng.choice(pool, size=min(k, len(pool)), replace=False).tolist())
-        popn.append((frozenset(_repair(genes, rng)), int(rng.integers(3, 7))))
+        k = int(rng.integers(5, 18))
+        genes = [str(x) for x in rng.choice(pool, size=min(k, len(pool)), replace=False)]
+        popn.append((repair_order(genes, rng), int(rng.integers(3, 7))))
     history = []
+
+    def ev(c):
+        return evaluate(c[0], c[1])
+
     for gen in range(generations):
-        # variation: uniform crossover + bit-flip mutation + parallelism tweak
         children = []
         while len(children) < population:
             a, b = rng.choice(len(popn), 2, replace=False)
-            ga, gb = set(popn[a][0]), set(popn[b][0])
+            oa, ob = popn[a][0], popn[b][0]
+            ga, gb = set(oa), set(ob)
             child = {x for x in ga | gb if (x in ga and x in gb) or rng.random() < 0.5}
             for x in pool:
                 if rng.random() < 1.5 / len(pool):
                     child ^= {x}
+            # order: average rank in the parents plus noise
+            ra = {x: i / max(len(oa), 1) for i, x in enumerate(oa)}
+            rb = {x: i / max(len(ob), 1) for i, x in enumerate(ob)}
+            order = sorted(child, key=lambda x: (ra.get(x, 1.0) + rb.get(x, 1.0)) / 2 + rng.normal(0, 0.08))
+            if order and rng.random() < 0.35:  # move one action earlier
+                i = int(rng.integers(0, len(order)))
+                j = int(rng.integers(0, i + 1))
+                order.insert(j, order.pop(i))
             mp = popn[a][1] if rng.random() < 0.5 else popn[b][1]
             if rng.random() < 0.2:
                 mp = int(np.clip(mp + rng.choice([-1, 1]), 2, 8))
-            children.append((frozenset(_repair(child, rng)), mp))
+            children.append((repair_order(order, rng), mp))
         union = list(dict.fromkeys(popn + children))
-        F = np.stack([evaluate(g, mp)["f"] for g, mp in union])
+        F = np.stack([ev(c)["f"] for c in union])
         fronts = _nondominated_sort(F)
         nxt = []
         for fr in fronts:
@@ -186,7 +207,7 @@ def search_strategies(con, objective_id="balanced", scenario=None, generations=8
     big = Simulator(model, sc, n_worlds=max(2000, n_worlds * 4), seed=seed + 1, n_trace=0)
     out = []
     for k, (genes, mp) in enumerate(front[:12]):
-        st = to_strategy(set(genes), mp, model, f"search_{k + 1}")
+        st = to_strategy(set(genes), mp, model, f"search_{k + 1}", list(genes))
         r = big.run(st)
         u = A.utility(r["metrics"], prof, defaults)
         cons = A.check_constraints(r["metrics"], prof.get("constraints", []))
@@ -205,7 +226,7 @@ def search_strategies(con, objective_id="balanced", scenario=None, generations=8
         })
     out.sort(key=lambda r: -r["score"])
     preset_scores = {}
-    for p in presets:
+    for p in S.strategies(con):
         st = Strategy.from_dict(p)
         r = big.run(st)
         preset_scores[p["id"]] = A.risk_value(A.utility(r["metrics"], prof, defaults), prof.get("risk"))

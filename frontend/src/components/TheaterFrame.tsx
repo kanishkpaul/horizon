@@ -81,8 +81,8 @@ export function TheaterFrame({ spec, t, onLane, compact = false, sceneIndex }: {
         <text x={L.l - 12} y={L.t + lanes.length * laneH + 16} textAnchor="end" style={{ font: "italic 11px var(--sans)", fill: "var(--ink-3)" }}>+{hidden} quieter actions not drawn</text>
       )}
       {!compact && (
-        <text x={L.l} y={L.t + lanes.length * laneH + 16} style={{ font: "11px var(--sans)", fill: "var(--ink-3)" }}>
-          bar = action in progress (blue) or done (grey) · ● result · ○ no result · ◆ offer · ▽ deadline · ✕ missed · purple line = policy rule · orange dashed = outside event
+        <text x={L.l} y={L.t + lanes.length * laneH + 16} style={{ font: "10.5px var(--sans)", fill: "var(--ink-3)" }}>
+          bar: doing (blue) / done (grey) · ● result · ○ none · ◆ offer · ▽ deadline · ✕ missed · purple: rule · orange: outside event
         </text>
       )}
 

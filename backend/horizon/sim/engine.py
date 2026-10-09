@@ -191,12 +191,19 @@ class Simulator:
     def _p(self, ps: ProbSpec, S: State) -> np.ndarray:
         base = self.P.value_or_param(ps.base)
         x = logit(base)
+        # Evidence shifts (token-conditioned) describe one portfolio seen by one evaluator, so they
+        # saturate: total = M * tanh(sum / M). Unconditional shifts (penalties, context) add directly.
+        ev = np.zeros(self.n)
         for sh in ps.shifts:
             v = self.P[sh["param"]]
             if "token" in sh:
-                x = x + v * np.minimum(S.token(sh["token"]), float(sh.get("cap", 1)))
+                ev = ev + v * np.minimum(S.token(sh["token"]), float(sh.get("cap", 1)))
             else:
                 x = x + v
+        if "evidence_shift_cap" in self.m.params:
+            M = np.maximum(self.P["evidence_shift_cap"], 1e-6)
+            ev = M * np.tanh(ev / M)
+        x = x + ev
         if not self.sc.independent_outcomes:
             for f, load in ps.factors.items():
                 x = x + self.P.value_or_param(load) * self.z[f]

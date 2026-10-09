@@ -351,3 +351,8 @@ bonus_revision:
   description: Logit shift on acceptance for a resubmission that addresses prior reviews
   dist: normal(0.3, 0.25)
   origin: expert_judgment
+evidence_shift_cap:
+  description: Saturation level (logits) for the combined evidence shifts on one selection decision
+  dist: normal(1.2, 0.3)
+  origin: expert_judgment
+  notes: Added after review showed stacked bonuses raised predoc per-application odds from 7.5% to ~45%. With the cap, all evidence together moves a 7.5% base to at most ~20–25%.

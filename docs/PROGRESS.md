@@ -1,19 +1,30 @@
-# Progress (2026-10-09, session 1 — stopped at usage limit)
+# Progress
 
-## Done and verified
-- Persistent project, git, read-only raw inputs with SHA256SUMS (`data/raw/`, gitignored).
-- SQLite knowledge store with migrations: temporal claims (valid/recorded/source/access time, supersession), sources, orgs, people, events, hypotheses, outreach targets, parameters with history, strategies, objectives, runs, actions, outcomes, forecasts, media, revisions (undo).
-- Importer: 501 radar opportunities (all 163 fields preserved), 3,392 claims, 657 sources, 83 outreach targets, 104 events. Deadline normalization with precision labels.
-- Research workers: verification (75 claims, 11 workbook claims superseded, 17 new opps), discovery (52 opps, 18 creation hypotheses), base rates (80 evidence records). Summaries in `research/agents/*/summary.md`.
-- Rule-based eligibility engine with reasons; hybrid search (FTS5 BM25 + bge-small embeddings + RRF).
-- Simulation engine (vectorized, CRN, latent factors, exogenous hazards, resolve-time probabilities, adaptive rules), 40 actions, 67 parameters with origins, 10 preset strategies, 8 value models.
-- Analysis: ranking with risk measures + hard constraints, paired dominance, Pareto, EVPPI with noise floor, Spearman sensitivity, convergence, scenario regret, tornado, NSGA-II strategy search, execution plan generation, power-prior Beta calibration, forecast scoring.
-- 18 validation tests passing (`uv run pytest` in backend/). CLI: `uv run horizon rebuild|simulate|serve|reseed`.
-- FastAPI app (`backend/horizon/api.py`).
-- Frontend (frontend/src): styles/tokens, shell, horizon ruler, command palette, inspector, charts, Brief, Atlas, Graph, Lab, Theater, TheaterFrame, RenderFrame.
+## State on 2026-10-09 (end of session 1)
 
-## Not done (next session, in order)
-1. Frontend views still missing so the build does not compile yet: `views/Cockpit.tsx`, `views/ModelView.tsx`, `views/Research.tsx`. Then `npm run build` and fix type errors.
-2. Backend `horizon/media.py` (`start_render`): build spec via `theater.build_spec`, store media row, run `frontend/scripts/render.mjs` (playwright-core + cached chromium_headless_shell-1234 executablePath, `window.__horizonSetT`, PNG frames → ffmpeg MP4, WebVTT captions, optional `say` narration).
-3. `horizon/search_eval.py` QRELS and retrieval benchmark.
-4. End-to-end verification in the browser; docs (PROJECT.md, CLAUDE.md, METHODOLOGY_REGISTRY.md, ASSUMPTIONS.md, MODEL_CARD.md, VALIDATION.md, DECISIONS.md, AUDIT.md, RESEARCH_LEDGER.md); adversarial review; recommendations.
+### Working and verified
+- **Data.** 570 opportunities (501 radar + 17 verification + 52 discovery), about 3.6k graded temporal claims (11 superseded), 824 sources, 546 organisations, 121 events, 83 outreach targets, 18 creation hypotheses.
+- **Eligibility.** Rule-based against the editable profile, with reasons; verified blocks from primary sources.
+- **Hybrid search.** Benchmark: hybrid recall@10 0.56; lexical nDCG 0.61, about equal to hybrid.
+- **Simulator.** 41 actions, 72 parameters with origins, 2 exogenous hazards, adaptive rules, saturating evidence effects, quality-dilution variant.
+- **Analysis.** Value models with hard constraints and risk measures, paired dominance, Pareto, EVPPI, regret across 8 model variants, tornado, NSGA-II search over action sets *and* order.
+- **Execution.** Plans across 24h–12m horizons; outcome logging with power-prior calibration; forecasts with Brier scores; undo.
+- **Interface.** 8 workspaces, verified in a headless browser with no app errors.
+- **Video.** The theater renders to MP4 (H.264 + AAC narration via macOS `say`) with WebVTT captions, from the same React frame. Two renders checked frame by frame.
+- **Tests.** 30 passing (19 analytic validation, 11 end-to-end acceptance).
+- **Docs.** AUDIT, METHODOLOGY_REGISTRY, MODEL_CARD, ASSUMPTIONS, VALIDATION, DECISIONS, RESEARCH_LEDGER, RECOMMENDATIONS, ADVERSARIAL_REVIEW.
+
+### Model changes made after self-review
+1. A revise-and-resubmit action, and an adjustable rushed-paper penalty. The original model was biased toward deferral.
+2. Evidence shifts saturate (`evidence_shift_cap`). Stacked bonuses had raised per-application predoc odds from 7.5% to 45%; now about 19%.
+3. Strategy search evolves priority order, not just inclusion.
+4. A quality-dilution scenario (breadth penalty).
+
+### Next
+1. Address the open adversarial-review findings (see ADVERSARIAL_REVIEW.md); re-run `backend/scripts/experiments.py`.
+2. Replace the placeholder academic calendar and the profile unknowns with your real answers; log the first outreach outcomes.
+3. CP-SAT week planner for the 14–30 day horizon (OR-Tools is installed).
+4. Regression-based EVPPI; hierarchical pooling once there are ~30 logged outcomes.
+5. Per-program heterogeneity inside application batches; offer-acceptance decisions.
+6. Retrieval: location-aware boost or cross-encoder reranking.
+7. A Remotion/Manim path for concept explainers (not needed for trajectory videos).
