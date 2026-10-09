@@ -13,3 +13,4 @@ frontend/dist/
 *.log
 .DS_Store
 .gstack/
+data/runs/
