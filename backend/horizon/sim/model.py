@@ -25,6 +25,7 @@ class ProbSpec:
     base: object                     # parameter name or {"dist": ...}
     shifts: list = field(default_factory=list)   # [{"param":..., "token":..., "cap":...}]
     factors: dict = field(default_factory=dict)  # factor -> loading (number or parameter name)
+    at: str = "start"   # "start": frozen when the stage begins (evidence at submission); "resolve": state at decision
 
 
 @dataclass
@@ -81,7 +82,7 @@ class Action:
                 {"name": s.name, "delay": s.delay,
                  "outcomes": [{"label": o.label, "count": o.count, "tokens": o.tokens, "metrics": o.metrics,
                                "p": None if o.p is None else {"base": o.p.base, "shifts": o.p.shifts,
-                                                              "factors": o.p.factors}}
+                                                              "factors": o.p.factors, "at": o.p.at}}
                               for o in s.outcomes],
                  "otherwise": {"label": s.otherwise.label, "tokens": s.otherwise.tokens}}
                 for s in self.stages
@@ -99,6 +100,7 @@ class Model:
     offer_classes: dict
     initial_tokens: dict
     factors: tuple[str, ...] = ("portfolio", "market")
+    exogenous: list = field(default_factory=list)   # W(t): hazards outside the person's control
     version: str = MODEL_VERSION
 
     def action(self, aid: str) -> Action:
@@ -112,6 +114,7 @@ class Model:
             "actions": [a.describe() for a in self.actions],
             "params": {k: [str(p.dist), p.origin] for k, p in sorted(self.params.items())},
             "offers": self.offer_classes, "init": self.initial_tokens, "v": self.version,
+            "exo": [{k: v for k, v in e.items() if k != "unless_fn"} for e in self.exogenous],
         }, sort_keys=True, default=str)
         return hashlib.sha256(blob.encode()).hexdigest()[:12]
 
@@ -141,9 +144,12 @@ def _prob(spec) -> ProbSpec | None:
     shifts = []
     for s in spec.get("shifts", []) or []:
         shifts.append({"param": s} if isinstance(s, str) else dict(s))
+    at = spec.get("at", "start")
+    if at not in ("start", "resolve"):
+        raise ValueError(f"bad probability timing {at!r}")
     if "dist" in spec:
-        return ProbSpec(base={"dist": spec["dist"]}, shifts=shifts, factors=dict(spec.get("factors") or {}))
-    return ProbSpec(base=spec["base"], shifts=shifts, factors=dict(spec.get("factors") or {}))
+        return ProbSpec(base={"dist": spec["dist"]}, shifts=shifts, factors=dict(spec.get("factors") or {}), at=at)
+    return ProbSpec(base=spec["base"], shifts=shifts, factors=dict(spec.get("factors") or {}), at=at)
 
 
 def _outcome(o: dict | None, default_label="Otherwise") -> Outcome:
@@ -190,6 +196,15 @@ def build_action(raw: dict, start: datetime) -> list[Action]:
     return out
 
 
+def compile_exogenous(e: dict, start: datetime) -> dict:
+    """{id, label, hazard (weekly probability: number or parameter), unless (condition), tokens, start, end}."""
+    out = dict(e)
+    out["start_week"] = max(0.0, to_week(start, e["start"])) if e.get("start") else 0.0
+    out["end_week"] = to_week(start, e["end"]) if e.get("end") else None
+    out["unless_fn"] = compile_cond(e.get("unless")) if e.get("unless") else None
+    return out
+
+
 def load_params(path: Path) -> dict[str, Param]:
     raw = yaml.safe_load(path.read_text())
     out = {}
@@ -212,7 +227,8 @@ def load_model(actions_path: Path, params: dict[str, Param], extra_actions: list
         raise ValueError(f"duplicate action ids: {dup}")
     m = Model(start=start, horizon_weeks=int(cat.get("horizon_weeks", 52)),
               graduation_week=to_week(start, cat.get("graduation", "2027-06-30")), actions=acts, params=params,
-              offer_classes=cat.get("offer_classes", {}), initial_tokens=cat.get("initial_tokens", {}))
+              offer_classes=cat.get("offer_classes", {}), initial_tokens=cat.get("initial_tokens", {}),
+              exogenous=[compile_exogenous(e, start) for e in cat.get("exogenous", [])])
     validate_model(m)
     return m
 
@@ -259,6 +275,9 @@ def validate_model(m: Model) -> None:
     for k, v in m.initial_tokens.items():
         if isinstance(v, dict):
             chk(v["param"])
+    for e in m.exogenous:
+        if isinstance(e.get("hazard"), str):
+            chk(e["hazard"])
     for c in m.offer_classes.values():
         if c.get("comp"):
             chk(c["comp"])

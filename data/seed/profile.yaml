@@ -7,7 +7,7 @@ education:
   - {key: institution, label: Institution, value: "Heritage Institute of Technology, Kolkata", evidence_status: user-supplied, source_ref: cv/Kanishk_Paul_CV.tex}
   - {key: graduation, label: Expected graduation, value: "2027-06", evidence_status: user-supplied, source_ref: cv/Kanishk_Paul_CV.tex}
   - {key: academic_standing, label: Academic results (CGPA), value: null, evidence_status: unknown, notes: "Not in the CV. Several fellowships and PhD programs screen on it."}
-  - {key: sem8_internship_policy, label: 8th-semester full-time internship allowed?, value: null, evidence_status: unknown, notes: "Decides whether a Jan–Jun 2027 full-time research internship is feasible. High value of information."}
+  - {key: sem8_internship_policy, label: "8th-semester full-time internship allowed?", value: null, evidence_status: unknown, notes: "Decides whether a Jan–Jun 2027 full-time research internship is feasible. High value of information."}
 research:
   - {key: register_paper, label: "Indic register ('deference floor') MT paper", value: "Manuscript in preparation with Prof. Sudip Naskar and a TU Munich collaborator; ARR Oct-2026 target; open runs and human labels as of 2026-09-27", evidence_status: measured, source_ref: "cv/evidence_ledger.md; Indic-cat/TODO.md"}
   - {key: mcw_benchmark, label: "Daedalus / Mechanic Composition Worlds benchmark", value: "96 fixtures, 18 families, 1,301 probes, 172 contrasts; private; solo manuscript in preparation", evidence_status: measured, source_ref: cv/evidence_ledger.md}

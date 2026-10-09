@@ -4,81 +4,103 @@
 
 - id: research_first
   name: Research-first
-  description: Submit the register paper now, publish MCW, convert research outreach into collaborations, apply to predoc, research-intern and PhD routes.
+  description: Submit the register paper now, write up and publish MCW, turn research outreach into collaborations, and apply to predoc, research-intern and PhD routes.
   max_parallel: 4
-  actions: [reg_paper_arr_oct, mcw_benchmark_release, outreach_faculty, mcw_preprint, predoc_applications,
-            phd_applications, collab_research_1, collab_research_2, reg_preprint, research_intern_applications,
-            mcw_submit_ml_venue, oss_eval_contribs]
-  contingent: [reg_paper_arr_next]
+  actions: [reg_paper_arr_oct, arr_service_contributor, arxiv_endorsement, mcw_benchmark_release, outreach_faculty,
+            mcw_writeup, mcw_post_arxiv, eacl_srw, phd_applications, predoc_applications, msr_bengali_pilot,
+            collab_research_1, collab_research_2, reg_preprint, research_intern_applications, mcw_submit_ml_venue,
+            semeval_2027, spar_application, fire_2026, wmt_challenge_set, oss_eval_contribs]
+  contingent: [reg_paper_arr_next, mcw_submit_tmlr]
   rules:
-    - {label: "Missed the October ARR deadline → resubmit next cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Missed the October ARR deadline → resubmit in January", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Missed the ML venue deadline → TMLR", when: {missed: mcw_submit_ml_venue}, enable: [mcw_submit_tmlr]}
 
 - id: research_engineer
   name: Research-engineering industry track
-  description: Light paper finish, public artifacts and OSS, founder outreach turned into trial projects, then targeted startup, big-tech and remote applications.
+  description: Light paper finish, public artifacts and OSS, founder outreach turned into trial projects, an Epoch work sample, then targeted startup, big-tech and remote applications.
   max_parallel: 4
-  actions: [reg_paper_arr_oct, mcw_benchmark_release, oss_eval_contribs, outreach_founders, collab_industry_1,
-            collab_industry_2, startup_applications, reg_preprint, bigtech_applications, remote_global_applications,
-            hackathons_q4]
+  actions: [reg_paper_arr_oct, arr_service_contributor, mcw_benchmark_release, oss_eval_contribs, outreach_founders,
+            epoch_work_sample, unify_continual_arc, collab_industry_1, collab_industry_2, startup_applications,
+            arxiv_endorsement, reg_preprint, bigtech_applications, remote_global_applications, hackathons_q4]
   contingent: [reg_paper_arr_next]
   rules:
-    - {label: "Missed October ARR → next cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
 
 - id: founder
   name: Founder track with safety net
-  description: Build an MVP from an existing asset, seek traction, apply to an accelerator; keep targeted startup applications as a safety net.
+  description: Build an MVP from an existing asset, seek traction, apply to an accelerator and Emergent Ventures; keep targeted startup applications as a safety net.
   max_parallel: 3
-  actions: [startup_mvp, outreach_founders, hackathons_q4, accelerator_application, collab_industry_1,
-            startup_applications, kolkata_events]
+  actions: [startup_mvp, outreach_founders, hackathons_q4, emergent_ventures, accelerator_application,
+            collab_industry_1, startup_applications, kolkata_events]
   rules:
-    - {label: "No traction by mid-February → widen job search", when: {all: [{week_ge: 18}, {token: traction, op: "<", value: 1}]}, enable: [bigtech_applications]}
+    - {label: "No traction by mid-February → widen the job search", when: {all: [{week_ge: 18}, {token: traction, op: "<", value: 1}]}, enable: [bigtech_applications]}
 
 - id: barbell
   name: Optionality barbell
-  description: Keep research and industry routes alive in parallel; let early signals decide where hours go.
+  description: Keep research and industry routes alive in parallel; let early replies decide where the hours go.
   max_parallel: 5
-  actions: [reg_paper_arr_oct, mcw_benchmark_release, outreach_faculty, outreach_founders, predoc_applications,
+  actions: [reg_paper_arr_oct, arr_service_contributor, arxiv_endorsement, mcw_benchmark_release, outreach_faculty,
+            outreach_founders, eacl_srw, unify_continual_arc, epoch_work_sample, predoc_applications,
             startup_applications, collab_research_1, collab_industry_1, reg_preprint, research_intern_applications,
-            remote_global_applications, kolkata_events]
-  contingent: [reg_paper_arr_next, mcw_preprint, collab_research_2, collab_industry_2, phd_applications]
+            remote_global_applications, fire_2026, kolkata_events]
+  contingent: [reg_paper_arr_next, mcw_writeup, mcw_post_arxiv, mcw_submit_tmlr, collab_research_2, collab_industry_2,
+               phd_applications]
   rules:
-    - {label: "Missed October ARR → next cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
-    - {label: "Two research replies → double down on research", when: {token: leads_research, op: ">=", value: 2}, enable: [collab_research_2, mcw_preprint]}
+    - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Two research replies → double down on research", when: {token: leads_research, op: ">=", value: 2}, enable: [collab_research_2, mcw_writeup, mcw_post_arxiv, mcw_submit_tmlr]}
     - {label: "Two founder replies → second trial project", when: {token: leads_industry, op: ">=", value: 2}, enable: [collab_industry_2]}
 
 - id: artifact_led
   name: Artifact-led opportunity creation
-  description: Ship public artifacts first, then run outreach that leads with them; collaborations and referrals then feed applications.
+  description: Ship public artifacts first, then run outreach that leads with them; collaborations and referrals feed the applications.
   max_parallel: 4
-  actions: [mcw_benchmark_release, oss_eval_contribs, reg_paper_arr_oct, outreach_faculty, outreach_founders,
-            collab_research_1, collab_industry_1, collab_research_2, collab_industry_2, predoc_applications,
-            startup_applications, research_intern_applications, reg_preprint]
+  actions: [arxiv_endorsement, mcw_benchmark_release, oss_eval_contribs, reg_paper_arr_oct, arr_service_contributor,
+            snorkel_benchmark_grant, unify_continual_arc, outreach_faculty, outreach_founders, epoch_work_sample,
+            eacl_srw, collab_research_1, collab_industry_1, collab_research_2, collab_industry_2,
+            predoc_applications, startup_applications, research_intern_applications, reg_preprint, fire_2026]
   contingent: [reg_paper_arr_next]
   rules:
-    - {label: "Missed October ARR → next cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+
+- id: creation_portfolio
+  name: Opportunity-creation portfolio
+  description: Attempt the October deadline, release MCW publicly to stop the scoop clock, and spend most hours on created opportunities (Unify Continual-ARC, Epoch work sample, Snorkel grant, EACL SRW, MSR pilot, WMT challenge set), with predoc and startup applications as the formal routes.
+  max_parallel: 5
+  actions: [reg_paper_arr_oct, arr_service_contributor, arxiv_endorsement, mcw_benchmark_release, unify_continual_arc,
+            epoch_work_sample, eacl_srw, snorkel_benchmark_grant, reg_preprint, msr_bengali_pilot,
+            predoc_applications, mcw_writeup, mcw_post_arxiv, fire_2026, startup_applications, wmt_challenge_set,
+            emergent_ventures]
+  contingent: [reg_paper_arr_next, mcw_submit_tmlr, outreach_founders, collab_industry_1]
+  rules:
+    - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "MCW written → submit to TMLR", when: {token: mcw_written, op: ">=", value: 1}, enable: [mcw_submit_tmlr]}
+    - {label: "No Continual-ARC code by mid-December → founder outreach instead", when: {all: [{week_ge: 10}, {token: continual_arc_code, op: "<", value: 1}]}, enable: [outreach_founders, collab_industry_1]}
 
 - id: conventional
   name: Conventional placement baseline
-  description: Campus/off-campus job applications plus a few research-intern applications; no new research outputs.
+  description: Campus and off-campus job applications plus a few research-intern applications; no new research outputs.
   max_parallel: 3
   actions: [bigtech_applications, startup_applications, research_intern_applications, hackathons_q4]
 
 - id: defer_depth
   name: Defer the paper, go for depth
-  description: Skip the October deadline, complete validation for the next cycle, publish MCW and target an ML venue; predoc and PhD routes.
+  description: Skip the October deadline, complete validation for January, publish MCW through TMLR, and target predoc and PhD routes.
   max_parallel: 4
-  actions: [reg_paper_arr_next, mcw_preprint, mcw_benchmark_release, predoc_applications, phd_applications,
-            outreach_faculty, collab_research_1, mcw_submit_ml_venue, reg_preprint, research_intern_applications]
+  actions: [arxiv_endorsement, reg_paper_arr_next, mcw_writeup, mcw_post_arxiv, mcw_benchmark_release, mcw_submit_tmlr,
+            eacl_srw, predoc_applications, msr_bengali_pilot, phd_applications, outreach_faculty, collab_research_1,
+            semeval_2027, spar_application, reg_preprint, research_intern_applications, wmt_challenge_set]
 
 - id: max_parallel
   name: Maximum parallel portfolio
   description: Everything except the founder track, at high parallelism. Tests whether breadth beats focus under the hours model.
   max_parallel: 7
-  actions: [reg_paper_arr_oct, mcw_benchmark_release, oss_eval_contribs, outreach_faculty, outreach_founders,
-            predoc_applications, phd_applications, startup_applications, mcw_preprint, collab_research_1,
-            collab_industry_1, collab_research_2, collab_industry_2, research_intern_applications,
-            bigtech_applications, remote_global_applications, hackathons_q4, arc_prize_entry, kolkata_events,
-            reg_preprint, mcw_submit_ml_venue]
+  actions: [reg_paper_arr_oct, arr_service_contributor, arxiv_endorsement, mcw_benchmark_release, oss_eval_contribs,
+            outreach_faculty, outreach_founders, eacl_srw, epoch_work_sample, unify_continual_arc,
+            snorkel_benchmark_grant, predoc_applications, phd_applications, startup_applications, mcw_writeup,
+            mcw_post_arxiv, msr_bengali_pilot, collab_research_1, collab_industry_1, collab_research_2,
+            collab_industry_2, research_intern_applications, bigtech_applications, remote_global_applications,
+            hackathons_q4, arc_prize_entry, fire_2026, kolkata_events, emergent_ventures, reg_preprint,
+            mcw_submit_ml_venue, semeval_2027, spar_application, wmt_challenge_set]
   contingent: [reg_paper_arr_next]
   rules:
-    - {label: "Missed October ARR → next cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}

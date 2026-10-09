@@ -41,7 +41,7 @@ class Scenario:
     weekly_hours: float = 60.0          # total weekly work budget, academics included
     ai_multiplier: float = 1.5          # speed-up on the automatable share (<1 = slowdown)
     effort_bias: float = 1.15           # mean multiplier on estimated effort (planning fallacy)
-    sustainable_cap: float = 50.0       # hours/week above which marginal output halves
+    sustainable_cap: float = 49.0       # hours/week above which marginal output falls (Pencavel 2014)
     switch_cost: float = 0.04           # fraction of hours lost per concurrent action beyond focus_k
     focus_k: int = 3
     academic: list = field(default_factory=lambda: [
@@ -56,10 +56,12 @@ class Scenario:
 
     @classmethod
     def preset(cls, name: str) -> "Scenario":
+        # Evidence (research/agents/params): planning fallacy ~1.64x own estimates (Buehler 1994);
+        # AI speed-ups from -19% (METR 2025, experienced devs) to +56% (Copilot greenfield).
         p = {
-            "adverse": dict(weekly_hours=50, ai_multiplier=0.9, effort_bias=1.45),
-            "central": dict(weekly_hours=60, ai_multiplier=1.5, effort_bias=1.15),
-            "aggressive": dict(weekly_hours=75, ai_multiplier=2.5, effort_bias=0.95),
+            "adverse": dict(weekly_hours=50, ai_multiplier=0.85, effort_bias=1.75),
+            "central": dict(weekly_hours=60, ai_multiplier=1.25, effort_bias=1.4),
+            "aggressive": dict(weekly_hours=72, ai_multiplier=2.0, effort_bias=1.1),
         }[name]
         return cls(name=name, **p)
 
@@ -123,6 +125,16 @@ class State:
         if aid not in self.idx:
             return np.full(self.n, OFF, dtype=np.int8)
         return self.status[self.idx[aid]]
+
+
+def effective_hours(total: float, cap: float = 49.0) -> float:
+    """Output-equivalent hours. Linear to `cap`, 0.4 marginal for the next 14 h, flat beyond.
+
+    Shape follows Pencavel (2014): output proportional to hours up to ~49 h/week and
+    no further gain beyond ~63 h. The data are from munitions workers, so this is a
+    scenario assumption for knowledge work, not a measured law.
+    """
+    return min(total, cap) + 0.4 * min(max(total - cap, 0.0), 14.0)
 
 
 def logit(p):
@@ -223,6 +235,7 @@ class Simulator:
         hours_used = np.zeros(n)
         prev_active = np.zeros(n)
         disrupt_p = self.P["p_disruption_week"] if "p_disruption_week" in m.params else np.zeros(n)
+        exo_u = {e["id"]: stream(self.seed, "exo", e["id"]).random((T, n)) for e in m.exogenous}
         u_disrupt = stream(self.seed, "disruption").random((T, n))
 
         trace: list[dict] = []
@@ -264,7 +277,7 @@ class Simulator:
             S.stage[ai] = np.where(mask, si, S.stage[ai])
             S.stage_due[ai] = np.where(mask, due, S.stage_due[ai])
             # freeze outcome probabilities at the moment the stage starts (evidence at submission time)
-            ps = [self._p(o.p, S) if o.p else np.zeros(n) for o in st.outcomes]
+            ps = [self._p(o.p, S) if (o.p and o.p.at == "start") else np.zeros(n) for o in st.outcomes]
             key = (ai, si)
             old = S.stage_p.get(key)
             S.stage_p[key] = ps if old is None else [np.where(mask, p, q) for p, q in zip(ps, old)]
@@ -285,6 +298,8 @@ class Simulator:
                 any_hit = np.zeros(n, dtype=bool)
                 continue_mask = np.zeros(n, dtype=bool)
                 for oi, (o, p) in enumerate(zip(st.outcomes, ps)):
+                    if o.p is not None and o.p.at == "resolve":
+                        p = self._p(o.p, S)
                     if o.count:
                         k = stats.binom.ppf(u, o.count, np.clip(p, 0, 1))
                         k = np.where(np.isnan(k), 0, k)
@@ -320,7 +335,22 @@ class Simulator:
             for ai in range(len(acts)):
                 if (S.stage[ai] >= 0).any():
                     resolve(ai, t)
-            # 2. policy rules
+            # 2a. exogenous events W(t): hazards outside the person's control
+            for e in m.exogenous:
+                if t + 1 <= e["start_week"] or (e["end_week"] is not None and t >= e["end_week"]):
+                    continue
+                key = "exo_" + e["id"]
+                fired_e = S.token(key) > 0
+                hz = self.P.value_or_param(e["hazard"])
+                hit = (exo_u[e["id"]][t] < hz) & ~fired_e
+                if e.get("unless_fn") is not None:
+                    hit &= ~e["unless_fn"](cond_state)
+                if hit.any():
+                    S.token(key)[hit] = 1.0
+                    for tk, dv in (e.get("tokens") or {}).items():
+                        S.token(tk)[hit] += float(dv)
+                    log(hit, t, "exogenous", None, e.get("label", e["id"]))
+            # 2b. policy rules
             for ri, (f, r) in enumerate(rules):
                 hit = f(cond_state) & ~fired[ri]
                 if not hit.any():
@@ -343,7 +373,7 @@ class Simulator:
                                                S.status[i])
             # 3. hours
             total = self.sc.weekly_hours * strat.hours_scale
-            eff_total = min(total, self.sc.sustainable_cap) + 0.5 * max(total - self.sc.sustainable_cap, 0.0)
+            eff_total = effective_hours(total, self.sc.sustainable_cap)
             avail = np.full(n, max(eff_total - self.sc.academic_hours(t), 0.0))
             disrupted = u_disrupt[t] < disrupt_p
             avail = np.where(disrupted, avail * self.sc.disruption_hours_factor, avail)

@@ -257,3 +257,21 @@ def test_constraint_checking_statistics():
 def test_model_rejects_writes_to_derived_metrics():
     with pytest.raises(ValueError, match="derived metric"):
         mk([{"id": "a", "name": "A", "effort": [1, 1, 1], "effects": {"metrics": {"position_by_grad": 1}}}])
+
+
+def test_probability_evaluated_at_resolution_sees_later_state():
+    # The paper is submitted in week 0; a registration that lands two days later must still count
+    # when the desk check resolves, but not when the probability is frozen at submission.
+    def acts(at):
+        return [
+            {"id": "paper", "name": "paper", "effort": [1, 1, 1], "stages": [{"name": "desk", "delay": 1, "outcomes": [
+                {"label": "ok", "p": {"base": "p", "shifts": [{"param": "pen", "token": "missing", "cap": 1}], "at": at},
+                 "tokens": {"passed": 1}}], "otherwise": {"label": "rejected"}}]},
+            {"id": "reg", "name": "register", "effort": [1, 1, 1], "start": "2026-10-11",
+             "effects": {"tokens": {"missing": -1}}},
+        ]
+    params = [P("p", "fixed(0.95)"), P("pen", "fixed(-10)")]
+    frozen = run(mk(acts("start"), params, initial={"missing": 1}), S("paper", "reg"), n=2000)
+    live = run(mk(acts("resolve"), params, initial={"missing": 1}), S("paper", "reg"), n=2000)
+    assert frozen["action_stats"]["paper"]["outcomes"]["desk → ok"] < 0.01
+    assert abs(live["action_stats"]["paper"]["outcomes"]["desk → ok"] - 0.95) < 0.02

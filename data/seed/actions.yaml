@@ -18,17 +18,23 @@ graduation: "2027-06-30"
 actions:
   # ---------------------------------------------------------------- register paper
   - id: reg_paper_arr_oct
-    name: Finish the Indic register paper and submit to ARR (October cycle)
+    name: Finish the Indic register paper and submit to ARR (October cycle → NAACL/COLING 2027)
     kind: research
     effort: [18, 32, 60]
     automatable: 0.35
-    deadline: "2026-10-13T11:59:00Z"     # 12 Oct AoE
-    deadline_basis: user_repo_todo
+    deadline: "2026-10-13T11:59:00Z"     # 12 Oct 23:59 AoE (VER-0001)
+    deadline_basis: verified
     max_hours_week: 70
     group: register_paper
     external_dependency: "Co-author checks (~50 Hindi items, κ second pass) must land before the deadline."
     effects: {tokens: {reg_submitted: 1}}
     stages:
+      - name: Desk check (service contributor, format)
+        delay: 0.4
+        outcomes:
+          - label: Passes desk check
+            p: {base: p_arr_desk_ok, shifts: [{param: logit_contributor_missing, token: arr_contributor_missing, cap: 1}], at: resolve}
+        otherwise: {label: Desk rejected / lottery loss, tokens: {reg_rejected: 1}}
       - name: ARR review and venue decision
         delay: delay_arr_decision
         outcomes:
@@ -42,13 +48,23 @@ actions:
             metrics: {peer_reviewed: 1}
         otherwise: {label: Not accepted, tokens: {reg_rejected: 1}}
 
+  - id: arr_service_contributor
+    name: Get the ARR service-contributor form filed (Prof. Naskar or the TUM co-author) within 48 h
+    kind: admin
+    effort: [0.5, 1, 3]
+    automatable: 0.0
+    deadline: "2026-10-15T11:59:00Z"     # 48 h after the ARR deadline (VER-0001)
+    deadline_basis: verified
+    external_dependency: "A co-author with reviewing qualifications must register; undergraduates cannot serve."
+    effects: {tokens: {arr_contributor_missing: -1}}
+
   - id: reg_paper_arr_next
-    name: Complete validation and submit the register paper to the next ARR cycle
+    name: Complete validation and submit the register paper to the January ARR cycle (ACL 2027)
     kind: research
     effort: [30, 55, 100]
     automatable: 0.35
-    deadline: "2027-01-06T11:59:00Z"
-    deadline_basis: assumed
+    deadline: "2027-01-05T11:59:00Z"     # 4 Jan 2027 AoE per ACL 2027 CFP (verify worker)
+    deadline_basis: verified
     group: register_paper
     effects: {tokens: {reg_submitted: 1}}
     stages:
@@ -65,20 +81,43 @@ actions:
             metrics: {peer_reviewed: 1}
         otherwise: {label: Not accepted, tokens: {reg_rejected: 1}}
 
+  - id: arxiv_endorsement
+    name: Secure an arXiv endorsement (ask a co-author with endorsement rights)
+    kind: admin
+    effort: [0.5, 1, 2]
+    automatable: 0.0
+    requires: {token: arxiv_endorsed, op: "<", value: 1}
+    stages:
+      - name: Endorsement
+        delay: {dist: "triangular(0.3, 1, 3)"}
+        outcomes:
+          - label: Endorsed
+            p: {base: p_arxiv_endorsement}
+            tokens: {arxiv_endorsed: 1}
+        otherwise: {label: No endorsement yet}
+
   - id: reg_preprint
     name: Post the register paper as an arXiv preprint
     kind: research
     effort: [2, 4, 8]
     automatable: 0.3
-    requires: {token: reg_submitted, op: ">=", value: 1}
+    requires: {all: [{token: reg_submitted, op: ">=", value: 1}, {token: arxiv_endorsed, op: ">=", value: 1}]}
     effects: {tokens: {public_outputs: 1, reg_preprint: 1}, metrics: {public_outputs: 1}}
 
   # ---------------------------------------------------------------- MCW / Daedalus
-  - id: mcw_preprint
-    name: Write up Mechanic Composition Worlds and post the preprint
+  - id: mcw_writeup
+    name: Write up Mechanic Composition Worlds as a full paper
     kind: research
     effort: [50, 90, 170]
     automatable: 0.4
+    effects: {tokens: {mcw_written: 1}}
+
+  - id: mcw_post_arxiv
+    name: Post the MCW paper on arXiv
+    kind: research
+    effort: [1, 2, 4]
+    automatable: 0.2
+    requires: {all: [{token: mcw_written, op: ">=", value: 1}, {token: arxiv_endorsed, op: ">=", value: 1}]}
     effects: {tokens: {public_outputs: 1, mcw_preprint: 1}, metrics: {public_outputs: 1}}
 
   - id: mcw_benchmark_release
@@ -92,7 +131,7 @@ actions:
         delay: {dist: "triangular(8, 16, 30)"}
         outcomes:
           - label: Used or cited by an outside group
-            p: {base: p_benchmark_adoption, shifts: [{param: bonus_preprint, token: mcw_preprint, cap: 1}]}
+            p: {base: p_benchmark_adoption, shifts: [{param: bonus_preprint, token: mcw_preprint, cap: 1}, {param: logit_scooped, token: mcw_scooped, cap: 1}], at: resolve}
             tokens: {benchmark_adopted: 1, referrals: 1}
             metrics: {ties: 2, adoption: 1}
         otherwise: {label: No visible uptake yet}
@@ -102,15 +141,16 @@ actions:
     kind: research
     effort: [15, 30, 60]
     automatable: 0.35
-    requires: {token: mcw_preprint, op: ">=", value: 1}
+    requires: {token: mcw_written, op: ">=", value: 1}
     deadline: "2027-01-29T23:59:00Z"
     deadline_basis: assumed
+    group: mcw_venue
     stages:
       - name: Review
         delay: {dist: "triangular(12, 15, 18)"}
         outcomes:
           - label: Accepted (main track)
-            p: {base: p_ml_main_accept, factors: {portfolio: 0.15}}
+            p: {base: p_ml_main_accept, shifts: [{param: logit_scooped, token: mcw_scooped, cap: 1}], factors: {portfolio: 0.15}}
             tokens: {peer_reviewed: 1}
             metrics: {peer_reviewed: 1, ties: 1}
           - label: Accepted at a workshop
@@ -119,14 +159,48 @@ actions:
             metrics: {workshop: 1}
         otherwise: {label: Rejected}
 
+  - id: mcw_submit_tmlr
+    name: Submit MCW to TMLR (rolling; judged on correctness and interest)
+    kind: research
+    effort: [10, 20, 40]
+    automatable: 0.35
+    requires: {token: mcw_written, op: ">=", value: 1}
+    group: mcw_venue
+    stages:
+      - name: TMLR review
+        delay: delay_tmlr
+        outcomes:
+          - label: Accepted
+            p: {base: p_tmlr_accept, shifts: [{param: logit_scooped, token: mcw_scooped, cap: 1}], factors: {portfolio: 0.15}}
+            tokens: {peer_reviewed: 1}
+            metrics: {peer_reviewed: 1, ties: 1}
+        otherwise: {label: Rejected}
+
+  - id: semeval_2027
+    name: Participate in a SemEval-2027 task (e.g. the Hindi-inclusive task) and write the system paper
+    kind: research
+    effort: [40, 70, 130]
+    automatable: 0.45
+    deadline: "2027-02-01T11:59:00Z"     # evaluation window Jan 10–31, 2027 (VER-0054)
+    deadline_basis: verified
+    stages:
+      - name: System paper review
+        delay: {dist: "triangular(5, 7, 10)"}
+        outcomes:
+          - label: System paper accepted
+            p: {base: p_semeval_paper}
+            tokens: {workshop: 1, public_outputs: 1}
+            metrics: {workshop: 1, public_outputs: 1, ties: 1}
+        otherwise: {label: Paper not accepted}
+
   # ---------------------------------------------------------------- competitions
   - id: arc_prize_entry
-    name: Serious ARC Prize entry building on Virgil and Daedalus, with a write-up
+    name: ARC Prize 2026 paper-track entry (Virgil as a CPU-only harness-measurement baseline)
     kind: competition
     effort: [30, 60, 120]
     automatable: 0.45
-    deadline: "2026-11-03T23:59:00Z"
-    deadline_basis: assumed
+    deadline: "2026-11-02T23:59:00Z"     # code due Nov 2 (VER-0007); papers due Nov 8 (VER-0010); time of day assumed
+    deadline_basis: verified_date
     effects: {tokens: {public_outputs: 1}, metrics: {public_outputs: 1}}
     stages:
       - name: Final standings / paper awards
@@ -158,7 +232,7 @@ actions:
 
   # ---------------------------------------------------------------- open source
   - id: oss_eval_contribs
-    name: Three targeted pull requests to evaluation harnesses (e.g. Indic or register tasks)
+    name: Three targeted contributions to evaluation suites (lm-eval-harness Indic tasks, Terminal-Bench, Inspect Evals)
     kind: build
     effort: [12, 25, 50]
     automatable: 0.5
@@ -264,12 +338,13 @@ actions:
 
   # ---------------------------------------------------------------- applications (batches)
   - id: predoc_applications
-    name: Apply to India research predoc / research-fellow programs (4 programs)
+    name: Apply to India research predoc / research-fellow programs (4 programs, incl. MSR India RF)
     kind: application
     effort: [10, 20, 35]
     automatable: 0.3
-    deadline: "2026-12-15T18:29:00Z"
-    deadline_basis: assumed
+    start: "2026-12-15"
+    deadline: "2027-02-15T18:29:00Z"     # MSR India RF 2027 intake inferred from past cycles (VER-0012, grade D)
+    deadline_basis: inferred
     stages:
       - name: Selection
         delay: delay_app_response
@@ -282,6 +357,7 @@ actions:
                 - {param: bonus_peer_reviewed, token: peer_reviewed, cap: 1}
                 - {param: bonus_preprint, token: public_outputs, cap: 2}
                 - {param: bonus_referral, token: referrals, cap: 1}
+                - {param: bonus_targeted_demo, token: msr_pilot, cap: 1}
               factors: {portfolio: load_portfolio}
             tokens: {offer_predoc: 1}
             metrics: {offer: predoc}
@@ -409,6 +485,158 @@ actions:
             metrics: {offer: phd}
         otherwise: {label: Not admitted}
 
+  - id: spar_application
+    name: Apply to SPAR Spring 2027 (part-time, virtual, mentored research)
+    kind: application
+    effort: [4, 8, 15]
+    automatable: 0.3
+    start: "2026-12-01"
+    deadline: "2027-01-15T18:29:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Selection
+        delay: {dist: "triangular(2, 4, 6)"}
+        outcomes:
+          - label: Accepted
+            p: {base: p_spar_accept, shifts: [{param: bonus_preprint, token: public_outputs, cap: 2}], factors: {portfolio: load_portfolio}}
+            tokens: {collaborations: 1, referrals: 1}
+            metrics: {ties: 2}
+        otherwise: {label: Not accepted}
+
+
+  # ---------------------------------------------------------------- created opportunities (discovery hypotheses)
+  - id: unify_continual_arc
+    name: Run Virgil as a zero-API-cost baseline on Unify's Continual-ARC and share it with Daniel Lenton (HYP-0001)
+    kind: collaboration
+    effort: [15, 30, 60]
+    automatable: 0.5
+    requires: {token: continual_arc_code, op: ">=", value: 1}
+    effects: {tokens: {public_outputs: 1}, metrics: {public_outputs: 1}}
+    stages:
+      - name: Unify's response
+        delay: delay_reply
+        outcomes:
+          - label: Joint result / continued collaboration
+            p: {base: p_warm_collab}
+            tokens: {collaborations: 1, referrals: 1}
+            metrics: {ties: 1}
+        otherwise: {label: Acknowledged, no collaboration}
+
+  - id: epoch_work_sample
+    name: Publish one benchmark review as a work sample, then apply to Epoch AI's Benchmarking Reviews role (HYP-0006)
+    kind: application
+    effort: [20, 35, 70]
+    automatable: 0.35
+    requires: {token: exo_epoch_role_filled, op: "<", value: 1}
+    effects: {tokens: {public_outputs: 1}, metrics: {public_outputs: 1}}
+    stages:
+      - name: Selection
+        delay: delay_app_response
+        outcomes:
+          - label: Offer
+            p:
+              base: p_epoch_offer
+              shifts:
+                - {param: bonus_preprint, token: public_outputs, cap: 2}
+                - {param: bonus_peer_reviewed, token: peer_reviewed, cap: 1}
+              factors: {portfolio: load_portfolio}
+            tokens: {offer_remote: 1}
+            metrics: {offer: remote_global}
+        otherwise: {label: Not selected}
+
+  - id: snorkel_benchmark_grant
+    name: Propose a public MCW subset to Snorkel Open Benchmarks (rolling grants) (HYP-0007)
+    kind: application
+    effort: [8, 15, 30]
+    automatable: 0.35
+    requires: {token: benchmark_public, op: ">=", value: 1}
+    stages:
+      - name: Review
+        delay: {dist: "triangular(4, 8, 12)"}
+        outcomes:
+          - label: Grant awarded
+            p: {base: p_grant_award, shifts: [{param: logit_scooped, token: mcw_scooped, cap: 1}]}
+            tokens: {funding: 1}
+            metrics: {cash_lpa: grant_snorkel_lpa, ties: 1}
+        otherwise: {label: Not funded}
+
+  - id: msr_bengali_pilot
+    name: Bengali register-and-agents pilot as a targeted demonstration for MSR India (HYP-0004)
+    kind: research
+    effort: [25, 45, 90]
+    automatable: 0.4
+    deadline: "2027-02-10T18:29:00Z"
+    deadline_basis: assumed
+    effects: {tokens: {msr_pilot: 1, public_outputs: 1}, metrics: {public_outputs: 1}}
+
+  - id: eacl_srw
+    name: Submit MCW to the EACL 2027 Student Research Workshop (mentorship draft Nov 6, paper Dec 15)
+    kind: research
+    effort: [20, 35, 60]
+    automatable: 0.35
+    deadline: "2026-12-16T11:59:00Z"
+    deadline_basis: agent_reported
+    stages:
+      - name: Review
+        delay: {dist: "triangular(6, 8, 11)"}
+        outcomes:
+          - label: Accepted
+            p: {base: p_srw_accept, shifts: [{param: logit_scooped, token: mcw_scooped, cap: 1}]}
+            tokens: {workshop: 1, public_outputs: 1}
+            metrics: {workshop: 1, public_outputs: 1, ties: 1}
+        otherwise: {label: Not accepted}
+
+  - id: wmt_challenge_set
+    name: Turn the register data into a WMT 2027 metrics challenge set with Prof. Naskar (HYP-0002)
+    kind: research
+    effort: [20, 40, 80]
+    automatable: 0.4
+    deadline: "2027-06-30T23:59:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Review
+        delay: {dist: "triangular(4, 6, 10)"}
+        outcomes:
+          - label: Accepted
+            p: {base: p_workshop_accept}
+            tokens: {workshop: 1, public_outputs: 1}
+            metrics: {workshop: 1, public_outputs: 1, ties: 1}
+        otherwise: {label: Not accepted}
+
+  - id: fire_2026
+    name: Attend FIRE 2026 in Kolkata (Dec 17–20) and follow up with researchers
+    kind: network
+    effort: [16, 24, 32]
+    automatable: 0.0
+    start: "2026-12-17"
+    deadline: "2026-12-21T18:29:00Z"
+    deadline_basis: agent_reported
+    stages:
+      - name: Follow-ups
+        delay: {dist: "triangular(1, 2, 4)"}
+        outcomes:
+          - label: Useful research tie
+            count: 4
+            p: {base: p_event_tie}
+            tokens: {event_ties: 1}
+            metrics: {ties: 1}
+        otherwise: {label: No lasting tie}
+
+  - id: emergent_ventures
+    name: Apply to Emergent Ventures India for research funding (rolling)
+    kind: application
+    effort: [4, 8, 15]
+    automatable: 0.3
+    stages:
+      - name: Decision
+        delay: {dist: "triangular(2, 5, 10)"}
+        outcomes:
+          - label: Grant
+            p: {base: p_ev_grant, shifts: [{param: bonus_preprint, token: public_outputs, cap: 2}]}
+            tokens: {funding: 1}
+            metrics: {cash_lpa: ev_grant_lpa, ties: 1}
+        otherwise: {label: Not funded}
+
   # ---------------------------------------------------------------- founder track
   - id: startup_mvp
     name: Build an MVP from an existing asset (e.g. Blindfold or Maiku) and put it in front of users
@@ -475,8 +703,22 @@ templates:
 initial_tokens:
   # token: constant, or {param: name, invert: bool} drawn per world
   sem8_blocked: {param: sem8_internship_allowed, invert: true}
+  arxiv_endorsed: {param: has_arxiv_endorsement}
+  arr_contributor_missing: 1   # until the service-contributor form is filed
+  continual_arc_code: {param: continual_arc_code_available}
   collaborations: 1          # Prof. Naskar and the TU Munich collaborator (one collaboration)
   public_outputs: 3          # public repos with write-ups: Virgil, ButterflyGate, ResonatorLM audit
+
+exogenous:
+  # W(t): events outside the person's control. Weekly hazard; `unless` blocks the event.
+  - id: mcw_scooped
+    label: A closely overlapping world-model paper appears before MCW is public
+    hazard: hazard_mcw_scoop_week
+    unless: {any: [{token: mcw_preprint, op: ">=", value: 1}, {token: benchmark_public, op: ">=", value: 1}]}
+    tokens: {mcw_scooped: 1}
+  - id: epoch_role_filled
+    label: The Epoch AI benchmarking-reviews role is filled or closed
+    hazard: hazard_epoch_filled_week
 
 offer_classes:
   # comp: parameter for annual compensation (INR lakh); autonomy: 0-3 ordinal;

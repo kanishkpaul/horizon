@@ -195,6 +195,17 @@ MIGRATIONS: list[str] = [
       doc_type UNINDEXED, doc_id UNINDEXED, title, body, tokenize = 'porter unicode61'
     );
     """,
+    # 2: assessments, shortlist, run archive pointer
+    """
+    CREATE TABLE opportunity_assessment(
+      opp_id TEXT PRIMARY KEY, status TEXT, reasons_json TEXT, fit REAL, profile_hash TEXT, computed_at TEXT
+    );
+    CREATE TABLE shortlist(
+      opp_id TEXT PRIMARY KEY, added_at TEXT, note TEXT, origin TEXT
+    );
+    ALTER TABLE sim_run ADD COLUMN archive_path TEXT;
+    ALTER TABLE sim_run ADD COLUMN status TEXT DEFAULT 'done';
+    """,
 ]
 
 
