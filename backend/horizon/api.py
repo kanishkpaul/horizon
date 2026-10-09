@@ -487,6 +487,25 @@ def add_forecast(body: dict = Body(...)):
     return _json(upsert_forecast(con(), body))
 
 
+# ------------------------------------------------------------------ theater
+@app.get("/api/theater/worlds")
+def theater_worlds(run: str, strategy: str):
+    from .theater import worlds_summary
+    r = S.get_run(con(), run)
+    if not r or strategy not in r["strategy_results"]:
+        raise HTTPException(404)
+    return _json(worlds_summary(r, strategy))
+
+
+@app.get("/api/theater/spec")
+def theater_spec(run: str, strategy: str, world: int = 0):
+    from .theater import build_spec
+    try:
+        return _json(build_spec(con(), run, strategy, world))
+    except KeyError as e:
+        raise HTTPException(404, str(e))
+
+
 # ------------------------------------------------------------------ media
 @app.get("/api/media")
 def media_list():

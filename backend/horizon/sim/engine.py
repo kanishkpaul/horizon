@@ -52,6 +52,7 @@ class Scenario:
     independent_outcomes: bool = False
     allow_relocation: bool = True
     param_overrides: dict = field(default_factory=dict)
+    effort_overrides: dict = field(default_factory=dict)   # action id -> [low, mode, high] hours
     disruption_hours_factor: float = 0.4
 
     @classmethod
@@ -172,7 +173,7 @@ class Simulator:
         return stream(self.seed, "u", *[str(k) for k in key]).random(self.n)
 
     def _effort(self, a: Action) -> np.ndarray:
-        lo, mo, hi = a.effort
+        lo, mo, hi = self.sc.effort_overrides.get(a.id, a.effort)
         base = stream(self.seed, "effort", a.id).triangular(lo, mo, hi, self.n) if hi > lo else np.full(self.n, lo)
         gsd = float(self.P["effort_noise_gsd"][0]) if "effort_noise_gsd" in self.m.params else 1.0
         noise = np.exp(stream(self.seed, "effort_noise", a.id).normal(0.0, math.log(gsd), self.n) - 0.5 * math.log(gsd) ** 2)

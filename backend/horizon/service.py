@@ -330,7 +330,8 @@ def objective(con, oid: str) -> dict:
 
 # ------------------------------------------------------------------ simulation runs
 SCENARIO_FIELDS = ("weekly_hours", "ai_multiplier", "effort_bias", "sustainable_cap", "switch_cost", "focus_k",
-                   "factor_corr", "independent_outcomes", "allow_relocation", "param_overrides", "academic")
+                   "factor_corr", "independent_outcomes", "allow_relocation", "param_overrides", "academic",
+                   "effort_overrides")
 
 
 def make_scenario(spec: dict | None) -> Scenario:
