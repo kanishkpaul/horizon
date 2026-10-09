@@ -12,3 +12,4 @@ media/renders/
 frontend/dist/
 *.log
 .DS_Store
+.gstack/

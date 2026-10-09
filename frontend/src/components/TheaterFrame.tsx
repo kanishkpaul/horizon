@@ -28,17 +28,23 @@ export function sceneAt(spec: any, t: number) {
 
 const GOOD = /accepted|offer|merged|selected|endorsed|award|grant|passes|joint|useful|placement|traction|reply|uptake|used or cited/i;
 
-export function TheaterFrame({ spec, t, onLane, compact = false }: { spec: any; t: number; onLane?: (id: string) => void; compact?: boolean }) {
+export function TheaterFrame({ spec, t, onLane, compact = false, sceneIndex }: { spec: any; t: number; onLane?: (id: string) => void; compact?: boolean; sceneIndex?: number }) {
   const T = spec.horizon_weeks;
   const L = { l: 300, r: 330, t: 92, b: 132 };
   const x = d3.scaleLinear().domain([0, T]).range([L.l, FW - L.r]);
-  const lanes = spec.lanes as any[];
+  const MAX_LANES = 20;
+  const allLanes = spec.lanes as any[];
+  const important = new Set((spec.events as Ev[]).filter((e) => e.action && (e.type === "offer" || e.type === "missed" || (e.type === "outcome" && (e as any).success))).map((e) => e.action));
+  const keep = allLanes.length <= MAX_LANES ? allLanes
+    : [...allLanes.filter((l) => important.has(l.id)), ...allLanes.filter((l) => !important.has(l.id))].slice(0, MAX_LANES);
+  const lanes = allLanes.filter((l) => keep.includes(l));
+  const hidden = allLanes.length - lanes.length;
   const laneH = Math.min(26, (FH - L.t - L.b) / Math.max(lanes.length, 1));
   const st = laneStates(spec, t);
   const start = new Date(spec.start_date + "T00:00:00+05:30");
   const months = d3.timeMonth.range(d3.timeMonth.ceil(start), d3.timeWeek.offset(start, T));
   const wk = (d: Date) => (d.getTime() - start.getTime()) / (7 * 864e5);
-  const scene = sceneAt(spec, t);
+  const scene = sceneIndex != null ? spec.scenes[sceneIndex] : sceneAt(spec, t);
   const evNow = (spec.events as Ev[]).filter((e) => e.week <= t);
   const offers = evNow.filter((e) => e.type === "offer");
   const rules = (spec.events as Ev[]).filter((e) => e.type === "rule" || e.type === "exogenous");
@@ -70,7 +76,15 @@ export function TheaterFrame({ spec, t, onLane, compact = false }: { spec: any; 
         </g>
       ))}
       <line x1={x(spec.graduation_week)} x2={x(spec.graduation_week)} y1={L.t - 6} y2={L.t + lanes.length * laneH} stroke="var(--ink-3)" strokeDasharray="4 4" />
-      <text x={x(spec.graduation_week) + 4} y={L.t + lanes.length * laneH + 14} style={{ font: "11px var(--sans)", fill: "var(--ink-3)" }}>graduation</text>
+      <text x={x(spec.graduation_week) + 4} y={L.t + 10} style={{ font: "11px var(--sans)", fill: "var(--ink-3)" }}>graduation</text>
+      {hidden > 0 && (
+        <text x={L.l - 12} y={L.t + lanes.length * laneH + 16} textAnchor="end" style={{ font: "italic 11px var(--sans)", fill: "var(--ink-3)" }}>+{hidden} quieter actions not drawn</text>
+      )}
+      {!compact && (
+        <text x={L.l} y={L.t + lanes.length * laneH + 16} style={{ font: "11px var(--sans)", fill: "var(--ink-3)" }}>
+          bar = action in progress (blue) or done (grey) · ● result · ○ no result · ◆ offer · ▽ deadline · ✕ missed · purple line = policy rule · orange dashed = outside event
+        </text>
+      )}
 
       {/* rules and outside events (all, faint until reached) */}
       {rules.map((e, i) => (
@@ -102,7 +116,7 @@ export function TheaterFrame({ spec, t, onLane, compact = false }: { spec: any; 
             )}
             {missed && <text x={x(s.missed!) + 6} y={y + laneH / 2 + 4} style={{ font: "600 11px var(--sans)", fill: "var(--bad)" }}>✕ missed</text>}
             {s.results.map((r, j) => {
-              const good = r.type === "offer" || GOOD.test(r.label);
+              const good = r.type === "offer" || ((r as any).success ?? GOOD.test(r.label));
               const cx = x(r.week);
               const cy = y + laneH / 2;
               return r.type === "offer"
@@ -120,7 +134,8 @@ export function TheaterFrame({ spec, t, onLane, compact = false }: { spec: any; 
       <g transform={`translate(${FW - L.r + 34}, ${L.t})`}>
         <text style={{ font: "600 12px var(--sans)", fill: "var(--ink-2)", letterSpacing: "0.04em" }}>IN THIS WORLD, SO FAR</text>
         <text y={30} style={{ font: "500 15px var(--sans)", fill: "var(--ink)" }}>{offers.length} offer{offers.length === 1 ? "" : "s"}{offers.length ? ":" : ""}</text>
-        {offers.slice(0, 4).map((o, i) => <text key={i} y={52 + i * 19} style={{ font: "13px var(--sans)", fill: "var(--ink)" }}>◆ {o.label.replace(/_/g, " ")}</text>)}
+        {Object.entries(offers.reduce((m: Record<string, number>, o) => ({ ...m, [o.label]: (m[o.label] || 0) + 1 }), {})).slice(0, 4).map(([lab, n], i) => (
+          <text key={lab} y={52 + i * 19} style={{ font: "13px var(--sans)", fill: "var(--ink)" }}>◆ {lab.replace(/_/g, " ")}{n > 1 ? ` ×${n}` : ""}</text>))}
         <text y={140} style={{ font: "14px var(--sans)", fill: "var(--ink)" }}>{counts.papers} paper acceptance{counts.papers === 1 ? "" : "s"}</text>
         <text y={162} style={{ font: "14px var(--sans)", fill: "var(--ink)" }}>{counts.outputs} public output{counts.outputs === 1 ? "" : "s"} shipped</text>
         <text y={184} style={{ font: "14px var(--sans)", fill: "var(--ink)" }}>{evNow.filter((e) => e.type === "missed").length} deadline{evNow.filter((e) => e.type === "missed").length === 1 ? "" : "s"} missed</text>
@@ -145,11 +160,6 @@ export function TheaterFrame({ spec, t, onLane, compact = false }: { spec: any; 
       <text x={40} y={FH - 14} style={{ font: "11px var(--mono)", fill: "var(--ink-3)" }}>
         Simulated sample, not a prediction · run {spec.run_id} · model {spec.model_fingerprint} · data {spec.dataset_version} · seed {spec.seed}
       </text>
-      {!compact && (
-        <g transform={`translate(${FW - 40}, ${FH - 14})`}>
-          <text textAnchor="end" style={{ font: "11px var(--sans)", fill: "var(--ink-3)" }}>bar = action in progress · ● result · ◆ offer · ✕ missed · purple line = policy rule · dashed = outside event</text>
-        </g>
-      )}
     </svg>
   );
 }

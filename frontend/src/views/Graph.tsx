@@ -1,4 +1,7 @@
 import cytoscape from "cytoscape";
+// @ts-ignore no bundled types
+import dagre from "cytoscape-dagre";
+cytoscape.use(dagre);
 import { useEffect, useRef, useState } from "react";
 import { useApi } from "../lib/api";
 import { useStore } from "../lib/store";
@@ -49,11 +52,12 @@ export function Graph() {
     }
     cy.current?.destroy();
     const c = cytoscape({
-      container: box.current, elements: els, wheelSensitivity: 0.25,
+      container: box.current, elements: els,
       style: [
         { selector: "node", style: { "background-color": "data(color)", width: "data(size)", height: "data(size)", label: "data(label)",
           "font-size": 9, color: cssVar("--ink-2"), "font-family": "Instrument Sans Variable, system-ui", "text-valign": "bottom",
-          "text-margin-y": 3, "text-wrap": "ellipsis", "text-max-width": "120px", "min-zoomed-font-size": 7 } as any },
+          "text-margin-y": 3, "text-wrap": "ellipsis", "text-max-width": mode === "unlocks" ? "150px" : "120px", "min-zoomed-font-size": 7 } as any },
+        ...(mode === "unlocks" ? [{ selector: "node", style: { "text-valign": "center", "text-halign": "right", "text-margin-x": 6, "text-margin-y": 0, "font-size": 12, "min-zoomed-font-size": 0, width: 12, height: 12 } as any }] : []),
         { selector: "node[kind = 'self']", style: { "font-size": 12, "font-weight": 600, color: cssVar("--ink") } as any },
         { selector: "node[kind = 'token']", style: { shape: "diamond" } },
         { selector: "node[kind = 'offer']", style: { shape: "round-rectangle" } },
@@ -64,7 +68,7 @@ export function Graph() {
         { selector: ":selected", style: { "border-width": 3, "border-color": cssVar("--focus") } as any },
       ],
       layout: mode === "unlocks"
-        ? ({ name: "breadthfirst", directed: true, spacingFactor: 1.05, padding: 20 } as any)
+        ? ({ name: "dagre", rankDir: "LR", nodeSep: 8, rankSep: 230, padding: 10 } as any)
         : ({ name: "cose", animate: false, nodeRepulsion: 9000, idealEdgeLength: 60, padding: 20 } as any),
     });
     c.on("tap", "node", (e) => {

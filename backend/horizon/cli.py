@@ -61,10 +61,14 @@ def main(argv=None):
         print("warnings:", *r["warnings"], sep="\n  ")
         print("run id:", r["id"])
     elif a.cmd == "eval-search":
-        from .search_eval import QRELS
-        res = search.evaluate_retrieval(con, QRELS)
+        from .search_eval import resolve
+        qrels = resolve(con)
+        res = search.evaluate_retrieval(con, qrels)
         for m, v in res.items():
             print(m, {k: round(x, 3) for k, x in v.items() if k != "per_query"})
+        for i, q in enumerate(qrels):
+            print(f"  {q['query'][:48]:48s} rel={len(q['relevant']):3d} " +
+                  " ".join(f"{m}={res[m]['per_query'][i]['ndcg']:.2f}" for m in res))
     return 0
 
 

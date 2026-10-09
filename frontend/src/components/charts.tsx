@@ -190,14 +190,16 @@ export function DotRange({ rows, fmt = d3.format(".2f"), label, height }: {
   const tip = useTip();
   const rh = 26;
   const H = height ?? rows.length * rh + 26;
-  const m = { l: 168, r: 56, t: 6, b: 20 };
+  const m = { l: 190, r: 56, t: 6, b: 20 };
   const lo = d3.min(rows, (r) => r.lo) ?? 0, hi = d3.max(rows, (r) => r.hi) ?? 1;
   const x = d3.scaleLinear().domain([Math.min(0, lo), hi === lo ? hi + 1 : hi]).nice().range([m.l, w - m.r]);
+  const nt = Math.max(2, Math.floor((w - m.l - m.r) / 70));
+  const tickFmt = (v: number) => (fmt(v).length > 5 ? d3.format("~g")(v) : fmt(v));
   return (
     <div ref={ref} className="chart">
       <svg width={w} height={H} role="img" aria-label={label}>
-        <g className="grid">{x.ticks(5).map((t) => <line key={t} x1={x(t)} x2={x(t)} y1={m.t} y2={H - m.b} />)}</g>
-        {x.ticks(5).map((t) => <text key={t} x={x(t)} y={H - 6} textAnchor="middle">{fmt(t)}</text>)}
+        <g className="grid">{x.ticks(nt).map((t) => <line key={t} x1={x(t)} x2={x(t)} y1={m.t} y2={H - m.b} />)}</g>
+        {x.ticks(nt).map((t) => <text key={t} x={x(t)} y={H - 6} textAnchor="middle">{tickFmt(t)}</text>)}
         {rows.map((r, i) => {
           const cy = m.t + i * rh + rh / 2;
           return (
@@ -205,7 +207,7 @@ export function DotRange({ rows, fmt = d3.format(".2f"), label, height }: {
               onMouseMove={(e) => tip.show(e, <><b>{r.name}</b><div className="num">mean {fmt(r.mean)} · 10–90%: {fmt(r.lo)} to {fmt(r.hi)}</div>{r.note && <div>{r.note}</div>}</>)}
               onMouseLeave={tip.hide}>
               <rect x={0} y={cy - rh / 2} width={w} height={rh} fill="transparent" />
-              <text x={m.l - 10} y={cy + 4} textAnchor="end" className="lbl">{r.name.slice(0, 24)}</text>
+              <text x={m.l - 10} y={cy + 4} textAnchor="end" className="lbl">{r.name.length > 28 ? r.name.slice(0, 27) + "…" : r.name}</text>
               <line x1={x(r.lo)} x2={x(r.hi)} y1={cy} y2={cy} stroke={r.color} strokeWidth={2} strokeLinecap="round" />
               <circle cx={x(r.mean)} cy={cy} r={5} fill={r.color} stroke="var(--panel-2)" strokeWidth={2} />
               <text x={w - m.r + 8} y={cy + 4} className="num" style={{ fill: "var(--ink-2)" }}>{fmt(r.mean)}</text>
@@ -265,7 +267,17 @@ export function Scatter({ points, xLabel, yLabel, xFmt = d3.format(".2f"), yFmt 
   const m = { l: 48, r: 20, t: 14, b: 36 };
   const x = d3.scaleLinear().domain(d3.extent(points, (p) => p.x) as [number, number]).nice().range([m.l, w - m.r]);
   const y = d3.scaleLinear().domain(d3.extent(points, (p) => p.y) as [number, number]).nice().range([H - m.b, m.t]);
-  const fp = points.filter((p) => front.includes(p.id)).sort((a, b) => a.x - b.x);
+  // 2-D front for the two metrics on screen (both "more is better" unless flipped by caller via negation)
+  const fp = points.filter((p) => !points.some((q) => q !== p && q.x >= p.x && q.y >= p.y && (q.x > p.x || q.y > p.y))).sort((a, b) => a.x - b.x);
+  // simple label de-collision
+  const placed: { x: number; y: number }[] = [];
+  const labelY: Record<string, number> = {};
+  [...points].sort((a, b) => y(a.y) - y(b.y)).forEach((p) => {
+    let ly = y(p.y) - 6;
+    while (placed.some((q) => Math.abs(q.x - x(p.x)) < 110 && Math.abs(q.y - ly) < 12)) ly += 12;
+    placed.push({ x: x(p.x), y: ly });
+    labelY[p.id] = ly;
+  });
   return (
     <div ref={ref} className="chart">
       <svg width={w} height={H} role="img" aria-label={`${yLabel} against ${xLabel}`}>
@@ -278,8 +290,8 @@ export function Scatter({ points, xLabel, yLabel, xFmt = d3.format(".2f"), yFmt 
         {points.map((p) => (
           <g key={p.id} onMouseMove={(e) => tip.show(e, <><b>{p.name}</b><div className="num">{xLabel}: {xFmt(p.x)}</div><div className="num">{yLabel}: {yFmt(p.y)}</div>{front.includes(p.id) && <div>On the Pareto front</div>}</>)} onMouseLeave={tip.hide}>
             <circle cx={x(p.x)} cy={y(p.y)} r={12} fill="transparent" />
-            <circle cx={x(p.x)} cy={y(p.y)} r={front.includes(p.id) ? 6 : 4.5} fill={p.color} stroke="var(--panel-2)" strokeWidth={2} strokeDasharray={p.dashed ? "2 2" : undefined} />
-            <text x={x(p.x) + 8} y={y(p.y) - 6} className="lbl" style={{ fontSize: 10.5 }}>{p.name.slice(0, 20)}</text>
+            <circle cx={x(p.x)} cy={y(p.y)} r={front.includes(p.id) ? 6.5 : 4} fill={p.color} stroke="var(--panel-2)" strokeWidth={2} strokeDasharray={p.dashed ? "2 2" : undefined} />
+            <text x={x(p.x) + 8} y={labelY[p.id]} className="lbl" style={{ fontSize: 10.5 }}>{p.name.length > 22 ? p.name.slice(0, 21) + "…" : p.name}</text>
           </g>
         ))}
       </svg>

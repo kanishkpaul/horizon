@@ -18,6 +18,7 @@ DEFAULT_SCENARIOS = [
      "param_overrides": {"bonus_peer_reviewed": 0, "bonus_preprint": 0, "bonus_referral": 0, "bonus_artifact": 0,
                          "bonus_targeted_demo": 0}},
     {"name": "no relocation", "preset": "central", "allow_relocation": False},
+    {"name": "quality dilution", "preset": "central", "breadth_penalty": 0.15},
 ]
 
 

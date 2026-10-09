@@ -578,4 +578,5 @@ if DIST.exists():
         f = DIST / path
         if path and f.exists() and f.is_file():
             return FileResponse(f)
-        return FileResponse(DIST / "index.html")
+        # index.html must never be cached: it names the current hashed bundles
+        return FileResponse(DIST / "index.html", headers={"Cache-Control": "no-cache"})

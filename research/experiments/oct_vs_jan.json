@@ -1,0 +1,536 @@
+{
+ "balanced": {
+  "objective_id": "balanced",
+  "n_worlds": 4000,
+  "expected_scores": {
+   "central (\u224832 h left, unvalidated)": {
+    "disc_jan": 9.983895327886094,
+    "disc_oct": 9.714272657936737,
+    "barbell": 7.951638535990176,
+    "creation_portfolio": 7.3481177710471455
+   },
+   "near done but unvalidated (6\u201316 h)": {
+    "disc_jan": 9.983895327886094,
+    "disc_oct": 9.938644326538766,
+    "barbell": 8.548794811586584,
+    "creation_portfolio": 7.708908890712629
+   },
+   "near done and validated (6\u201316 h, no rush penalty)": {
+    "disc_oct": 10.052737219281749,
+    "disc_jan": 9.983895327886094,
+    "barbell": 8.625244811586585,
+    "creation_portfolio": 7.786533890712628
+   },
+   "far (40\u201390 h)": {
+    "disc_jan": 9.983895327886094,
+    "disc_oct": 9.670979598708737,
+    "barbell": 7.866624838393419,
+    "creation_portfolio": 7.294271757632538
+   },
+   "near done, validated, adverse hours": {
+    "disc_oct": 8.805112823073957,
+    "disc_jan": 8.571434502280974,
+    "barbell": 7.779968768559375,
+    "creation_portfolio": 6.852093858368579
+   }
+  },
+  "regret": {
+   "scenarios": [
+    "central (\u224832 h left, unvalidated)",
+    "near done but unvalidated (6\u201316 h)",
+    "near done and validated (6\u201316 h, no rush penalty)",
+    "far (40\u201390 h)",
+    "near done, validated, adverse hours"
+   ],
+   "regret": {
+    "disc_jan": {
+     "central (\u224832 h left, unvalidated)": 0.0,
+     "near done but unvalidated (6\u201316 h)": 0.0,
+     "near done and validated (6\u201316 h, no rush penalty)": 0.068841891395655,
+     "far (40\u201390 h)": 0.0,
+     "near done, validated, adverse hours": 0.23367832079298267
+    },
+    "disc_oct": {
+     "central (\u224832 h left, unvalidated)": 0.26962266994935646,
+     "near done but unvalidated (6\u201316 h)": 0.04525100134732796,
+     "near done and validated (6\u201316 h, no rush penalty)": 0.0,
+     "far (40\u201390 h)": 0.312915729177357,
+     "near done, validated, adverse hours": 0.0
+    },
+    "barbell": {
+     "central (\u224832 h left, unvalidated)": 2.032256791895918,
+     "near done but unvalidated (6\u201316 h)": 1.43510051629951,
+     "near done and validated (6\u201316 h, no rush penalty)": 1.4274924076951638,
+     "far (40\u201390 h)": 2.1172704894926744,
+     "near done, validated, adverse hours": 1.0251440545145822
+    },
+    "creation_portfolio": {
+     "central (\u224832 h left, unvalidated)": 2.6357775568389483,
+     "near done but unvalidated (6\u201316 h)": 2.2749864371734647,
+     "near done and validated (6\u201316 h, no rush penalty)": 2.266203328569121,
+     "far (40\u201390 h)": 2.6896235702535556,
+     "near done, validated, adverse hours": 1.953018964705378
+    }
+   },
+   "max_regret": {
+    "disc_jan": 0.23367832079298267,
+    "disc_oct": 0.312915729177357,
+    "barbell": 2.1172704894926744,
+    "creation_portfolio": 2.6896235702535556
+   },
+   "minimax_choice": "disc_jan",
+   "order": [
+    "disc_jan",
+    "disc_oct",
+    "barbell",
+    "creation_portfolio"
+   ]
+  },
+  "detail": {
+   "central (\u224832 h left, unvalidated)": {
+    "ranking": [
+     {
+      "strategy": "disc_jan",
+      "score": 9.983895327886094,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "disc_oct",
+      "score": 9.714272657936737,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "barbell",
+      "score": 7.951638535990176,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.3481177710471455,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.93325,
+     "disc_oct": 0.93275,
+     "barbell": 0.904,
+     "creation_portfolio": 0.8725
+    }
+   },
+   "near done but unvalidated (6\u201316 h)": {
+    "ranking": [
+     {
+      "strategy": "disc_jan",
+      "score": 9.983895327886094,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "disc_oct",
+      "score": 9.938644326538766,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "barbell",
+      "score": 8.548794811586584,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.708908890712629,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.93325,
+     "disc_oct": 0.93875,
+     "barbell": 0.90275,
+     "creation_portfolio": 0.871
+    }
+   },
+   "near done and validated (6\u201316 h, no rush penalty)": {
+    "ranking": [
+     {
+      "strategy": "disc_oct",
+      "score": 10.052737219281749,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "disc_jan",
+      "score": 9.983895327886094,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "barbell",
+      "score": 8.625244811586585,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.786533890712628,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.93325,
+     "disc_oct": 0.93875,
+     "barbell": 0.90275,
+     "creation_portfolio": 0.871
+    }
+   },
+   "far (40\u201390 h)": {
+    "ranking": [
+     {
+      "strategy": "disc_jan",
+      "score": 9.983895327886094,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "disc_oct",
+      "score": 9.670979598708737,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "barbell",
+      "score": 7.866624838393419,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.294271757632538,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.93325,
+     "disc_oct": 0.93225,
+     "barbell": 0.904,
+     "creation_portfolio": 0.87275
+    }
+   },
+   "near done, validated, adverse hours": {
+    "ranking": [
+     {
+      "strategy": "disc_oct",
+      "score": 8.805112823073957,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "disc_jan",
+      "score": 8.571434502280974,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "barbell",
+      "score": 7.779968768559375,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 6.852093858368579,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.8805,
+     "disc_oct": 0.884,
+     "barbell": 0.896,
+     "creation_portfolio": 0.84275
+    }
+   }
+  },
+  "scenarios": [
+   "central (\u224832 h left, unvalidated)",
+   "near done but unvalidated (6\u201316 h)",
+   "near done and validated (6\u201316 h, no rush penalty)",
+   "far (40\u201390 h)",
+   "near done, validated, adverse hours"
+  ]
+ },
+ "research_impact": {
+  "objective_id": "research_impact",
+  "n_worlds": 4000,
+  "expected_scores": {
+   "central (\u224832 h left, unvalidated)": {
+    "disc_jan": 8.360804166666666,
+    "disc_oct": 8.0879875,
+    "creation_portfolio": 7.5447291666666665,
+    "barbell": 6.622858333333333
+   },
+   "near done but unvalidated (6\u201316 h)": {
+    "disc_jan": 8.360804166666666,
+    "disc_oct": 8.259470833333333,
+    "creation_portfolio": 7.953983333333333,
+    "barbell": 7.4165375000000004
+   },
+   "near done and validated (6\u201316 h, no rush penalty)": {
+    "disc_oct": 8.471554166666667,
+    "disc_jan": 8.360804166666666,
+    "creation_portfolio": 8.106233333333334,
+    "barbell": 7.5668625
+   },
+   "far (40\u201390 h)": {
+    "disc_jan": 8.360804166666666,
+    "disc_oct": 8.0691875,
+    "creation_portfolio": 7.504158333333334,
+    "barbell": 6.533533333333334
+   },
+   "near done, validated, adverse hours": {
+    "disc_oct": 7.2033125,
+    "creation_portfolio": 7.1278041666666665,
+    "disc_jan": 6.911133333333333,
+    "barbell": 6.466945833333333
+   }
+  },
+  "regret": {
+   "scenarios": [
+    "central (\u224832 h left, unvalidated)",
+    "near done but unvalidated (6\u201316 h)",
+    "near done and validated (6\u201316 h, no rush penalty)",
+    "far (40\u201390 h)",
+    "near done, validated, adverse hours"
+   ],
+   "regret": {
+    "disc_jan": {
+     "central (\u224832 h left, unvalidated)": 0.0,
+     "near done but unvalidated (6\u201316 h)": 0.0,
+     "near done and validated (6\u201316 h, no rush penalty)": 0.11075000000000124,
+     "far (40\u201390 h)": 0.0,
+     "near done, validated, adverse hours": 0.2921791666666671
+    },
+    "disc_oct": {
+     "central (\u224832 h left, unvalidated)": 0.2728166666666656,
+     "near done but unvalidated (6\u201316 h)": 0.10133333333333283,
+     "near done and validated (6\u201316 h, no rush penalty)": 0.0,
+     "far (40\u201390 h)": 0.2916166666666662,
+     "near done, validated, adverse hours": 0.0
+    },
+    "creation_portfolio": {
+     "central (\u224832 h left, unvalidated)": 0.8160749999999997,
+     "near done but unvalidated (6\u201316 h)": 0.40682083333333274,
+     "near done and validated (6\u201316 h, no rush penalty)": 0.36532083333333354,
+     "far (40\u201390 h)": 0.8566458333333324,
+     "near done, validated, adverse hours": 0.07550833333333351
+    },
+    "barbell": {
+     "central (\u224832 h left, unvalidated)": 1.7379458333333329,
+     "near done but unvalidated (6\u201316 h)": 0.9442666666666657,
+     "near done and validated (6\u201316 h, no rush penalty)": 0.9046916666666673,
+     "far (40\u201390 h)": 1.8272708333333325,
+     "near done, validated, adverse hours": 0.7363666666666671
+    }
+   },
+   "max_regret": {
+    "disc_jan": 0.2921791666666671,
+    "disc_oct": 0.2916166666666662,
+    "creation_portfolio": 0.8566458333333324,
+    "barbell": 1.8272708333333325
+   },
+   "minimax_choice": "disc_oct",
+   "order": [
+    "disc_oct",
+    "disc_jan",
+    "creation_portfolio",
+    "barbell"
+   ]
+  },
+  "detail": {
+   "central (\u224832 h left, unvalidated)": {
+    "ranking": [
+     {
+      "strategy": "disc_jan",
+      "score": 8.360804166666666,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "disc_oct",
+      "score": 8.0879875,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.5447291666666665,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "barbell",
+      "score": 6.622858333333333,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.93325,
+     "disc_oct": 0.93275,
+     "barbell": 0.904,
+     "creation_portfolio": 0.8725
+    }
+   },
+   "near done but unvalidated (6\u201316 h)": {
+    "ranking": [
+     {
+      "strategy": "disc_jan",
+      "score": 8.360804166666666,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "disc_oct",
+      "score": 8.259470833333333,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.953983333333333,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "barbell",
+      "score": 7.4165375000000004,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.93325,
+     "disc_oct": 0.93875,
+     "barbell": 0.90275,
+     "creation_portfolio": 0.871
+    }
+   },
+   "near done and validated (6\u201316 h, no rush penalty)": {
+    "ranking": [
+     {
+      "strategy": "disc_oct",
+      "score": 8.471554166666667,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "disc_jan",
+      "score": 8.360804166666666,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 8.106233333333334,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "barbell",
+      "score": 7.5668625,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.93325,
+     "disc_oct": 0.93875,
+     "barbell": 0.90275,
+     "creation_portfolio": 0.871
+    }
+   },
+   "far (40\u201390 h)": {
+    "ranking": [
+     {
+      "strategy": "disc_jan",
+      "score": 8.360804166666666,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "disc_oct",
+      "score": 8.0691875,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.504158333333334,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "barbell",
+      "score": 6.533533333333334,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.93325,
+     "disc_oct": 0.93225,
+     "barbell": 0.904,
+     "creation_portfolio": 0.87275
+    }
+   },
+   "near done, validated, adverse hours": {
+    "ranking": [
+     {
+      "strategy": "disc_oct",
+      "score": 7.2033125,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.1278041666666665,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "disc_jan",
+      "score": 6.911133333333333,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "barbell",
+      "score": 6.466945833333333,
+      "feasible": true,
+      "rank": 4
+     }
+    ],
+    "position_by_grad": {
+     "disc_jan": 0.8805,
+     "disc_oct": 0.884,
+     "barbell": 0.896,
+     "creation_portfolio": 0.84275
+    }
+   }
+  },
+  "scenarios": [
+   "central (\u224832 h left, unvalidated)",
+   "near done but unvalidated (6\u201316 h)",
+   "near done and validated (6\u201316 h, no rush penalty)",
+   "far (40\u201390 h)",
+   "near done, validated, adverse hours"
+  ]
+ }
+}

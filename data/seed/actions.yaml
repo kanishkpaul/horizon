@@ -81,6 +81,28 @@ actions:
             metrics: {peer_reviewed: 1}
         otherwise: {label: Not accepted, tokens: {reg_rejected: 1}}
 
+  - id: reg_paper_resubmit
+    name: Revise the register paper after reviews and resubmit (later ARR cycle or commit reviews to ACL 2027)
+    kind: research
+    effort: [15, 30, 60]
+    automatable: 0.35
+    requires: {token: reg_rejected, op: ">=", value: 1}
+    deadline: "2027-06-15T11:59:00Z"
+    deadline_basis: assumed
+    stages:
+      - name: Second review round
+        delay: delay_arr_decision
+        outcomes:
+          - label: Accepted to main conference
+            p: {base: p_arr_main, shifts: [{param: bonus_revision, token: reg_rejected, cap: 1}], factors: {portfolio: 0.15}}
+            tokens: {peer_reviewed: 1, reg_accepted: 1}
+            metrics: {peer_reviewed: 1, ties: 1}
+          - label: Accepted to Findings
+            p: {base: p_arr_findings_given_not_main, shifts: [{param: bonus_revision, token: reg_rejected, cap: 1}]}
+            tokens: {peer_reviewed: 1, reg_accepted: 1}
+            metrics: {peer_reviewed: 1}
+        otherwise: {label: Not accepted}
+
   - id: arxiv_endorsement
     name: Secure an arXiv endorsement (ask a co-author with endorsement rights)
     kind: admin

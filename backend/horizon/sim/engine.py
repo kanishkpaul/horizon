@@ -53,6 +53,7 @@ class Scenario:
     allow_relocation: bool = True
     param_overrides: dict = field(default_factory=dict)
     effort_overrides: dict = field(default_factory=dict)   # action id -> [low, mode, high] hours
+    breadth_penalty: float = 0.0   # logit penalty per open commitment beyond focus_k when an outcome is set (quality dilution)
     disruption_hours_factor: float = 0.4
 
     @classmethod
@@ -159,6 +160,7 @@ class Simulator:
         overrides = dict(scenario.param_overrides)
         self.P = ParamSet(model.params, seed, n_worlds, overrides)
         self.z = self._factors()
+        self._open = None  # open commitments per world (started, not finished), for quality dilution
 
     # ---- shared randomness (identical across strategies with the same seed) ----
     def _factors(self) -> dict[str, np.ndarray]:
@@ -198,6 +200,8 @@ class Simulator:
         if not self.sc.independent_outcomes:
             for f, load in ps.factors.items():
                 x = x + self.P.value_or_param(load) * self.z[f]
+        if self.sc.breadth_penalty and self._open is not None:
+            x = x - self.sc.breadth_penalty * np.maximum(self._open - self.sc.focus_k, 0)
         return sigmoid(x)
 
     # ---- main loop ----
@@ -314,7 +318,7 @@ class Simulator:
                     if hit.any():
                         apply_outcome(ai, o, hit, mult, now_week + 0.5)
                         S.outcome_hits[(ai, si, oi)] = S.outcome_hits.get((ai, si, oi), np.zeros(n, bool)) | hit
-                        log(hit, now_week + 0.5, "outcome", a, o.label, {"stage": st.name})
+                        log(hit, now_week + 0.5, "outcome", a, o.label, {"stage": st.name, "success": True})
                         if any(k == "offer" for k in o.metrics):
                             log(hit, now_week + 0.5, "offer", a, o.metrics["offer"])
                     any_hit |= hit
@@ -324,7 +328,7 @@ class Simulator:
                 if miss.any():
                     apply_outcome(ai, st.otherwise, miss, np.ones(n), now_week + 0.5)
                     S.outcome_hits[(ai, si, -1)] = S.outcome_hits.get((ai, si, -1), np.zeros(n, bool)) | miss
-                    log(miss, now_week + 0.5, "outcome", a, st.otherwise.label, {"stage": st.name})
+                    log(miss, now_week + 0.5, "outcome", a, st.otherwise.label, {"stage": st.name, "success": False})
                 S.stage[ai][mask] = -1
                 S.stage_due[ai][mask] = np.inf
                 if si + 1 < len(a.stages) and continue_mask.any():
@@ -445,6 +449,7 @@ class Simulator:
                                 S.status[j] = np.where(drop, DROPPED, S.status[j])
                     if a.stages:
                         schedule_stage(i, 0, done, when)
+            self._open = ((S.status == ACTIVE).sum(axis=0)).astype(float)
             # 5. missed deadlines
             for i in live:
                 a = acts[i]

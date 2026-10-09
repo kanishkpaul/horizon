@@ -1,0 +1,3619 @@
+{
+ "generated": "2026-10-09 17:59",
+ "n_worlds": 4000,
+ "seed": 20261009,
+ "base_central_balanced": {
+  "run_id": "RUN-20261009-180000-66c6",
+  "ranking": [
+   {
+    "strategy": "barbell",
+    "score": 7.695,
+    "se": 0.033,
+    "feasible": true,
+    "position_by_grad": 0.901,
+    "peer_reviewed": 0.559,
+    "public_outputs": 4.76,
+    "optionality": 3.32,
+    "autonomy": 2.38,
+    "best_comp_p50": 19.3,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.93
+   },
+   {
+    "strategy": "max_parallel",
+    "score": 7.566,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.943,
+    "peer_reviewed": 0.142,
+    "public_outputs": 7.41,
+    "optionality": 4.07,
+    "autonomy": 2.59,
+    "best_comp_p50": 31.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 7.8
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 7.08,
+    "se": 0.032,
+    "feasible": true,
+    "position_by_grad": 0.875,
+    "peer_reviewed": 0.742,
+    "public_outputs": 6.07,
+    "optionality": 2.06,
+    "autonomy": 2.29,
+    "best_comp_p50": 16.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.66
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 6.933,
+    "se": 0.04,
+    "feasible": true,
+    "position_by_grad": 0.655,
+    "peer_reviewed": 0.796,
+    "public_outputs": 5.57,
+    "optionality": 2.44,
+    "autonomy": 2.35,
+    "best_comp_p50": 16.6,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.14
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 6.664,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.894,
+    "peer_reviewed": 0.28,
+    "public_outputs": 4.64,
+    "optionality": 3.11,
+    "autonomy": 2.38,
+    "best_comp_p50": 16.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 3.59
+   },
+   {
+    "strategy": "research_first",
+    "score": 6.298,
+    "se": 0.039,
+    "feasible": true,
+    "position_by_grad": 0.647,
+    "peer_reviewed": 0.595,
+    "public_outputs": 6.04,
+    "optionality": 2.51,
+    "autonomy": 2.4,
+    "best_comp_p50": 16.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 5.48
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 6.136,
+    "se": 0.031,
+    "feasible": true,
+    "position_by_grad": 0.879,
+    "peer_reviewed": 0.296,
+    "public_outputs": 3.79,
+    "optionality": 2.36,
+    "autonomy": 1.73,
+    "best_comp_p50": 23.6,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.99
+   },
+   {
+    "strategy": "founder",
+    "score": 4.529,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.778,
+    "peer_reviewed": 0.0,
+    "public_outputs": 1.0,
+    "optionality": 2.13,
+    "autonomy": 1.54,
+    "best_comp_p50": 15.2,
+    "founder_stage": 1.33,
+    "crunch_weeks": 0.51
+   },
+   {
+    "strategy": "conventional",
+    "score": 3.148,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.714,
+    "peer_reviewed": 0.0,
+    "public_outputs": 0.0,
+    "optionality": 1.28,
+    "autonomy": 1.57,
+    "best_comp_p50": 14.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.01
+   }
+  ],
+  "top_vs_runner_up": {
+   "top": "barbell",
+   "runner_up": "max_parallel",
+   "mean_diff": 0.1297695125013806,
+   "se": 0.02778631914649361,
+   "z": 4.670266393228136,
+   "p_world_top_better": 0.5385,
+   "resolved": true
+  },
+  "pareto_front": [
+   "research_first",
+   "research_engineer",
+   "founder",
+   "barbell",
+   "creation_portfolio",
+   "conventional",
+   "defer_depth",
+   "max_parallel"
+  ],
+  "voi_top": [
+   {
+    "param": "p_reply_faculty",
+    "origin": "expert_judgment",
+    "evppi": 0.09422928042289702,
+    "decision_sensitive": true
+   },
+   {
+    "param": "p_phd_admit",
+    "origin": "expert_judgment",
+    "evppi": 0.04667119772954539,
+    "decision_sensitive": true
+   },
+   {
+    "param": "continual_arc_code_available",
+    "origin": "unknown",
+    "evppi": 0.03847253356939354,
+    "decision_sensitive": true
+   },
+   {
+    "param": "p_tmlr_accept",
+    "origin": "expert_judgment",
+    "evppi": 0.0302208224515077,
+    "decision_sensitive": true
+   },
+   {
+    "param": "p_warm_collab",
+    "origin": "expert_judgment",
+    "evppi": 0.011047425066162075,
+    "decision_sensitive": true
+   },
+   {
+    "param": "bonus_skill_mlsys",
+    "origin": "expert_judgment",
+    "evppi": 0.01051099088344761,
+    "decision_sensitive": true
+   },
+   {
+    "param": "p_spar_accept",
+    "origin": "expert_judgment",
+    "evppi": 0.010398821634543717,
+    "decision_sensitive": true
+   },
+   {
+    "param": "comp_bigtech_lpa",
+    "origin": "illustrative_placeholder",
+    "evppi": 0.009396945525737813,
+    "decision_sensitive": true
+   }
+  ]
+ },
+ "by_value_model": {
+  "balanced": [
+   {
+    "strategy": "barbell",
+    "score": 7.695,
+    "feasible": true
+   },
+   {
+    "strategy": "max_parallel",
+    "score": 7.566,
+    "feasible": true
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 7.08,
+    "feasible": true
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 6.933,
+    "feasible": true
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 6.664,
+    "feasible": true
+   },
+   {
+    "strategy": "research_first",
+    "score": 6.298,
+    "feasible": true
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 6.136,
+    "feasible": true
+   },
+   {
+    "strategy": "founder",
+    "score": 4.529,
+    "feasible": true
+   },
+   {
+    "strategy": "conventional",
+    "score": 3.148,
+    "feasible": true
+   }
+  ],
+  "research_impact": [
+   {
+    "strategy": "defer_depth",
+    "score": 7.217,
+    "feasible": true
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 7.01,
+    "feasible": true
+   },
+   {
+    "strategy": "research_first",
+    "score": 6.565,
+    "feasible": true
+   },
+   {
+    "strategy": "barbell",
+    "score": 6.172,
+    "feasible": true
+   },
+   {
+    "strategy": "max_parallel",
+    "score": 5.552,
+    "feasible": true
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 4.986,
+    "feasible": true
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 4.118,
+    "feasible": true
+   },
+   {
+    "strategy": "founder",
+    "score": 1.612,
+    "feasible": true
+   },
+   {
+    "strategy": "conventional",
+    "score": 0.832,
+    "feasible": true
+   }
+  ],
+  "compensation": [
+   {
+    "strategy": "max_parallel",
+    "score": 4.328,
+    "feasible": true
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 3.891,
+    "feasible": true
+   },
+   {
+    "strategy": "barbell",
+    "score": 3.645,
+    "feasible": true
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 3.229,
+    "feasible": true
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 3.097,
+    "feasible": true
+   },
+   {
+    "strategy": "founder",
+    "score": 2.858,
+    "feasible": true
+   },
+   {
+    "strategy": "conventional",
+    "score": 2.638,
+    "feasible": true
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 2.626,
+    "feasible": true
+   },
+   {
+    "strategy": "research_first",
+    "score": 2.324,
+    "feasible": true
+   }
+  ],
+  "entrepreneurial": [
+   {
+    "strategy": "max_parallel",
+    "score": 2.898,
+    "feasible": true
+   },
+   {
+    "strategy": "founder",
+    "score": 2.858,
+    "feasible": true
+   },
+   {
+    "strategy": "barbell",
+    "score": 2.365,
+    "feasible": true
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 2.281,
+    "feasible": true
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 2.279,
+    "feasible": true
+   },
+   {
+    "strategy": "research_first",
+    "score": 1.853,
+    "feasible": true
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 1.84,
+    "feasible": true
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 1.616,
+    "feasible": true
+   },
+   {
+    "strategy": "conventional",
+    "score": 0.514,
+    "feasible": true
+   }
+  ],
+  "optionality": [
+   {
+    "strategy": "max_parallel",
+    "score": 8.075,
+    "feasible": true
+   },
+   {
+    "strategy": "barbell",
+    "score": 7.471,
+    "feasible": true
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 6.596,
+    "feasible": true
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 6.288,
+    "feasible": true
+   },
+   {
+    "strategy": "research_first",
+    "score": 6.198,
+    "feasible": true
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 6.03,
+    "feasible": true
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 5.307,
+    "feasible": true
+   },
+   {
+    "strategy": "founder",
+    "score": 3.97,
+    "feasible": true
+   },
+   {
+    "strategy": "conventional",
+    "score": 2.085,
+    "feasible": true
+   }
+  ],
+  "autonomy": [
+   {
+    "strategy": "creation_portfolio",
+    "score": 5.565,
+    "feasible": true
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 5.397,
+    "feasible": true
+   },
+   {
+    "strategy": "barbell",
+    "score": 5.15,
+    "feasible": true
+   },
+   {
+    "strategy": "research_first",
+    "score": 5.016,
+    "feasible": true
+   },
+   {
+    "strategy": "max_parallel",
+    "score": 4.968,
+    "feasible": true
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 4.781,
+    "feasible": true
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 4.008,
+    "feasible": true
+   },
+   {
+    "strategy": "founder",
+    "score": 2.609,
+    "feasible": true
+   },
+   {
+    "strategy": "conventional",
+    "score": 2.283,
+    "feasible": true
+   }
+  ],
+  "robust": [
+   {
+    "strategy": "max_parallel",
+    "score": 4.924,
+    "feasible": true
+   },
+   {
+    "strategy": "barbell",
+    "score": 4.657,
+    "feasible": true
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 4.057,
+    "feasible": true
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 3.927,
+    "feasible": true
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 3.079,
+    "feasible": true
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 3.05,
+    "feasible": false
+   },
+   {
+    "strategy": "research_first",
+    "score": 2.533,
+    "feasible": false
+   },
+   {
+    "strategy": "founder",
+    "score": 1.351,
+    "feasible": false
+   },
+   {
+    "strategy": "conventional",
+    "score": 0.078,
+    "feasible": false
+   }
+  ],
+  "upside_bounded": [
+   {
+    "strategy": "barbell",
+    "score": 10.238,
+    "feasible": true
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 9.422,
+    "feasible": true
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 8.671,
+    "feasible": true
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 8.383,
+    "feasible": true
+   },
+   {
+    "strategy": "founder",
+    "score": 6.141,
+    "feasible": true
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 9.904,
+    "feasible": false
+   },
+   {
+    "strategy": "max_parallel",
+    "score": 9.613,
+    "feasible": false
+   },
+   {
+    "strategy": "research_first",
+    "score": 9.222,
+    "feasible": false
+   },
+   {
+    "strategy": "conventional",
+    "score": 4.895,
+    "feasible": false
+   }
+  ]
+ },
+ "scenario_aggressive": {
+  "run_id": "RUN-20261009-180002-6b34",
+  "ranking": [
+   {
+    "strategy": "max_parallel",
+    "score": 8.364,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.947,
+    "peer_reviewed": 0.27,
+    "public_outputs": 8.59,
+    "optionality": 4.15,
+    "autonomy": 2.61,
+    "best_comp_p50": 31.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 4.94
+   },
+   {
+    "strategy": "barbell",
+    "score": 8.246,
+    "se": 0.032,
+    "feasible": true,
+    "position_by_grad": 0.903,
+    "peer_reviewed": 0.653,
+    "public_outputs": 5.16,
+    "optionality": 3.33,
+    "autonomy": 2.4,
+    "best_comp_p50": 19.3,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.47
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 7.423,
+    "se": 0.032,
+    "feasible": true,
+    "position_by_grad": 0.873,
+    "peer_reviewed": 0.777,
+    "public_outputs": 6.3,
+    "optionality": 2.07,
+    "autonomy": 2.29,
+    "best_comp_p50": 16.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.4
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 7.332,
+    "se": 0.027,
+    "feasible": true,
+    "position_by_grad": 0.893,
+    "peer_reviewed": 0.329,
+    "public_outputs": 5.12,
+    "optionality": 3.13,
+    "autonomy": 2.39,
+    "best_comp_p50": 16.6,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.47
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 7.002,
+    "se": 0.039,
+    "feasible": true,
+    "position_by_grad": 0.615,
+    "peer_reviewed": 0.815,
+    "public_outputs": 5.88,
+    "optionality": 2.33,
+    "autonomy": 2.27,
+    "best_comp_p50": 15.2,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.14
+   },
+   {
+    "strategy": "research_first",
+    "score": 6.663,
+    "se": 0.038,
+    "feasible": true,
+    "position_by_grad": 0.645,
+    "peer_reviewed": 0.456,
+    "public_outputs": 6.75,
+    "optionality": 2.48,
+    "autonomy": 2.39,
+    "best_comp_p50": 16.2,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.73
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 6.399,
+    "se": 0.031,
+    "feasible": true,
+    "position_by_grad": 0.872,
+    "peer_reviewed": 0.329,
+    "public_outputs": 4.02,
+    "optionality": 2.32,
+    "autonomy": 1.72,
+    "best_comp_p50": 23.0,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.9
+   },
+   {
+    "strategy": "founder",
+    "score": 4.631,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.777,
+    "peer_reviewed": 0.0,
+    "public_outputs": 1.0,
+    "optionality": 2.15,
+    "autonomy": 1.54,
+    "best_comp_p50": 15.3,
+    "founder_stage": 1.33,
+    "crunch_weeks": 0.04
+   },
+   {
+    "strategy": "conventional",
+    "score": 3.153,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.715,
+    "peer_reviewed": 0.0,
+    "public_outputs": 0.0,
+    "optionality": 1.28,
+    "autonomy": 1.57,
+    "best_comp_p50": 14.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.0
+   }
+  ],
+  "top_vs_runner_up": {
+   "top": "max_parallel",
+   "runner_up": "barbell",
+   "mean_diff": 0.11732087362353813,
+   "se": 0.024603428878711104,
+   "z": 4.768476548610415,
+   "p_world_top_better": 0.52025,
+   "resolved": true
+  },
+  "pareto_front": [
+   "research_engineer",
+   "founder",
+   "barbell",
+   "artifact_led",
+   "creation_portfolio",
+   "conventional",
+   "defer_depth",
+   "max_parallel"
+  ],
+  "voi_top": null
+ },
+ "scenario_adverse": {
+  "run_id": "RUN-20261009-180003-1a22",
+  "ranking": [
+   {
+    "strategy": "barbell",
+    "score": 6.913,
+    "se": 0.033,
+    "feasible": true,
+    "position_by_grad": 0.896,
+    "peer_reviewed": 0.434,
+    "public_outputs": 4.3,
+    "optionality": 3.24,
+    "autonomy": 2.33,
+    "best_comp_p50": 19.2,
+    "founder_stage": 0.0,
+    "crunch_weeks": 4.87
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 6.116,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.876,
+    "peer_reviewed": 0.251,
+    "public_outputs": 4.41,
+    "optionality": 2.95,
+    "autonomy": 2.28,
+    "best_comp_p50": 16.1,
+    "founder_stage": 0.0,
+    "crunch_weeks": 4.94
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 6.035,
+    "se": 0.035,
+    "feasible": true,
+    "position_by_grad": 0.827,
+    "peer_reviewed": 0.626,
+    "public_outputs": 5.45,
+    "optionality": 1.87,
+    "autonomy": 2.08,
+    "best_comp_p50": 15.7,
+    "founder_stage": 0.0,
+    "crunch_weeks": 4.81
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 5.923,
+    "se": 0.031,
+    "feasible": true,
+    "position_by_grad": 0.881,
+    "peer_reviewed": 0.275,
+    "public_outputs": 3.5,
+    "optionality": 2.34,
+    "autonomy": 1.74,
+    "best_comp_p50": 23.0,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.4
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 5.744,
+    "se": 0.043,
+    "feasible": true,
+    "position_by_grad": 0.57,
+    "peer_reviewed": 0.647,
+    "public_outputs": 4.85,
+    "optionality": 2.22,
+    "autonomy": 2.18,
+    "best_comp_p50": 15.8,
+    "founder_stage": 0.0,
+    "crunch_weeks": 4.27
+   },
+   {
+    "strategy": "max_parallel",
+    "score": 5.31,
+    "se": 0.034,
+    "feasible": true,
+    "position_by_grad": 0.796,
+    "peer_reviewed": 0.032,
+    "public_outputs": 5.53,
+    "optionality": 3.26,
+    "autonomy": 2.28,
+    "best_comp_p50": 27.1,
+    "founder_stage": 0.0,
+    "crunch_weeks": 12.85
+   },
+   {
+    "strategy": "research_first",
+    "score": 4.78,
+    "se": 0.041,
+    "feasible": true,
+    "position_by_grad": 0.524,
+    "peer_reviewed": 0.382,
+    "public_outputs": 5.2,
+    "optionality": 2.22,
+    "autonomy": 2.19,
+    "best_comp_p50": 13.8,
+    "founder_stage": 0.0,
+    "crunch_weeks": 7.99
+   },
+   {
+    "strategy": "founder",
+    "score": 4.469,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.781,
+    "peer_reviewed": 0.0,
+    "public_outputs": 1.0,
+    "optionality": 2.13,
+    "autonomy": 1.54,
+    "best_comp_p50": 15.3,
+    "founder_stage": 1.33,
+    "crunch_weeks": 0.88
+   },
+   {
+    "strategy": "conventional",
+    "score": 3.072,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.713,
+    "peer_reviewed": 0.0,
+    "public_outputs": 0.0,
+    "optionality": 1.27,
+    "autonomy": 1.57,
+    "best_comp_p50": 14.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.39
+   }
+  ],
+  "top_vs_runner_up": {
+   "top": "barbell",
+   "runner_up": "artifact_led",
+   "mean_diff": 0.797229208146176,
+   "se": 0.02257269523577851,
+   "z": 35.31829937979847,
+   "p_world_top_better": 0.707,
+   "resolved": true
+  },
+  "pareto_front": [
+   "research_engineer",
+   "founder",
+   "barbell",
+   "creation_portfolio",
+   "conventional",
+   "defer_depth",
+   "max_parallel"
+  ],
+  "voi_top": null
+ },
+ "scenario_paper_near_done": {
+  "run_id": "RUN-20261009-180004-b15a",
+  "ranking": [
+   {
+    "strategy": "max_parallel",
+    "score": 8.129,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.946,
+    "peer_reviewed": 0.241,
+    "public_outputs": 7.99,
+    "optionality": 4.13,
+    "autonomy": 2.6,
+    "best_comp_p50": 31.8,
+    "founder_stage": 0.0,
+    "crunch_weeks": 5.79
+   },
+   {
+    "strategy": "barbell",
+    "score": 8.061,
+    "se": 0.032,
+    "feasible": true,
+    "position_by_grad": 0.902,
+    "peer_reviewed": 0.582,
+    "public_outputs": 5.05,
+    "optionality": 3.32,
+    "autonomy": 2.38,
+    "best_comp_p50": 19.2,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.48
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 7.25,
+    "se": 0.032,
+    "feasible": true,
+    "position_by_grad": 0.874,
+    "peer_reviewed": 0.708,
+    "public_outputs": 6.22,
+    "optionality": 2.06,
+    "autonomy": 2.29,
+    "best_comp_p50": 16.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.48
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 6.949,
+    "se": 0.027,
+    "feasible": true,
+    "position_by_grad": 0.895,
+    "peer_reviewed": 0.261,
+    "public_outputs": 4.85,
+    "optionality": 3.12,
+    "autonomy": 2.38,
+    "best_comp_p50": 16.6,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.2
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 6.933,
+    "se": 0.04,
+    "feasible": true,
+    "position_by_grad": 0.655,
+    "peer_reviewed": 0.796,
+    "public_outputs": 5.57,
+    "optionality": 2.44,
+    "autonomy": 2.35,
+    "best_comp_p50": 16.6,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.14
+   },
+   {
+    "strategy": "research_first",
+    "score": 6.42,
+    "se": 0.038,
+    "feasible": true,
+    "position_by_grad": 0.646,
+    "peer_reviewed": 0.484,
+    "public_outputs": 6.27,
+    "optionality": 2.51,
+    "autonomy": 2.41,
+    "best_comp_p50": 16.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 3.94
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 6.327,
+    "se": 0.03,
+    "feasible": true,
+    "position_by_grad": 0.88,
+    "peer_reviewed": 0.262,
+    "public_outputs": 3.95,
+    "optionality": 2.36,
+    "autonomy": 1.73,
+    "best_comp_p50": 23.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.83
+   },
+   {
+    "strategy": "founder",
+    "score": 4.529,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.778,
+    "peer_reviewed": 0.0,
+    "public_outputs": 1.0,
+    "optionality": 2.13,
+    "autonomy": 1.54,
+    "best_comp_p50": 15.2,
+    "founder_stage": 1.33,
+    "crunch_weeks": 0.51
+   },
+   {
+    "strategy": "conventional",
+    "score": 3.148,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.714,
+    "peer_reviewed": 0.0,
+    "public_outputs": 0.0,
+    "optionality": 1.28,
+    "autonomy": 1.57,
+    "best_comp_p50": 14.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.01
+   }
+  ],
+  "top_vs_runner_up": {
+   "top": "max_parallel",
+   "runner_up": "barbell",
+   "mean_diff": 0.06839426759851598,
+   "se": 0.0263771754689014,
+   "z": 2.5929337157101067,
+   "p_world_top_better": 0.50725,
+   "resolved": true
+  },
+  "pareto_front": [
+   "research_first",
+   "research_engineer",
+   "founder",
+   "barbell",
+   "creation_portfolio",
+   "conventional",
+   "defer_depth",
+   "max_parallel"
+  ],
+  "voi_top": null
+ },
+ "scenario_paper_far": {
+  "run_id": "RUN-20261009-180005-9372",
+  "ranking": [
+   {
+    "strategy": "barbell",
+    "score": 7.639,
+    "se": 0.033,
+    "feasible": true,
+    "position_by_grad": 0.901,
+    "peer_reviewed": 0.56,
+    "public_outputs": 4.73,
+    "optionality": 3.32,
+    "autonomy": 2.38,
+    "best_comp_p50": 19.3,
+    "founder_stage": 0.0,
+    "crunch_weeks": 3.23
+   },
+   {
+    "strategy": "max_parallel",
+    "score": 7.49,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.942,
+    "peer_reviewed": 0.135,
+    "public_outputs": 7.36,
+    "optionality": 4.07,
+    "autonomy": 2.59,
+    "best_comp_p50": 31.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 8.14
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 7.041,
+    "se": 0.032,
+    "feasible": true,
+    "position_by_grad": 0.875,
+    "peer_reviewed": 0.748,
+    "public_outputs": 6.06,
+    "optionality": 2.06,
+    "autonomy": 2.29,
+    "best_comp_p50": 16.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.94
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 6.933,
+    "se": 0.04,
+    "feasible": true,
+    "position_by_grad": 0.655,
+    "peer_reviewed": 0.796,
+    "public_outputs": 5.57,
+    "optionality": 2.44,
+    "autonomy": 2.35,
+    "best_comp_p50": 16.6,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.14
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 6.615,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.894,
+    "peer_reviewed": 0.284,
+    "public_outputs": 4.62,
+    "optionality": 3.11,
+    "autonomy": 2.38,
+    "best_comp_p50": 16.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 3.88
+   },
+   {
+    "strategy": "research_first",
+    "score": 6.261,
+    "se": 0.039,
+    "feasible": true,
+    "position_by_grad": 0.647,
+    "peer_reviewed": 0.608,
+    "public_outputs": 6.01,
+    "optionality": 2.51,
+    "autonomy": 2.4,
+    "best_comp_p50": 16.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 5.79
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 6.097,
+    "se": 0.031,
+    "feasible": true,
+    "position_by_grad": 0.879,
+    "peer_reviewed": 0.302,
+    "public_outputs": 3.78,
+    "optionality": 2.36,
+    "autonomy": 1.73,
+    "best_comp_p50": 23.6,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.26
+   },
+   {
+    "strategy": "founder",
+    "score": 4.529,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.778,
+    "peer_reviewed": 0.0,
+    "public_outputs": 1.0,
+    "optionality": 2.13,
+    "autonomy": 1.54,
+    "best_comp_p50": 15.2,
+    "founder_stage": 1.33,
+    "crunch_weeks": 0.51
+   },
+   {
+    "strategy": "conventional",
+    "score": 3.148,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.714,
+    "peer_reviewed": 0.0,
+    "public_outputs": 0.0,
+    "optionality": 1.28,
+    "autonomy": 1.57,
+    "best_comp_p50": 14.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.01
+   }
+  ],
+  "top_vs_runner_up": {
+   "top": "barbell",
+   "runner_up": "max_parallel",
+   "mean_diff": 0.14900465852678843,
+   "se": 0.027876612364179872,
+   "z": 5.345149424190881,
+   "p_world_top_better": 0.54175,
+   "resolved": true
+  },
+  "pareto_front": [
+   "research_first",
+   "research_engineer",
+   "founder",
+   "barbell",
+   "creation_portfolio",
+   "conventional",
+   "defer_depth",
+   "max_parallel"
+  ],
+  "voi_top": null
+ },
+ "scenario_no_evidence_effect": {
+  "run_id": "RUN-20261009-180006-e7d0",
+  "ranking": [
+   {
+    "strategy": "barbell",
+    "score": 6.895,
+    "se": 0.035,
+    "feasible": true,
+    "position_by_grad": 0.823,
+    "peer_reviewed": 0.524,
+    "public_outputs": 4.63,
+    "optionality": 2.8,
+    "autonomy": 2.12,
+    "best_comp_p50": 16.2,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.93
+   },
+   {
+    "strategy": "max_parallel",
+    "score": 6.745,
+    "se": 0.031,
+    "feasible": true,
+    "position_by_grad": 0.878,
+    "peer_reviewed": 0.142,
+    "public_outputs": 7.36,
+    "optionality": 3.29,
+    "autonomy": 2.38,
+    "best_comp_p50": 26.0,
+    "founder_stage": 0.0,
+    "crunch_weeks": 7.78
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 6.246,
+    "se": 0.036,
+    "feasible": true,
+    "position_by_grad": 0.733,
+    "peer_reviewed": 0.742,
+    "public_outputs": 6.07,
+    "optionality": 1.61,
+    "autonomy": 1.74,
+    "best_comp_p50": 14.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.66
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 6.224,
+    "se": 0.041,
+    "feasible": true,
+    "position_by_grad": 0.52,
+    "peer_reviewed": 0.796,
+    "public_outputs": 5.55,
+    "optionality": 2.06,
+    "autonomy": 2.03,
+    "best_comp_p50": 13.0,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.14
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 6.051,
+    "se": 0.03,
+    "feasible": true,
+    "position_by_grad": 0.805,
+    "peer_reviewed": 0.28,
+    "public_outputs": 4.59,
+    "optionality": 2.68,
+    "autonomy": 2.11,
+    "best_comp_p50": 15.1,
+    "founder_stage": 0.0,
+    "crunch_weeks": 3.58
+   },
+   {
+    "strategy": "research_first",
+    "score": 5.585,
+    "se": 0.04,
+    "feasible": true,
+    "position_by_grad": 0.511,
+    "peer_reviewed": 0.595,
+    "public_outputs": 5.99,
+    "optionality": 2.14,
+    "autonomy": 2.1,
+    "best_comp_p50": 12.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 5.48
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 5.584,
+    "se": 0.033,
+    "feasible": true,
+    "position_by_grad": 0.811,
+    "peer_reviewed": 0.296,
+    "public_outputs": 3.79,
+    "optionality": 2.02,
+    "autonomy": 1.58,
+    "best_comp_p50": 18.3,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.99
+   },
+   {
+    "strategy": "founder",
+    "score": 4.305,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.737,
+    "peer_reviewed": 0.0,
+    "public_outputs": 1.0,
+    "optionality": 2.0,
+    "autonomy": 1.45,
+    "best_comp_p50": 14.2,
+    "founder_stage": 1.33,
+    "crunch_weeks": 0.51
+   },
+   {
+    "strategy": "conventional",
+    "score": 2.898,
+    "se": 0.03,
+    "feasible": true,
+    "position_by_grad": 0.666,
+    "peer_reviewed": 0.0,
+    "public_outputs": 0.0,
+    "optionality": 1.12,
+    "autonomy": 1.43,
+    "best_comp_p50": 13.7,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.01
+   }
+  ],
+  "top_vs_runner_up": {
+   "top": "barbell",
+   "runner_up": "max_parallel",
+   "mean_diff": 0.14978467071952178,
+   "se": 0.027594803480904918,
+   "z": 5.428002805788052,
+   "p_world_top_better": 0.5505,
+   "resolved": true
+  },
+  "pareto_front": [
+   "research_first",
+   "research_engineer",
+   "founder",
+   "barbell",
+   "creation_portfolio",
+   "conventional",
+   "defer_depth",
+   "max_parallel"
+  ],
+  "voi_top": null
+ },
+ "scenario_low_replies": {
+  "run_id": "RUN-20261009-180007-560a",
+  "ranking": [
+   {
+    "strategy": "max_parallel",
+    "score": 7.422,
+    "se": 0.03,
+    "feasible": true,
+    "position_by_grad": 0.935,
+    "peer_reviewed": 0.142,
+    "public_outputs": 7.23,
+    "optionality": 3.97,
+    "autonomy": 2.58,
+    "best_comp_p50": 31.3,
+    "founder_stage": 0.0,
+    "crunch_weeks": 7.75
+   },
+   {
+    "strategy": "barbell",
+    "score": 7.173,
+    "se": 0.034,
+    "feasible": true,
+    "position_by_grad": 0.889,
+    "peer_reviewed": 0.43,
+    "public_outputs": 4.3,
+    "optionality": 3.2,
+    "autonomy": 2.36,
+    "best_comp_p50": 19.0,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.93
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 7.038,
+    "se": 0.033,
+    "feasible": true,
+    "position_by_grad": 0.872,
+    "peer_reviewed": 0.742,
+    "public_outputs": 6.07,
+    "optionality": 2.01,
+    "autonomy": 2.29,
+    "best_comp_p50": 16.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.66
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 6.852,
+    "se": 0.04,
+    "feasible": true,
+    "position_by_grad": 0.655,
+    "peer_reviewed": 0.796,
+    "public_outputs": 5.51,
+    "optionality": 2.33,
+    "autonomy": 2.34,
+    "best_comp_p50": 16.6,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.14
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 6.427,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.88,
+    "peer_reviewed": 0.28,
+    "public_outputs": 4.46,
+    "optionality": 3.0,
+    "autonomy": 2.35,
+    "best_comp_p50": 16.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 3.56
+   },
+   {
+    "strategy": "research_first",
+    "score": 6.151,
+    "se": 0.039,
+    "feasible": true,
+    "position_by_grad": 0.647,
+    "peer_reviewed": 0.597,
+    "public_outputs": 5.85,
+    "optionality": 2.37,
+    "autonomy": 2.37,
+    "best_comp_p50": 16.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 5.47
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 5.962,
+    "se": 0.033,
+    "feasible": true,
+    "position_by_grad": 0.86,
+    "peer_reviewed": 0.296,
+    "public_outputs": 3.79,
+    "optionality": 2.23,
+    "autonomy": 1.69,
+    "best_comp_p50": 23.1,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.98
+   },
+   {
+    "strategy": "founder",
+    "score": 4.404,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.767,
+    "peer_reviewed": 0.0,
+    "public_outputs": 1.0,
+    "optionality": 1.98,
+    "autonomy": 1.52,
+    "best_comp_p50": 14.9,
+    "founder_stage": 1.33,
+    "crunch_weeks": 0.51
+   },
+   {
+    "strategy": "conventional",
+    "score": 3.148,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.714,
+    "peer_reviewed": 0.0,
+    "public_outputs": 0.0,
+    "optionality": 1.28,
+    "autonomy": 1.57,
+    "best_comp_p50": 14.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.01
+   }
+  ],
+  "top_vs_runner_up": {
+   "top": "max_parallel",
+   "runner_up": "barbell",
+   "mean_diff": 0.24867350789161552,
+   "se": 0.02836395425855293,
+   "z": 8.767236952394603,
+   "p_world_top_better": 0.5615,
+   "resolved": true
+  },
+  "pareto_front": [
+   "research_first",
+   "research_engineer",
+   "founder",
+   "barbell",
+   "creation_portfolio",
+   "conventional",
+   "defer_depth",
+   "max_parallel"
+  ],
+  "voi_top": null
+ },
+ "scenario_no_relocation": {
+  "run_id": "RUN-20261009-180009-4732",
+  "ranking": [
+   {
+    "strategy": "barbell",
+    "score": 7.695,
+    "se": 0.033,
+    "feasible": true,
+    "position_by_grad": 0.901,
+    "peer_reviewed": 0.559,
+    "public_outputs": 4.76,
+    "optionality": 3.32,
+    "autonomy": 2.38,
+    "best_comp_p50": 19.3,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.93
+   },
+   {
+    "strategy": "max_parallel",
+    "score": 7.18,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.924,
+    "peer_reviewed": 0.149,
+    "public_outputs": 7.46,
+    "optionality": 3.69,
+    "autonomy": 2.34,
+    "best_comp_p50": 25.3,
+    "founder_stage": 0.0,
+    "crunch_weeks": 7.68
+   },
+   {
+    "strategy": "creation_portfolio",
+    "score": 7.08,
+    "se": 0.032,
+    "feasible": true,
+    "position_by_grad": 0.875,
+    "peer_reviewed": 0.742,
+    "public_outputs": 6.07,
+    "optionality": 2.06,
+    "autonomy": 2.29,
+    "best_comp_p50": 16.4,
+    "founder_stage": 0.0,
+    "crunch_weeks": 2.66
+   },
+   {
+    "strategy": "artifact_led",
+    "score": 6.664,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.894,
+    "peer_reviewed": 0.28,
+    "public_outputs": 4.64,
+    "optionality": 3.11,
+    "autonomy": 2.38,
+    "best_comp_p50": 16.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 3.59
+   },
+   {
+    "strategy": "research_engineer",
+    "score": 6.136,
+    "se": 0.031,
+    "feasible": true,
+    "position_by_grad": 0.879,
+    "peer_reviewed": 0.296,
+    "public_outputs": 3.79,
+    "optionality": 2.36,
+    "autonomy": 1.73,
+    "best_comp_p50": 23.6,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.99
+   },
+   {
+    "strategy": "defer_depth",
+    "score": 5.761,
+    "se": 0.036,
+    "feasible": true,
+    "position_by_grad": 0.388,
+    "peer_reviewed": 0.805,
+    "public_outputs": 5.7,
+    "optionality": 1.95,
+    "autonomy": 1.88,
+    "best_comp_p50": 0.0,
+    "founder_stage": 0.0,
+    "crunch_weeks": 1.4
+   },
+   {
+    "strategy": "research_first",
+    "score": 4.845,
+    "se": 0.034,
+    "feasible": true,
+    "position_by_grad": 0.398,
+    "peer_reviewed": 0.45,
+    "public_outputs": 6.04,
+    "optionality": 2.05,
+    "autonomy": 2.01,
+    "best_comp_p50": 0.0,
+    "founder_stage": 0.0,
+    "crunch_weeks": 5.2
+   },
+   {
+    "strategy": "founder",
+    "score": 4.529,
+    "se": 0.028,
+    "feasible": true,
+    "position_by_grad": 0.778,
+    "peer_reviewed": 0.0,
+    "public_outputs": 1.0,
+    "optionality": 2.13,
+    "autonomy": 1.54,
+    "best_comp_p50": 15.2,
+    "founder_stage": 1.33,
+    "crunch_weeks": 0.51
+   },
+   {
+    "strategy": "conventional",
+    "score": 3.148,
+    "se": 0.029,
+    "feasible": true,
+    "position_by_grad": 0.714,
+    "peer_reviewed": 0.0,
+    "public_outputs": 0.0,
+    "optionality": 1.28,
+    "autonomy": 1.57,
+    "best_comp_p50": 14.5,
+    "founder_stage": 0.0,
+    "crunch_weeks": 0.01
+   }
+  ],
+  "top_vs_runner_up": {
+   "top": "barbell",
+   "runner_up": "max_parallel",
+   "mean_diff": 0.5150460456019612,
+   "se": 0.02554332167949449,
+   "z": 20.163628366917788,
+   "p_world_top_better": 0.63075,
+   "resolved": true
+  },
+  "pareto_front": [
+   "research_engineer",
+   "founder",
+   "barbell",
+   "creation_portfolio",
+   "conventional",
+   "defer_depth",
+   "max_parallel"
+  ],
+  "voi_top": null
+ },
+ "regret_balanced": {
+  "objective_id": "balanced",
+  "n_worlds": 2000,
+  "expected_scores": {
+   "adverse": {
+    "barbell": 6.961767088616643,
+    "artifact_led": 6.127761834041072,
+    "creation_portfolio": 6.017963635548319,
+    "research_engineer": 5.982998247029587,
+    "defer_depth": 5.672337066820253,
+    "max_parallel": 5.343468411674048,
+    "research_first": 4.761754376176228,
+    "founder": 4.5247718042631115,
+    "conventional": 3.087571715721744
+   },
+   "central": {
+    "barbell": 7.771438906784742,
+    "max_parallel": 7.632836235582872,
+    "creation_portfolio": 7.0409030373402075,
+    "defer_depth": 6.908417138927236,
+    "artifact_led": 6.697322386466725,
+    "research_first": 6.281134997044052,
+    "research_engineer": 6.1960984917366435,
+    "founder": 4.600055642199622,
+    "conventional": 3.1551217157217444
+   },
+   "aggressive": {
+    "max_parallel": 8.427113876347336,
+    "barbell": 8.308079284335612,
+    "creation_portfolio": 7.39064120918074,
+    "artifact_led": 7.350502249826511,
+    "defer_depth": 6.941226288326342,
+    "research_first": 6.6837816389193305,
+    "research_engineer": 6.478041996548318,
+    "founder": 4.65712847152342,
+    "conventional": 3.1673368402146287
+   },
+   "independent outcomes": {
+    "barbell": 7.80589188099093,
+    "max_parallel": 7.679816416691602,
+    "creation_portfolio": 7.101667769925884,
+    "defer_depth": 6.920901199895006,
+    "artifact_led": 6.742714186884397,
+    "research_first": 6.300275362034128,
+    "research_engineer": 6.270580682690008,
+    "founder": 4.693260979641393,
+    "conventional": 3.2241829448935357
+   },
+   "no AI speed-up": {
+    "barbell": 7.662384202225026,
+    "max_parallel": 7.312751611869598,
+    "creation_portfolio": 6.9206478902447,
+    "artifact_led": 6.688352342108731,
+    "defer_depth": 6.656119078115611,
+    "research_engineer": 6.069700220772448,
+    "research_first": 6.022892213767497,
+    "founder": 4.573467042838376,
+    "conventional": 3.1525550490550778
+   },
+   "evidence has no effect": {
+    "barbell": 6.957389156567519,
+    "max_parallel": 6.758216094524331,
+    "creation_portfolio": 6.219492604672479,
+    "defer_depth": 6.1246435990215575,
+    "artifact_led": 6.062713745340702,
+    "research_engineer": 5.646177413911182,
+    "research_first": 5.509888477418669,
+    "founder": 4.3567657192351685,
+    "conventional": 2.8744134332002766
+   },
+   "no relocation": {
+    "barbell": 7.771438906784742,
+    "max_parallel": 7.2400302665281595,
+    "creation_portfolio": 7.0409030373402075,
+    "artifact_led": 6.697322386466725,
+    "research_engineer": 6.1960984917366435,
+    "defer_depth": 5.741095750579562,
+    "research_first": 4.894474664276745,
+    "founder": 4.600055642199622,
+    "conventional": 3.1551217157217444
+   }
+  },
+  "regret": {
+   "scenarios": [
+    "adverse",
+    "central",
+    "aggressive",
+    "independent outcomes",
+    "no AI speed-up",
+    "evidence has no effect",
+    "no relocation"
+   ],
+   "regret": {
+    "barbell": {
+     "adverse": 0.0,
+     "central": 0.0,
+     "aggressive": 0.11903459201172417,
+     "independent outcomes": 0.0,
+     "no AI speed-up": 0.0,
+     "evidence has no effect": 0.0,
+     "no relocation": 0.0
+    },
+    "artifact_led": {
+     "adverse": 0.8340052545755707,
+     "central": 1.0741165203180172,
+     "aggressive": 1.0766116265208252,
+     "independent outcomes": 1.0631776941065327,
+     "no AI speed-up": 0.9740318601162956,
+     "evidence has no effect": 0.8946754112268174,
+     "no relocation": 1.0741165203180172
+    },
+    "creation_portfolio": {
+     "adverse": 0.9438034530683241,
+     "central": 0.7305358694445347,
+     "aggressive": 1.0364726671665965,
+     "independent outcomes": 0.704224111065046,
+     "no AI speed-up": 0.7417363119803264,
+     "evidence has no effect": 0.73789655189504,
+     "no relocation": 0.7305358694445347
+    },
+    "research_engineer": {
+     "adverse": 0.9787688415870557,
+     "central": 1.5753404150480987,
+     "aggressive": 1.9490718797990185,
+     "independent outcomes": 1.5353111983009216,
+     "no AI speed-up": 1.592683981452578,
+     "evidence has no effect": 1.3112117426563366,
+     "no relocation": 1.5753404150480987
+    },
+    "defer_depth": {
+     "adverse": 1.2894300217963899,
+     "central": 0.8630217678575063,
+     "aggressive": 1.4858875880209945,
+     "independent outcomes": 0.8849906810959238,
+     "no AI speed-up": 1.0062651241094152,
+     "evidence has no effect": 0.8327455575459615,
+     "no relocation": 2.0303431562051806
+    },
+    "max_parallel": {
+     "adverse": 1.6182986769425947,
+     "central": 0.13860267120187064,
+     "aggressive": 0.0,
+     "independent outcomes": 0.12607546429932803,
+     "no AI speed-up": 0.34963259035542826,
+     "evidence has no effect": 0.1991730620431884,
+     "no relocation": 0.5314086402565827
+    },
+    "research_first": {
+     "adverse": 2.200012712440415,
+     "central": 1.4903039097406898,
+     "aggressive": 1.7433322374280058,
+     "independent outcomes": 1.5056165189568018,
+     "no AI speed-up": 1.6394919884575296,
+     "evidence has no effect": 1.4475006791488498,
+     "no relocation": 2.876964242507997
+    },
+    "founder": {
+     "adverse": 2.4369952843535314,
+     "central": 3.1713832645851205,
+     "aggressive": 3.7699854048239168,
+     "independent outcomes": 3.1126309013495366,
+     "no AI speed-up": 3.08891715938665,
+     "evidence has no effect": 2.6006234373323505,
+     "no relocation": 3.1713832645851205
+    },
+    "conventional": {
+     "adverse": 3.874195372894899,
+     "central": 4.616317191062998,
+     "aggressive": 5.259777036132707,
+     "independent outcomes": 4.581708936097394,
+     "no AI speed-up": 4.509829153169949,
+     "evidence has no effect": 4.082975723367243,
+     "no relocation": 4.616317191062998
+    }
+   },
+   "max_regret": {
+    "barbell": 0.11903459201172417,
+    "artifact_led": 1.0766116265208252,
+    "creation_portfolio": 1.0364726671665965,
+    "research_engineer": 1.9490718797990185,
+    "defer_depth": 2.0303431562051806,
+    "max_parallel": 1.6182986769425947,
+    "research_first": 2.876964242507997,
+    "founder": 3.7699854048239168,
+    "conventional": 5.259777036132707
+   },
+   "minimax_choice": "barbell",
+   "order": [
+    "barbell",
+    "creation_portfolio",
+    "artifact_led",
+    "max_parallel",
+    "research_engineer",
+    "defer_depth",
+    "research_first",
+    "founder",
+    "conventional"
+   ]
+  },
+  "detail": {
+   "adverse": {
+    "ranking": [
+     {
+      "strategy": "barbell",
+      "score": 6.961767088616643,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 6.127761834041072,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 6.017963635548319,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 5.982998247029587,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 5.672337066820253,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "max_parallel",
+      "score": 5.343468411674048,
+      "feasible": true,
+      "rank": 6
+     },
+     {
+      "strategy": "research_first",
+      "score": 4.761754376176228,
+      "feasible": true,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 4.5247718042631115,
+      "feasible": true,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 3.087571715721744,
+      "feasible": true,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.521,
+     "research_engineer": 0.882,
+     "founder": 0.7875,
+     "barbell": 0.8955,
+     "artifact_led": 0.8785,
+     "creation_portfolio": 0.826,
+     "conventional": 0.7095,
+     "defer_depth": 0.567,
+     "max_parallel": 0.795
+    }
+   },
+   "central": {
+    "ranking": [
+     {
+      "strategy": "barbell",
+      "score": 7.771438906784742,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "max_parallel",
+      "score": 7.632836235582872,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.0409030373402075,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 6.908417138927236,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 6.697322386466725,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "research_first",
+      "score": 6.281134997044052,
+      "feasible": true,
+      "rank": 6
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 6.1960984917366435,
+      "feasible": true,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 4.600055642199622,
+      "feasible": true,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 3.1551217157217444,
+      "feasible": true,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.6525,
+     "research_engineer": 0.8785,
+     "founder": 0.7815,
+     "barbell": 0.9045,
+     "artifact_led": 0.893,
+     "creation_portfolio": 0.872,
+     "conventional": 0.7095,
+     "defer_depth": 0.6615,
+     "max_parallel": 0.9475
+    }
+   },
+   "aggressive": {
+    "ranking": [
+     {
+      "strategy": "max_parallel",
+      "score": 8.427113876347336,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "barbell",
+      "score": 8.308079284335612,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.39064120918074,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 7.350502249826511,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 6.941226288326342,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "research_first",
+      "score": 6.6837816389193305,
+      "feasible": true,
+      "rank": 6
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 6.478041996548318,
+      "feasible": true,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 4.65712847152342,
+      "feasible": true,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 3.1673368402146287,
+      "feasible": true,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.646,
+     "research_engineer": 0.875,
+     "founder": 0.7805,
+     "barbell": 0.902,
+     "artifact_led": 0.8925,
+     "creation_portfolio": 0.8685,
+     "conventional": 0.7125,
+     "defer_depth": 0.613,
+     "max_parallel": 0.9495
+    }
+   },
+   "independent outcomes": {
+    "ranking": [
+     {
+      "strategy": "barbell",
+      "score": 7.80589188099093,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "max_parallel",
+      "score": 7.679816416691602,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.101667769925884,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 6.920901199895006,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 6.742714186884397,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "research_first",
+      "score": 6.300275362034128,
+      "feasible": true,
+      "rank": 6
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 6.270580682690008,
+      "feasible": true,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 4.693260979641393,
+      "feasible": true,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 3.2241829448935357,
+      "feasible": true,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.658,
+     "research_engineer": 0.9085,
+     "founder": 0.809,
+     "barbell": 0.9265,
+     "artifact_led": 0.9095,
+     "creation_portfolio": 0.892,
+     "conventional": 0.7315,
+     "defer_depth": 0.6645,
+     "max_parallel": 0.968
+    }
+   },
+   "no AI speed-up": {
+    "ranking": [
+     {
+      "strategy": "barbell",
+      "score": 7.662384202225026,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "max_parallel",
+      "score": 7.312751611869598,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 6.9206478902447,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 6.688352342108731,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 6.656119078115611,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 6.069700220772448,
+      "feasible": true,
+      "rank": 6
+     },
+     {
+      "strategy": "research_first",
+      "score": 6.022892213767497,
+      "feasible": true,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 4.573467042838376,
+      "feasible": true,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 3.1525550490550778,
+      "feasible": true,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.6235,
+     "research_engineer": 0.88,
+     "founder": 0.7835,
+     "barbell": 0.902,
+     "artifact_led": 0.893,
+     "creation_portfolio": 0.872,
+     "conventional": 0.7095,
+     "defer_depth": 0.64,
+     "max_parallel": 0.934
+    }
+   },
+   "evidence has no effect": {
+    "ranking": [
+     {
+      "strategy": "barbell",
+      "score": 6.957389156567519,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "max_parallel",
+      "score": 6.758216094524331,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 6.219492604672479,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 6.1246435990215575,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 6.062713745340702,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 5.646177413911182,
+      "feasible": true,
+      "rank": 6
+     },
+     {
+      "strategy": "research_first",
+      "score": 5.509888477418669,
+      "feasible": true,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 4.3567657192351685,
+      "feasible": true,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 2.8744134332002766,
+      "feasible": true,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.5055,
+     "research_engineer": 0.808,
+     "founder": 0.735,
+     "barbell": 0.825,
+     "artifact_led": 0.8005,
+     "creation_portfolio": 0.7315,
+     "conventional": 0.653,
+     "defer_depth": 0.511,
+     "max_parallel": 0.874
+    }
+   },
+   "no relocation": {
+    "ranking": [
+     {
+      "strategy": "barbell",
+      "score": 7.771438906784742,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "max_parallel",
+      "score": 7.2400302665281595,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 7.0409030373402075,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 6.697322386466725,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 6.1960984917366435,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 5.741095750579562,
+      "feasible": true,
+      "rank": 6
+     },
+     {
+      "strategy": "research_first",
+      "score": 4.894474664276745,
+      "feasible": true,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 4.600055642199622,
+      "feasible": true,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 3.1551217157217444,
+      "feasible": true,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.4075,
+     "research_engineer": 0.8785,
+     "founder": 0.7815,
+     "barbell": 0.9045,
+     "artifact_led": 0.893,
+     "creation_portfolio": 0.872,
+     "conventional": 0.7095,
+     "defer_depth": 0.3925,
+     "max_parallel": 0.9255
+    }
+   }
+  },
+  "scenarios": [
+   "adverse",
+   "central",
+   "aggressive",
+   "independent outcomes",
+   "no AI speed-up",
+   "evidence has no effect",
+   "no relocation"
+  ]
+ },
+ "regret_robust": {
+  "objective_id": "robust",
+  "n_worlds": 2000,
+  "expected_scores": {
+   "adverse": {
+    "barbell": 3.8067681960174458,
+    "artifact_led": 3.303854873932407,
+    "research_engineer": 2.86345051998226,
+    "creation_portfolio": 2.329089784823593,
+    "defer_depth": 1.6816666666666666,
+    "max_parallel": 1.5807570367940338,
+    "founder": 1.2582647120426926,
+    "research_first": 1.2036733333333334,
+    "conventional": -0.017249999999999988
+   },
+   "central": {
+    "max_parallel": 4.9765887724957905,
+    "barbell": 4.603999088760292,
+    "artifact_led": 3.964710387384523,
+    "creation_portfolio": 3.769390241246756,
+    "research_engineer": 3.0416322198727754,
+    "defer_depth": 2.97075,
+    "research_first": 2.5328999999999997,
+    "founder": 1.3768333333333334,
+    "conventional": 0.051916666666666667
+   },
+   "aggressive": {
+    "max_parallel": 5.737530908656768,
+    "barbell": 5.143179432041609,
+    "artifact_led": 4.588745716085165,
+    "creation_portfolio": 4.111994152003074,
+    "research_engineer": 3.401468733839528,
+    "defer_depth": 3.1664999999999996,
+    "research_first": 3.076623333333333,
+    "founder": 1.4415833333333332,
+    "conventional": 0.05449999999999999
+   },
+   "independent outcomes": {
+    "max_parallel": 5.402082423496669,
+    "barbell": 4.940994416600258,
+    "artifact_led": 4.23619455454032,
+    "creation_portfolio": 4.073438592465145,
+    "research_engineer": 3.485403966960729,
+    "founder": 1.5738280778187979,
+    "defer_depth": 3.0885833333333337,
+    "research_first": 2.6414116666666665,
+    "conventional": 0.23733333333333329
+   },
+   "no AI speed-up": {
+    "max_parallel": 4.554956306338909,
+    "barbell": 4.503239627360897,
+    "artifact_led": 3.9423287231794277,
+    "creation_portfolio": 3.6451911329878874,
+    "research_engineer": 2.938558680547452,
+    "defer_depth": 2.725333333333333,
+    "research_first": 2.2728099999999998,
+    "founder": 1.3497500000000002,
+    "conventional": 0.049499999999999995
+   },
+   "evidence has no effect": {
+    "max_parallel": 3.5832509178414487,
+    "barbell": 3.4977380557310163,
+    "artifact_led": 2.8281699368260997,
+    "research_engineer": 2.0925147342036854,
+    "creation_portfolio": 2.522104336314084,
+    "defer_depth": 2.47025,
+    "research_first": 2.0078033333333334,
+    "founder": 1.1735833333333332,
+    "conventional": 0.0235
+   },
+   "no relocation": {
+    "barbell": 4.603999088760292,
+    "max_parallel": 4.463631225270224,
+    "artifact_led": 3.964710387384523,
+    "creation_portfolio": 3.769390241246756,
+    "research_engineer": 3.0416322198727754,
+    "defer_depth": 2.73575,
+    "research_first": 2.054545,
+    "founder": 1.3768333333333334,
+    "conventional": 0.051916666666666667
+   }
+  },
+  "regret": {
+   "scenarios": [
+    "adverse",
+    "central",
+    "aggressive",
+    "independent outcomes",
+    "no AI speed-up",
+    "evidence has no effect",
+    "no relocation"
+   ],
+   "regret": {
+    "barbell": {
+     "adverse": 0.0,
+     "central": 0.37258968373549806,
+     "aggressive": 0.5943514766151594,
+     "independent outcomes": 0.4610880068964107,
+     "no AI speed-up": 0.051716678978011466,
+     "evidence has no effect": 0.08551286211043241,
+     "no relocation": 0.0
+    },
+    "artifact_led": {
+     "adverse": 0.5029133220850386,
+     "central": 1.0118783851112676,
+     "aggressive": 1.1487851925716033,
+     "independent outcomes": 1.1658878689563492,
+     "no AI speed-up": 0.612627583159481,
+     "evidence has no effect": 0.7550809810153489,
+     "no relocation": 0.6392887013757695
+    },
+    "research_engineer": {
+     "adverse": 0.9433176760351856,
+     "central": 1.934956552623015,
+     "aggressive": 2.33606217481724,
+     "independent outcomes": 1.9166784565359398,
+     "no AI speed-up": 1.6163976257914565,
+     "evidence has no effect": 1.4907361836377633,
+     "no relocation": 1.562366868887517
+    },
+    "creation_portfolio": {
+     "adverse": 1.4776784111938528,
+     "central": 1.2071985312490345,
+     "aggressive": 1.6255367566536938,
+     "independent outcomes": 1.328643831031524,
+     "no AI speed-up": 0.9097651733510213,
+     "evidence has no effect": 1.0611465815273649,
+     "no relocation": 0.8346088475135365
+    },
+    "defer_depth": {
+     "adverse": 2.125101529350779,
+     "central": 2.0058387724957907,
+     "aggressive": 2.5710309086567684,
+     "independent outcomes": 2.313499090163335,
+     "no AI speed-up": 1.8296229730055757,
+     "evidence has no effect": 1.1130009178414486,
+     "no relocation": 1.8682490887602925
+    },
+    "max_parallel": {
+     "adverse": 2.226011159223412,
+     "central": 0.0,
+     "aggressive": 0.0,
+     "independent outcomes": 0.0,
+     "no AI speed-up": 0.0,
+     "evidence has no effect": 0.0,
+     "no relocation": 0.14036786349006825
+    },
+    "founder": {
+     "adverse": 2.548503483974753,
+     "central": 3.599755439162457,
+     "aggressive": 4.295947575323435,
+     "independent outcomes": 3.828254345677871,
+     "no AI speed-up": 3.2052063063389085,
+     "evidence has no effect": 2.4096675845081155,
+     "no relocation": 3.227165755426959
+    },
+    "research_first": {
+     "adverse": 2.603094862684112,
+     "central": 2.4436887724957908,
+     "aggressive": 2.660907575323435,
+     "independent outcomes": 2.7606707568300024,
+     "no AI speed-up": 2.282146306338909,
+     "evidence has no effect": 1.5754475845081153,
+     "no relocation": 2.5494540887602923
+    },
+    "conventional": {
+     "adverse": 3.8240181960174455,
+     "central": 4.924672105829123,
+     "aggressive": 5.683030908656768,
+     "independent outcomes": 5.164749090163336,
+     "no AI speed-up": 4.505456306338909,
+     "evidence has no effect": 3.559750917841449,
+     "no relocation": 4.552082422093625
+    }
+   },
+   "max_regret": {
+    "barbell": 0.5943514766151594,
+    "artifact_led": 1.1658878689563492,
+    "research_engineer": 2.33606217481724,
+    "creation_portfolio": 1.6255367566536938,
+    "defer_depth": 2.5710309086567684,
+    "max_parallel": 2.226011159223412,
+    "founder": 4.295947575323435,
+    "research_first": 2.7606707568300024,
+    "conventional": 5.683030908656768
+   },
+   "minimax_choice": "barbell",
+   "order": [
+    "barbell",
+    "artifact_led",
+    "creation_portfolio",
+    "max_parallel",
+    "research_engineer",
+    "defer_depth",
+    "research_first",
+    "founder",
+    "conventional"
+   ]
+  },
+  "detail": {
+   "adverse": {
+    "ranking": [
+     {
+      "strategy": "barbell",
+      "score": 3.8067681960174458,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 3.303854873932407,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 2.86345051998226,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 2.329089784823593,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 1.6816666666666666,
+      "feasible": false,
+      "rank": 5
+     },
+     {
+      "strategy": "max_parallel",
+      "score": 1.5807570367940338,
+      "feasible": false,
+      "rank": 6
+     },
+     {
+      "strategy": "founder",
+      "score": 1.2582647120426926,
+      "feasible": false,
+      "rank": 7
+     },
+     {
+      "strategy": "research_first",
+      "score": 1.2036733333333334,
+      "feasible": false,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": -0.017249999999999988,
+      "feasible": false,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.521,
+     "research_engineer": 0.882,
+     "founder": 0.7875,
+     "barbell": 0.8955,
+     "artifact_led": 0.8785,
+     "creation_portfolio": 0.826,
+     "conventional": 0.7095,
+     "defer_depth": 0.567,
+     "max_parallel": 0.795
+    }
+   },
+   "central": {
+    "ranking": [
+     {
+      "strategy": "max_parallel",
+      "score": 4.9765887724957905,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "barbell",
+      "score": 4.603999088760292,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 3.964710387384523,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 3.769390241246756,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 3.0416322198727754,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 2.97075,
+      "feasible": false,
+      "rank": 6
+     },
+     {
+      "strategy": "research_first",
+      "score": 2.5328999999999997,
+      "feasible": false,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 1.3768333333333334,
+      "feasible": false,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 0.051916666666666667,
+      "feasible": false,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.6525,
+     "research_engineer": 0.8785,
+     "founder": 0.7815,
+     "barbell": 0.9045,
+     "artifact_led": 0.893,
+     "creation_portfolio": 0.872,
+     "conventional": 0.7095,
+     "defer_depth": 0.6615,
+     "max_parallel": 0.9475
+    }
+   },
+   "aggressive": {
+    "ranking": [
+     {
+      "strategy": "max_parallel",
+      "score": 5.737530908656768,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "barbell",
+      "score": 5.143179432041609,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 4.588745716085165,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 4.111994152003074,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 3.401468733839528,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 3.1664999999999996,
+      "feasible": false,
+      "rank": 6
+     },
+     {
+      "strategy": "research_first",
+      "score": 3.076623333333333,
+      "feasible": false,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 1.4415833333333332,
+      "feasible": false,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 0.05449999999999999,
+      "feasible": false,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.646,
+     "research_engineer": 0.875,
+     "founder": 0.7805,
+     "barbell": 0.902,
+     "artifact_led": 0.8925,
+     "creation_portfolio": 0.8685,
+     "conventional": 0.7125,
+     "defer_depth": 0.613,
+     "max_parallel": 0.9495
+    }
+   },
+   "independent outcomes": {
+    "ranking": [
+     {
+      "strategy": "max_parallel",
+      "score": 5.402082423496669,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "barbell",
+      "score": 4.940994416600258,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 4.23619455454032,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 4.073438592465145,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 3.485403966960729,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "founder",
+      "score": 1.5738280778187979,
+      "feasible": true,
+      "rank": 6
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 3.0885833333333337,
+      "feasible": false,
+      "rank": 7
+     },
+     {
+      "strategy": "research_first",
+      "score": 2.6414116666666665,
+      "feasible": false,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 0.23733333333333329,
+      "feasible": false,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.658,
+     "research_engineer": 0.9085,
+     "founder": 0.809,
+     "barbell": 0.9265,
+     "artifact_led": 0.9095,
+     "creation_portfolio": 0.892,
+     "conventional": 0.7315,
+     "defer_depth": 0.6645,
+     "max_parallel": 0.968
+    }
+   },
+   "no AI speed-up": {
+    "ranking": [
+     {
+      "strategy": "max_parallel",
+      "score": 4.554956306338909,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "barbell",
+      "score": 4.503239627360897,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 3.9423287231794277,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 3.6451911329878874,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 2.938558680547452,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 2.725333333333333,
+      "feasible": false,
+      "rank": 6
+     },
+     {
+      "strategy": "research_first",
+      "score": 2.2728099999999998,
+      "feasible": false,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 1.3497500000000002,
+      "feasible": false,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 0.049499999999999995,
+      "feasible": false,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.6235,
+     "research_engineer": 0.88,
+     "founder": 0.7835,
+     "barbell": 0.902,
+     "artifact_led": 0.893,
+     "creation_portfolio": 0.872,
+     "conventional": 0.7095,
+     "defer_depth": 0.64,
+     "max_parallel": 0.934
+    }
+   },
+   "evidence has no effect": {
+    "ranking": [
+     {
+      "strategy": "max_parallel",
+      "score": 3.5832509178414487,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "barbell",
+      "score": 3.4977380557310163,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 2.8281699368260997,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 2.0925147342036854,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 2.522104336314084,
+      "feasible": false,
+      "rank": 5
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 2.47025,
+      "feasible": false,
+      "rank": 6
+     },
+     {
+      "strategy": "research_first",
+      "score": 2.0078033333333334,
+      "feasible": false,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 1.1735833333333332,
+      "feasible": false,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 0.0235,
+      "feasible": false,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.5055,
+     "research_engineer": 0.808,
+     "founder": 0.735,
+     "barbell": 0.825,
+     "artifact_led": 0.8005,
+     "creation_portfolio": 0.7315,
+     "conventional": 0.653,
+     "defer_depth": 0.511,
+     "max_parallel": 0.874
+    }
+   },
+   "no relocation": {
+    "ranking": [
+     {
+      "strategy": "barbell",
+      "score": 4.603999088760292,
+      "feasible": true,
+      "rank": 1
+     },
+     {
+      "strategy": "max_parallel",
+      "score": 4.463631225270224,
+      "feasible": true,
+      "rank": 2
+     },
+     {
+      "strategy": "artifact_led",
+      "score": 3.964710387384523,
+      "feasible": true,
+      "rank": 3
+     },
+     {
+      "strategy": "creation_portfolio",
+      "score": 3.769390241246756,
+      "feasible": true,
+      "rank": 4
+     },
+     {
+      "strategy": "research_engineer",
+      "score": 3.0416322198727754,
+      "feasible": true,
+      "rank": 5
+     },
+     {
+      "strategy": "defer_depth",
+      "score": 2.73575,
+      "feasible": false,
+      "rank": 6
+     },
+     {
+      "strategy": "research_first",
+      "score": 2.054545,
+      "feasible": false,
+      "rank": 7
+     },
+     {
+      "strategy": "founder",
+      "score": 1.3768333333333334,
+      "feasible": false,
+      "rank": 8
+     },
+     {
+      "strategy": "conventional",
+      "score": 0.051916666666666667,
+      "feasible": false,
+      "rank": 9
+     }
+    ],
+    "position_by_grad": {
+     "research_first": 0.4075,
+     "research_engineer": 0.8785,
+     "founder": 0.7815,
+     "barbell": 0.9045,
+     "artifact_led": 0.893,
+     "creation_portfolio": 0.872,
+     "conventional": 0.7095,
+     "defer_depth": 0.3925,
+     "max_parallel": 0.9255
+    }
+   }
+  },
+  "scenarios": [
+   "adverse",
+   "central",
+   "aggressive",
+   "independent outcomes",
+   "no AI speed-up",
+   "evidence has no effect",
+   "no relocation"
+  ]
+ },
+ "tornado_balanced": {
+  "strategy": "barbell",
+  "base": 7.742864562558439,
+  "rows": [
+   {
+    "param": "p_reply_faculty",
+    "origin": "expert_judgment",
+    "low_score": 7.240031229225106,
+    "high_score": 8.106549010411735,
+    "swing": 0.8665177811866291,
+    "flips_choice": true,
+    "low_best": "max_parallel",
+    "high_best": "barbell"
+   },
+   {
+    "param": "continual_arc_code_available",
+    "origin": "unknown",
+    "low_score": 7.317435613540749,
+    "high_score": 8.034051203590636,
+    "swing": 0.7166155900498872,
+    "flips_choice": true,
+    "low_best": "max_parallel",
+    "high_best": "barbell"
+   },
+   {
+    "param": "bonus_preprint",
+    "origin": "expert_judgment",
+    "low_score": 7.388876381137195,
+    "high_score": 8.096276011008804,
+    "swing": 0.7073996298716088,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   },
+   {
+    "param": "p_job_offer_cold_apply",
+    "origin": "expert_judgment",
+    "low_score": 7.479990610384867,
+    "high_score": 8.015462285011791,
+    "swing": 0.5354716746269244,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   },
+   {
+    "param": "p_predoc_offer",
+    "origin": "unknown",
+    "low_score": 7.493086295700713,
+    "high_score": 7.983270405786108,
+    "swing": 0.4901841100853952,
+    "flips_choice": true,
+    "low_best": "max_parallel",
+    "high_best": "barbell"
+   },
+   {
+    "param": "bonus_artifact",
+    "origin": "expert_judgment",
+    "low_score": 7.5285031668151445,
+    "high_score": 7.952135273618762,
+    "swing": 0.42363210680361707,
+    "flips_choice": true,
+    "low_best": "max_parallel",
+    "high_best": "barbell"
+   },
+   {
+    "param": "p_startup_offer_targeted",
+    "origin": "expert_judgment",
+    "low_score": 7.552195995115375,
+    "high_score": 7.880331817441174,
+    "swing": 0.3281358223257991,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   },
+   {
+    "param": "p_tmlr_accept",
+    "origin": "expert_judgment",
+    "low_score": 7.600264562558439,
+    "high_score": 7.901264562558438,
+    "swing": 0.30099999999999927,
+    "flips_choice": true,
+    "low_best": "max_parallel",
+    "high_best": "barbell"
+   },
+   {
+    "param": "bonus_referral",
+    "origin": "expert_judgment",
+    "low_score": 7.5966980866514335,
+    "high_score": 7.885028635543839,
+    "swing": 0.2883305488924055,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   },
+   {
+    "param": "p_project_to_offer",
+    "origin": "expert_judgment",
+    "low_score": 7.6028571726298075,
+    "high_score": 7.877883889510408,
+    "swing": 0.27502671688060065,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   },
+   {
+    "param": "p_event_tie",
+    "origin": "expert_judgment",
+    "low_score": 7.633764562558438,
+    "high_score": 7.869364562558439,
+    "swing": 0.2356000000000007,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   },
+   {
+    "param": "p_reply_founder",
+    "origin": "unknown",
+    "low_score": 7.608226673628637,
+    "high_score": 7.835656974962245,
+    "swing": 0.22743030133360875,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   },
+   {
+    "param": "hazard_epoch_filled_week",
+    "origin": "expert_judgment",
+    "low_score": 7.839804696439582,
+    "high_score": 7.61447577531308,
+    "swing": 0.22532892112650238,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   },
+   {
+    "param": "logit_remote_global",
+    "origin": "expert_judgment",
+    "low_score": 7.635300023323707,
+    "high_score": 7.86046016425048,
+    "swing": 0.22516014092677228,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   },
+   {
+    "param": "p_epoch_offer",
+    "origin": "unknown",
+    "low_score": 7.657329524759576,
+    "high_score": 7.8600714225725685,
+    "swing": 0.20274189781299246,
+    "flips_choice": false,
+    "low_best": "barbell",
+    "high_best": "barbell"
+   }
+  ]
+ },
+ "search_balanced": {
+  "front": [
+   {
+    "score": 9.81531913455326,
+    "se": 0.039901327865850704,
+    "position_by_grad": 0.93625,
+    "crunch_weeks": 0.10583333333333333,
+    "peer_reviewed": 0.7504166666666666,
+    "optionality": 3.9670833333333335,
+    "feasible": true,
+    "actions_not_in_any_preset": [
+     "learn_ml_systems"
+    ],
+    "actions": [
+     "arr_service_contributor",
+     "phd_applications",
+     "kolkata_events",
+     "reg_paper_arr_next",
+     "semeval_2027",
+     "msr_bengali_pilot",
+     "predoc_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "remote_global_applications",
+     "arxiv_endorsement",
+     "reg_preprint",
+     "mcw_writeup",
+     "mcw_post_arxiv",
+     "mcw_submit_tmlr",
+     "startup_mvp",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "collab_research_1",
+     "unify_continual_arc",
+     "collab_research_2",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders",
+     "epoch_work_sample",
+     "learn_ml_systems"
+    ],
+    "max_parallel": 4
+   },
+   {
+    "score": 9.542559080567846,
+    "se": 0.04029622117623844,
+    "position_by_grad": 0.9383333333333334,
+    "crunch_weeks": 0.23666666666666666,
+    "peer_reviewed": 0.7366666666666667,
+    "optionality": 3.7195833333333335,
+    "feasible": true,
+    "actions_not_in_any_preset": [],
+    "actions": [
+     "arr_service_contributor",
+     "phd_applications",
+     "hackathons_q4",
+     "kolkata_events",
+     "reg_paper_arr_next",
+     "msr_bengali_pilot",
+     "predoc_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "remote_global_applications",
+     "arxiv_endorsement",
+     "reg_preprint",
+     "mcw_writeup",
+     "mcw_post_arxiv",
+     "mcw_submit_tmlr",
+     "oss_eval_contribs",
+     "startup_mvp",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "unify_continual_arc",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders"
+    ],
+    "max_parallel": 4
+   },
+   {
+    "score": 9.347708903058473,
+    "se": 0.039327803261877584,
+    "position_by_grad": 0.9304166666666667,
+    "crunch_weeks": 0.0225,
+    "peer_reviewed": 0.7620833333333333,
+    "optionality": 3.7683333333333335,
+    "feasible": true,
+    "actions_not_in_any_preset": [],
+    "actions": [
+     "phd_applications",
+     "reg_paper_arr_next",
+     "msr_bengali_pilot",
+     "predoc_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "arxiv_endorsement",
+     "mcw_writeup",
+     "mcw_post_arxiv",
+     "mcw_submit_tmlr",
+     "oss_eval_contribs",
+     "startup_mvp",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "collab_research_1",
+     "unify_continual_arc",
+     "outreach_faculty",
+     "outreach_founders",
+     "snorkel_benchmark_grant",
+     "epoch_work_sample"
+    ],
+    "max_parallel": 5
+   },
+   {
+    "score": 9.068493241205394,
+    "se": 0.04347043230225679,
+    "position_by_grad": 0.8841666666666667,
+    "crunch_weeks": 0.004166666666666667,
+    "peer_reviewed": 0.7558333333333334,
+    "optionality": 3.4920833333333334,
+    "feasible": true,
+    "actions_not_in_any_preset": [
+     "learn_ml_systems"
+    ],
+    "actions": [
+     "arr_service_contributor",
+     "kolkata_events",
+     "reg_paper_arr_next",
+     "semeval_2027",
+     "msr_bengali_pilot",
+     "predoc_applications",
+     "research_intern_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "remote_global_applications",
+     "arxiv_endorsement",
+     "reg_preprint",
+     "mcw_writeup",
+     "mcw_post_arxiv",
+     "mcw_submit_tmlr",
+     "oss_eval_contribs",
+     "startup_mvp",
+     "collab_industry_1",
+     "unify_continual_arc",
+     "outreach_faculty",
+     "outreach_founders",
+     "emergent_ventures",
+     "epoch_work_sample",
+     "learn_ml_systems"
+    ],
+    "max_parallel": 3
+   },
+   {
+    "score": 8.632015506198337,
+    "se": 0.03329189706369633,
+    "position_by_grad": 0.9458333333333333,
+    "crunch_weeks": 0.22166666666666668,
+    "peer_reviewed": 0.30041666666666667,
+    "optionality": 3.8233333333333333,
+    "feasible": true,
+    "actions_not_in_any_preset": [
+     "learn_ml_systems"
+    ],
+    "actions": [
+     "phd_applications",
+     "eacl_srw",
+     "spar_application",
+     "mcw_submit_ml_venue",
+     "semeval_2027",
+     "msr_bengali_pilot",
+     "predoc_applications",
+     "research_intern_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "arxiv_endorsement",
+     "mcw_writeup",
+     "mcw_post_arxiv",
+     "oss_eval_contribs",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "collab_research_1",
+     "unify_continual_arc",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders",
+     "learn_ml_systems"
+    ],
+    "max_parallel": 4
+   },
+   {
+    "score": 8.551438990140019,
+    "se": 0.03876558675708789,
+    "position_by_grad": 0.88875,
+    "crunch_weeks": 0.04708333333333333,
+    "peer_reviewed": 0.7558333333333334,
+    "optionality": 3.1275,
+    "feasible": true,
+    "actions_not_in_any_preset": [],
+    "actions": [
+     "arr_service_contributor",
+     "hackathons_q4",
+     "kolkata_events",
+     "reg_paper_arr_next",
+     "semeval_2027",
+     "msr_bengali_pilot",
+     "predoc_applications",
+     "research_intern_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "arxiv_endorsement",
+     "reg_preprint",
+     "mcw_writeup",
+     "mcw_post_arxiv",
+     "mcw_submit_tmlr",
+     "oss_eval_contribs",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "collab_research_1",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders"
+    ],
+    "max_parallel": 4
+   },
+   {
+    "score": 8.404359108141565,
+    "se": 0.04138576146604849,
+    "position_by_grad": 0.8804166666666666,
+    "crunch_weeks": 0.0,
+    "peer_reviewed": 0.77,
+    "optionality": 3.19625,
+    "feasible": true,
+    "actions_not_in_any_preset": [
+     "learn_ml_systems"
+    ],
+    "actions": [
+     "arr_service_contributor",
+     "reg_paper_arr_next",
+     "spar_application",
+     "predoc_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "arxiv_endorsement",
+     "mcw_writeup",
+     "mcw_post_arxiv",
+     "mcw_submit_tmlr",
+     "startup_mvp",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "collab_research_1",
+     "unify_continual_arc",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders",
+     "epoch_work_sample",
+     "learn_ml_systems"
+    ],
+    "max_parallel": 2
+   },
+   {
+    "score": 8.320561774697431,
+    "se": 0.039939125393566054,
+    "position_by_grad": 0.8929166666666667,
+    "crunch_weeks": 0.021666666666666667,
+    "peer_reviewed": 0.7566666666666667,
+    "optionality": 3.0504166666666666,
+    "feasible": true,
+    "actions_not_in_any_preset": [],
+    "actions": [
+     "hackathons_q4",
+     "reg_paper_arr_next",
+     "semeval_2027",
+     "msr_bengali_pilot",
+     "predoc_applications",
+     "research_intern_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "arxiv_endorsement",
+     "reg_preprint",
+     "mcw_writeup",
+     "mcw_post_arxiv",
+     "mcw_submit_tmlr",
+     "oss_eval_contribs",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders",
+     "epoch_work_sample"
+    ],
+    "max_parallel": 4
+   },
+   {
+    "score": 8.181200195075757,
+    "se": 0.03754840125085287,
+    "position_by_grad": 0.8845833333333334,
+    "crunch_weeks": 0.002916666666666667,
+    "peer_reviewed": 0.4008333333333333,
+    "optionality": 3.3216666666666668,
+    "feasible": true,
+    "actions_not_in_any_preset": [
+     "learn_ml_systems"
+    ],
+    "actions": [
+     "hackathons_q4",
+     "kolkata_events",
+     "spar_application",
+     "semeval_2027",
+     "predoc_applications",
+     "research_intern_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "arxiv_endorsement",
+     "mcw_writeup",
+     "mcw_submit_tmlr",
+     "oss_eval_contribs",
+     "startup_mvp",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "unify_continual_arc",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders",
+     "epoch_work_sample",
+     "learn_ml_systems"
+    ],
+    "max_parallel": 4
+   },
+   {
+    "score": 7.745825329972683,
+    "se": 0.030366331157576216,
+    "position_by_grad": 0.94375,
+    "crunch_weeks": 0.0225,
+    "peer_reviewed": 0.0,
+    "optionality": 3.549166666666667,
+    "feasible": true,
+    "actions_not_in_any_preset": [],
+    "actions": [
+     "phd_applications",
+     "kolkata_events",
+     "spar_application",
+     "semeval_2027",
+     "msr_bengali_pilot",
+     "predoc_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "arxiv_endorsement",
+     "mcw_writeup",
+     "mcw_post_arxiv",
+     "oss_eval_contribs",
+     "collab_industry_1",
+     "collab_research_1",
+     "unify_continual_arc",
+     "collab_research_2",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders"
+    ],
+    "max_parallel": 3
+   },
+   {
+    "score": 7.575448753101397,
+    "se": 0.0330053941741505,
+    "position_by_grad": 0.93875,
+    "crunch_weeks": 0.012083333333333333,
+    "peer_reviewed": 0.0,
+    "optionality": 3.7925,
+    "feasible": true,
+    "actions_not_in_any_preset": [],
+    "actions": [
+     "phd_applications",
+     "kolkata_events",
+     "spar_application",
+     "predoc_applications",
+     "research_intern_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "remote_global_applications",
+     "wmt_challenge_set",
+     "arxiv_endorsement",
+     "mcw_writeup",
+     "oss_eval_contribs",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "collab_research_1",
+     "unify_continual_arc",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders"
+    ],
+    "max_parallel": 3
+   },
+   {
+    "score": 6.93167345466044,
+    "se": 0.0335488356373426,
+    "position_by_grad": 0.8879166666666667,
+    "crunch_weeks": 0.002916666666666667,
+    "peer_reviewed": 0.0,
+    "optionality": 3.0195833333333333,
+    "feasible": true,
+    "actions_not_in_any_preset": [],
+    "actions": [
+     "hackathons_q4",
+     "kolkata_events",
+     "spar_application",
+     "semeval_2027",
+     "predoc_applications",
+     "research_intern_applications",
+     "bigtech_applications",
+     "startup_applications",
+     "wmt_challenge_set",
+     "arxiv_endorsement",
+     "mcw_writeup",
+     "oss_eval_contribs",
+     "mcw_benchmark_release",
+     "collab_industry_1",
+     "unify_continual_arc",
+     "collab_industry_2",
+     "outreach_faculty",
+     "outreach_founders",
+     "epoch_work_sample"
+    ],
+    "max_parallel": 4
+   }
+  ],
+  "preset_scores": {
+   "research_first": 6.319811040743863,
+   "research_engineer": 6.152810986971082,
+   "founder": 4.570585821454145,
+   "barbell": 7.667917398020951,
+   "artifact_led": 6.641618005384409,
+   "creation_portfolio": 7.05106821573086,
+   "conventional": 3.18304253003626,
+   "defer_depth": 6.884693585882585,
+   "max_parallel": 7.544503016575755
+  },
+  "evaluations": 308
+ }
+}

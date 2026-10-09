@@ -10,9 +10,10 @@
             mcw_writeup, mcw_post_arxiv, eacl_srw, phd_applications, predoc_applications, msr_bengali_pilot,
             collab_research_1, collab_research_2, reg_preprint, research_intern_applications, mcw_submit_ml_venue,
             semeval_2027, spar_application, fire_2026, wmt_challenge_set, oss_eval_contribs]
-  contingent: [reg_paper_arr_next, mcw_submit_tmlr]
+  contingent: [reg_paper_arr_next, reg_paper_resubmit, mcw_submit_tmlr]
   rules:
     - {label: "Missed the October ARR deadline → resubmit in January", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Register paper rejected → revise and resubmit", when: {token: reg_rejected, op: ">=", value: 1}, enable: [reg_paper_resubmit]}
     - {label: "Missed the ML venue deadline → TMLR", when: {missed: mcw_submit_ml_venue}, enable: [mcw_submit_tmlr]}
 
 - id: research_engineer
@@ -22,9 +23,10 @@
   actions: [reg_paper_arr_oct, arr_service_contributor, mcw_benchmark_release, oss_eval_contribs, outreach_founders,
             epoch_work_sample, unify_continual_arc, collab_industry_1, collab_industry_2, startup_applications,
             arxiv_endorsement, reg_preprint, bigtech_applications, remote_global_applications, hackathons_q4]
-  contingent: [reg_paper_arr_next]
+  contingent: [reg_paper_arr_next, reg_paper_resubmit]
   rules:
     - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Register paper rejected → revise and resubmit", when: {token: reg_rejected, op: ">=", value: 1}, enable: [reg_paper_resubmit]}
 
 - id: founder
   name: Founder track with safety net
@@ -43,10 +45,11 @@
             outreach_founders, eacl_srw, unify_continual_arc, epoch_work_sample, predoc_applications,
             startup_applications, collab_research_1, collab_industry_1, reg_preprint, research_intern_applications,
             remote_global_applications, fire_2026, kolkata_events]
-  contingent: [reg_paper_arr_next, mcw_writeup, mcw_post_arxiv, mcw_submit_tmlr, collab_research_2, collab_industry_2,
+  contingent: [reg_paper_arr_next, reg_paper_resubmit, mcw_writeup, mcw_post_arxiv, mcw_submit_tmlr, collab_research_2, collab_industry_2,
                phd_applications]
   rules:
     - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Register paper rejected → revise and resubmit", when: {token: reg_rejected, op: ">=", value: 1}, enable: [reg_paper_resubmit]}
     - {label: "Two research replies → double down on research", when: {token: leads_research, op: ">=", value: 2}, enable: [collab_research_2, mcw_writeup, mcw_post_arxiv, mcw_submit_tmlr]}
     - {label: "Two founder replies → second trial project", when: {token: leads_industry, op: ">=", value: 2}, enable: [collab_industry_2]}
 
@@ -58,9 +61,10 @@
             snorkel_benchmark_grant, unify_continual_arc, outreach_faculty, outreach_founders, epoch_work_sample,
             eacl_srw, collab_research_1, collab_industry_1, collab_research_2, collab_industry_2,
             predoc_applications, startup_applications, research_intern_applications, reg_preprint, fire_2026]
-  contingent: [reg_paper_arr_next]
+  contingent: [reg_paper_arr_next, reg_paper_resubmit]
   rules:
     - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Register paper rejected → revise and resubmit", when: {token: reg_rejected, op: ">=", value: 1}, enable: [reg_paper_resubmit]}
 
 - id: creation_portfolio
   name: Opportunity-creation portfolio
@@ -70,9 +74,10 @@
             epoch_work_sample, eacl_srw, snorkel_benchmark_grant, reg_preprint, msr_bengali_pilot,
             predoc_applications, mcw_writeup, mcw_post_arxiv, fire_2026, startup_applications, wmt_challenge_set,
             emergent_ventures]
-  contingent: [reg_paper_arr_next, mcw_submit_tmlr, outreach_founders, collab_industry_1]
+  contingent: [reg_paper_arr_next, reg_paper_resubmit, mcw_submit_tmlr, outreach_founders, collab_industry_1]
   rules:
     - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Register paper rejected → revise and resubmit", when: {token: reg_rejected, op: ">=", value: 1}, enable: [reg_paper_resubmit]}
     - {label: "MCW written → submit to TMLR", when: {token: mcw_written, op: ">=", value: 1}, enable: [mcw_submit_tmlr]}
     - {label: "No Continual-ARC code by mid-December → founder outreach instead", when: {all: [{week_ge: 10}, {token: continual_arc_code, op: "<", value: 1}]}, enable: [outreach_founders, collab_industry_1]}
 
@@ -89,6 +94,9 @@
   actions: [arxiv_endorsement, reg_paper_arr_next, mcw_writeup, mcw_post_arxiv, mcw_benchmark_release, mcw_submit_tmlr,
             eacl_srw, predoc_applications, msr_bengali_pilot, phd_applications, outreach_faculty, collab_research_1,
             semeval_2027, spar_application, reg_preprint, research_intern_applications, wmt_challenge_set]
+  contingent: [reg_paper_resubmit]
+  rules:
+    - {label: "Register paper rejected → revise and resubmit", when: {token: reg_rejected, op: ">=", value: 1}, enable: [reg_paper_resubmit]}
 
 - id: max_parallel
   name: Maximum parallel portfolio
@@ -101,6 +109,7 @@
             collab_industry_2, research_intern_applications, bigtech_applications, remote_global_applications,
             hackathons_q4, arc_prize_entry, fire_2026, kolkata_events, emergent_ventures, reg_preprint,
             mcw_submit_ml_venue, semeval_2027, spar_application, wmt_challenge_set]
-  contingent: [reg_paper_arr_next]
+  contingent: [reg_paper_arr_next, reg_paper_resubmit]
   rules:
     - {label: "Missed October ARR → January cycle", when: {missed: reg_paper_arr_oct}, enable: [reg_paper_arr_next]}
+    - {label: "Register paper rejected → revise and resubmit", when: {token: reg_rejected, op: ">=", value: 1}, enable: [reg_paper_resubmit]}

@@ -31,7 +31,7 @@ NEVER_ALONE = {"reg_preprint": ["reg_paper_arr_oct", "reg_paper_arr_next"]}
 
 
 def _pool(model) -> list[str]:
-    skip = {"verify_sem8_policy"}
+    skip = {"verify_sem8_policy", "reg_paper_resubmit"}
     return [a.id for a in model.actions if a.id not in skip and not a.id.startswith("opp_")] + \
            [a.id for a in model.actions if a.id.startswith("opp_")]
 
@@ -65,6 +65,10 @@ def to_strategy(genes: set[str], max_parallel: int, model, sid: str) -> Strategy
         contingent.append("reg_paper_arr_next")
         rules.append({"label": "Missed October ARR → January cycle", "when": {"missed": "reg_paper_arr_oct"},
                       "enable": ["reg_paper_arr_next"]})
+    if "reg_paper_arr_oct" in genes or "reg_paper_arr_next" in genes:
+        contingent.append("reg_paper_resubmit")
+        rules.append({"label": "Register paper rejected → revise and resubmit", "when": {"token": "reg_rejected", "op": ">=", "value": 1},
+                      "enable": ["reg_paper_resubmit"]})
     if "mcw_submit_ml_venue" in genes:
         contingent.append("mcw_submit_tmlr")
         rules.append({"label": "Missed ML venue → TMLR", "when": {"missed": "mcw_submit_ml_venue"},

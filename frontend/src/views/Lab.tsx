@@ -227,7 +227,7 @@ function Tradeoffs({ run }: { run: any }) {
           <Scatter xLabel={METRIC_LABEL[xm]} yLabel={METRIC_LABEL[ym]} xFmt={(v) => fmtMetric(xm, v)} yFmt={(v) => fmtMetric(ym, v)}
             front={run.analysis.pareto.front}
             points={I.map((s: string) => ({ id: s, name: N[s], color: stratColor(s, I), x: means[s][xm], y: means[s][ym], dashed: stratColor(s, I) === "var(--ink-2)" }))} />
-          <p className="faint" style={{ fontSize: 12 }}>Larger dots are on the Pareto front across {run.analysis.pareto.metrics.length} metrics ({run.analysis.pareto.metrics.map((m: string) => METRIC_LABEL[m]).join(", ")}): no other strategy is at least as good on all of them and better on one. A dominated strategy is never the right choice under any weighting of those metrics.</p>
+          <p className="faint" style={{ fontSize: 12 }}>The dashed line is the trade-off frontier for these two metrics (when more of both is better). Larger dots are on the Pareto front across {run.analysis.pareto.metrics.length} metrics ({run.analysis.pareto.metrics.map((m: string) => METRIC_LABEL[m]).join(", ")}): no other strategy is at least as good on all of them and better on one. A dominated strategy is never the right choice under any weighting of those metrics.</p>
         </div></section>
       <section className="panel"><header><h2>Paired dominance</h2></header>
         <div className="body"><DominanceTable ids={run.analysis.dominance.ids} M={run.analysis.dominance.p_better} names={N} /></div></section>

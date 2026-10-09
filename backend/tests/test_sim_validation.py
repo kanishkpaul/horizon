@@ -275,3 +275,16 @@ def test_probability_evaluated_at_resolution_sees_later_state():
     live = run(mk(acts("resolve"), params, initial={"missing": 1}), S("paper", "reg"), n=2000)
     assert frozen["action_stats"]["paper"]["outcomes"]["desk → ok"] < 0.01
     assert abs(live["action_stats"]["paper"]["outcomes"]["desk → ok"] - 0.95) < 0.02
+
+
+def test_breadth_penalty_lowers_success_when_many_commitments_are_open():
+    acts = [{"id": f"w{i}", "name": f"w{i}", "effort": [100, 100, 100], "max_hours_week": 5} for i in range(6)] + [
+        {"id": "app", "name": "app", "effort": [1, 1, 1], "start": "2026-10-20", "stages": [{"name": "r", "delay": 1, "outcomes": [
+            {"label": "ok", "p": {"base": "p"}, "tokens": {"ok": 1}}], "otherwise": {"label": "no"}}]}]
+    m = mk(acts, [P("p", "fixed(0.5)")])
+    plain = run(m, S(*[f"w{i}" for i in range(6)], "app"), n=4000)
+    sc = flat()
+    sc.breadth_penalty = 0.5
+    sc.focus_k = 2
+    diluted = run(m, S(*[f"w{i}" for i in range(6)], "app"), sc=sc, n=4000)
+    assert diluted["action_stats"]["app"]["outcomes"]["r → ok"] < plain["action_stats"]["app"]["outcomes"]["r → ok"] - 0.1
