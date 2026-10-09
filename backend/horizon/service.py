@@ -510,7 +510,10 @@ def reanalyze(con, rid: str, objective_id: str) -> dict:
     run = get_run(con, rid)
     if not run:
         raise KeyError(rid)
-    arc = np.load(ROOT / one(con, "SELECT archive_path FROM sim_run WHERE id=?", (rid,))["archive_path"])
+    path = ROOT / one(con, "SELECT archive_path FROM sim_run WHERE id=?", (rid,))["archive_path"]
+    if not path.exists():
+        raise KeyError(f"world-level archive for {rid} is missing (data/runs is local-only); re-run the simulation to re-rank")
+    arc = np.load(path)
     results: dict[str, dict] = {}
     for key in arc.files:
         if key.startswith("m::"):
