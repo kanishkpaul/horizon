@@ -1,0 +1,459 @@
+{
+  "snapshot": "/var/folders/v9/34h8gsq526z8j6xf028y5sp40000gn/T/horizon-deep-audit-q_plxbh0/snapshot.sqlite3",
+  "inventory": {
+    "opportunity": 570,
+    "claim": 3605,
+    "source": 824,
+    "organization": 546,
+    "person": 38,
+    "event": 121,
+    "hypothesis": 18,
+    "outreach_target": 83,
+    "parameter": 71,
+    "strategy": 13,
+    "objective_profile": 8,
+    "sim_run": 32,
+    "action_item": 26,
+    "outcome": 0,
+    "forecast": 0,
+    "media": 4,
+    "doc_embedding": 1338,
+    "doc_fts": 1338,
+    "shortlist": 0,
+    "edge": 1752,
+    "parameter_by_origin": {
+      "expert_judgment": 47,
+      "historical_user": 1,
+      "illustrative_placeholder": 7,
+      "organizer_published": 1,
+      "published_empirical": 4,
+      "scenario_assumption": 4,
+      "unknown": 7
+    },
+    "opportunity_by_origin": {
+      "discovery_agent": 52,
+      "radar_2026-10-03": 501,
+      "verify_agent": 17
+    },
+    "claim_by_status": {
+      "active": 3594,
+      "superseded": 11
+    },
+    "integrity": "ok",
+    "foreign_key_check": [],
+    "raw_checksums": [
+      {
+        "path": "Kolkata_Online_Meetups_Oct2026_Jan2027.xlsx",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "MASTER_AI_OPPORTUNITY_RADAR.xlsx",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_CV.pdf",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_CV.tex",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_Agent_Systems.pdf",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_Agent_Systems.tex",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_Evaluation.pdf",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_Evaluation.tex",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_ML_Systems.pdf",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_ML_Systems.tex",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_Multilingual_NLP.pdf",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_Multilingual_NLP.tex",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_Research_Engineering.pdf",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/Kanishk_Paul_Resume_Research_Engineering.tex",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/README.md",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/evidence_ledger.md",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/generate_resumes.py",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "cv/kpresume.sty",
+        "exists": true,
+        "matches": true
+      }
+    ],
+    "archives": [
+      {
+        "id": "RUN-20261009-133034-fd0b",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-175651-e6c1",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-175953-a9ca",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-175954-0863",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180000-66c6",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180002-6b34",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180003-1a22",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180004-b15a",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180005-9372",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180006-e7d0",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180007-560a",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180009-4732",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180150-1070",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180402-11da",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180402-b18b",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180403-1991",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-180835-b5eb",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-181014-7bf3",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-181015-f966",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-181015-fb94",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-181024-0b87",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-181117-f49e",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-181957-7290",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-182135-d39e",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-182137-235e",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-182139-48e6",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-182141-2fc4",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-182142-51d7",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-182145-ba45",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-182147-5f30",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-182149-1431",
+        "exists": false
+      },
+      {
+        "id": "RUN-20261009-183650-9248",
+        "exists": true
+      }
+    ],
+    "media_files": [
+      {
+        "id": "MED-a4495ec118",
+        "status": "done",
+        "exists": true
+      },
+      {
+        "id": "MED-388a01e1bd",
+        "status": "done",
+        "exists": true
+      },
+      {
+        "id": "MED-caaab98131",
+        "status": "done",
+        "exists": true
+      },
+      {
+        "id": "MED-57a65f632c",
+        "status": "done",
+        "exists": true
+      }
+    ],
+    "assessment_dates": [
+      [
+        "2026-10-09T12:47:27+00:00",
+        570
+      ]
+    ],
+    "actions": 41,
+    "fingerprint": "aaaef8e76ebb",
+    "unused_parameters": [
+      "p_reply_to_project",
+      "p_degree_on_time"
+    ]
+  },
+  "probes": {
+    "shared_fractional_capacity": {
+      "hours_before_deadline": 20,
+      "hours_used": 30.0,
+      "a_done": 1.0,
+      "b_done": 1.0
+    },
+    "fractional_start": {
+      "available_expected": 5.714285714285714,
+      "p_done": 1.0,
+      "hours_used": 30.0
+    },
+    "fingerprint_collision": {
+      "before": "66f61464c2cd",
+      "after": "66f61464c2cd",
+      "completion_before": 2.0,
+      "completion_after": null
+    },
+    "graduation_grace": {
+      "graduation_week": 2,
+      "offer_week": 3.5,
+      "position_by_grad": 1.0
+    },
+    "risk_comparison": {
+      "ranking": [
+        {
+          "strategy": "safe",
+          "score": 4.0,
+          "mean_utility": 4.0,
+          "se": 0.0,
+          "p10": 4.0,
+          "p90": 4.0,
+          "feasible": true,
+          "constraints": [],
+          "rank": 1
+        },
+        {
+          "strategy": "risky",
+          "score": 0.0,
+          "mean_utility": 8.0,
+          "se": 0.40201512610368484,
+          "p10": 0.0,
+          "p90": 10.0,
+          "feasible": true,
+          "constraints": [],
+          "rank": 2
+        }
+      ],
+      "comparison": {
+        "top": "safe",
+        "runner_up": "risky",
+        "mean_diff": -4.0,
+        "se": 0.40201512610368484,
+        "z": -9.9498743710662,
+        "p_world_top_better": 0.2,
+        "resolved": true
+      }
+    },
+    "identical_strategies_comparison": {
+      "top": "a",
+      "runner_up": "b",
+      "mean_diff": 0.0,
+      "se": 0.0,
+      "z": "inf",
+      "p_world_top_better": 0.0,
+      "resolved": true
+    },
+    "non_atomic_outcome": {
+      "error": "need 0 <= successes <= trials and trials > 0",
+      "outcomes_added": 1,
+      "action_status": "done"
+    },
+    "invalid_distributions_accepted": [
+      "beta(-1,2)",
+      "normal(0,-1)",
+      "bernoulli(2)",
+      "fixed(nan)"
+    ],
+    "robust_minimax": {
+      "choice": "disc2_harsh",
+      "feasibility_by_scenario": {
+        "adverse": true,
+        "central": true,
+        "aggressive": true,
+        "independent outcomes": true,
+        "no AI speed-up": true,
+        "evidence has no effect": true,
+        "no relocation": true,
+        "quality dilution": true,
+        "harsh (adverse + heavy academics + strong correlation)": true
+      }
+    },
+    "ingest_verify": {
+      "edges_before": 1752,
+      "after_once": 1752,
+      "after_twice": 1752
+    },
+    "ingest_discovery": {
+      "edges_before": 1752,
+      "after_once": 1893,
+      "after_twice": 2034
+    },
+    "profile_model_link": {
+      "profile_keys": [
+        "constraints.academic_load",
+        "constraints.exam_weeks",
+        "education.academic_standing",
+        "education.degree",
+        "education.graduation",
+        "education.institution",
+        "education.sem8_internship_policy",
+        "engineering.agent_systems",
+        "engineering.languages",
+        "engineering.ml_stack",
+        "engineering.oss",
+        "entrepreneurship.buildspace",
+        "entrepreneurship.openmind",
+        "entrepreneurship.prettiflow",
+        "geography.citizenship",
+        "geography.location",
+        "geography.relocation",
+        "geography.travel_abroad",
+        "network.communities",
+        "network.disco",
+        "network.hackathons",
+        "network.lenton",
+        "network.naskar",
+        "network.tum_collab",
+        "preferences.interests",
+        "preferences.min_compensation",
+        "preferences.path_preference",
+        "preferences.risk_tolerance",
+        "research.mcw_benchmark",
+        "research.publications",
+        "research.register_paper",
+        "research.resonator_audit",
+        "research.superfly",
+        "research.virgil",
+        "resources.ai_tools",
+        "resources.capital",
+        "resources.gpu_access",
+        "resources.hardware"
+      ],
+      "fingerprint_before": "aaaef8e76ebb",
+      "fingerprint_after": "aaaef8e76ebb"
+    },
+    "plan_regeneration": {
+      "action": "phd_applications",
+      "copies": 2
+    },
+    "identical_json_error": "Out of range float values are not JSON compliant: inf",
+    "nationality_matching": [
+      "ineligible",
+      [
+        "Nationality/residency limit: 'US citizens'"
+      ]
+    ]
+  }
+}

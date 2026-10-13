@@ -1,5 +1,10 @@
 # Working on Project Horizon
 
+This is the preserved `old` branch. New development belongs on `main`. Follow
+`AGENTS.md` and `README.md` first. Never add coding-agent co-author trailers,
+generated-by signatures, or coding-agent attribution to commits, pull requests,
+documentation, or source. Preserve third-party license notices.
+
 Read `PROJECT.md` first, then `docs/PROGRESS.md` for the current state.
 
 ## Rules
