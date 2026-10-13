@@ -1,88 +1,86 @@
-# Horizon — legacy implementation
+# Horizon
 
-This is the preserved Python/React implementation of Horizon. New development takes
-place on [`main`](https://github.com/kanishkpaul/horizon/tree/main), with two Rust
-components: `hsim` for simulation and `hdb` for evidence, storage, retrieval, and
-model access. This branch is named `old` and remains a reference and migration
-source.
+Horizon is a free, open-source, local-first decision workstation. It helps people
+understand their options, inspect the evidence and assumptions behind them, compare
+adaptive plans, and revise those plans from experience.
 
-## What is preserved
+The project has two parts:
 
-- The local opportunity and decision workstation: Python, FastAPI, React,
-  SQLite, BM25, local embeddings, simulation, analysis, scheduling, and playback.
-- The complete `lifesim` import from commit `25c9f9a`.
-- Declarative models, ingestion code, tests, research records, and project docs.
-- The previously untracked audit in `docs/analysis-2026-10-10/`, including its
-  reproduction script. It is historical evidence, not a certification of current
-  opportunity deadlines or calibrated personal predictions.
+- **hsim** models actions, limited resources, uncertainty, and alternative policies.
+- **hdb** stores evidence and observations, retrieves relevant context, and provides
+  replaceable access to BYOK and local models.
 
-The implementation is decision support under explicit assumptions. It does not
-predict a person's life. The workstation and `lifesim` are separate engines.
+The desktop and CLI applications compose these libraries. Essential workflows must
+work without a model, an account, a paid API, or a cloud service.
 
-## Running the workstation
+## Current state
 
-Use Python 3.12 and `uv`. Build the interface with Node.js and npm:
+`main` contains the v2 architecture, build plan, contributor rules, and a minimal
+buildable Rust workspace. The libraries have no runtime APIs yet. Simulation,
+database operations, model adapters, and the desktop application are planned,
+not implemented. Do not interpret the scaffolding as a working product.
+
+The previous Python/React workstation and the complete `lifesim` snapshot are
+preserved on [`old`](https://github.com/kanishkpaul/horizon/tree/old), with a new
+README and historical audit. Legacy behavior is reference material, not an
+acceptance oracle. New development belongs on `main`.
+
+## Target stack
+
+| Responsibility | Choice |
+|---|---|
+| Libraries and application services | Rust |
+| Desktop delivery | Tauri 2 |
+| Interface | TypeScript, React, Vite |
+| Authoritative records | SQLite |
+| Semantic retrieval | Embedded vector adapter; benchmark LanceDB OSS and sqlite-vec |
+| Model access | Native provider adapters and a configurable compatible endpoint |
+| Numerical parallelism | Bounded Rayon workers when justified by measurement |
+| Advanced scheduling | Optional OR-Tools worker |
+| Research interface | Optional Python bindings to the same engine |
+
+The vector backend and embedding model are deliberately not selected yet. They
+must meet the same correctness, filtering, retrieval, footprint, and recovery
+checks. A vector index is derived data; source evidence remains authoritative.
+
+## Start contributing
+
+Read [AGENTS.md](AGENTS.md), [the architecture](docs/ARCHITECTURE.md),
+[the build plan](docs/BUILD_PLAN.md), and [the coding standard](docs/CODE_STYLE.md).
 
 ```sh
-cd frontend
-npm ci
-npm run build
-cd ../backend
-uv sync
-uv run horizon serve
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo test --workspace --all-features
+cargo doc --workspace --no-deps
+python3 scripts/check_repository.py
 ```
 
-The local app is served at `http://127.0.0.1:8765`.
+These currently verify the foundation only. They do not exercise a simulation or
+database implementation. Cargo is needed for the Rust workspace; Python is used
+only by the repository check. End users will not need Python for core functionality.
 
-The original database and source workbooks are ignored by Git. A fresh clone does
-not contain the complete personal workspace. Restore those files from a private
-backup before running the populated workstation. Rebuilding also requires its
-original inputs; `horizon rebuild` is not a synthetic-data initializer. Embedding
-search requires the configured model to be available locally or downloaded.
+## Documents
 
-See [PROJECT.md](PROJECT.md) for workspaces, commands, and architecture.
+- [Project scope](docs/PROJECT.md)
+- [Build plan](docs/BUILD_PLAN.md) and [decision record](docs/DECISIONS.md)
+- [Architecture](docs/ARCHITECTURE.md) and [feature lifecycle](docs/FEATURES.md)
+- [hsim contract](docs/HSIM.md) and [hdb contract](docs/HDB.md)
+- [Model access and privacy](docs/MODELS.md)
+- [Validation and performance](docs/VALIDATION.md)
+- [Legacy preservation and migration](docs/MIGRATION.md)
+- [Coding and commenting standard](docs/CODE_STYLE.md)
+- [Contributing](CONTRIBUTING.md) and [security](SECURITY.md)
 
-## Running lifesim
+## Ownership and license
 
-```sh
-cd lifesim
-python3 -m lifesim --domain all --u 0.3 --seed 1
-python3 -m tests.run
-```
+Users own their workspaces and choose which context, if any, leaves their device.
+API keys belong in the operating system's credential store, never in a database,
+export, or repository. Local mode never falls back to a cloud provider silently.
 
-Its simulation core uses the Python standard library. Plotting has optional
-dependencies. Its coefficients and population reference curves are illustrative;
-simulation precision does not validate them against real lives. See
-[lifesim/README.md](lifesim/README.md).
+Source code is licensed under [MIT](LICENSE). Private records and third-party
+materials do not become redistributable because the software is open source. The
+repository remains private until its history and release contents are reviewed.
 
-## Known limitations and migration
-
-The audit reproduced incorrect fractional-window capacity allocation, cutoff
-semantics, risk comparisons, incomplete model fingerprints, disconnected profile
-inputs, non-atomic outcome calibration, duplicated discovery edges, and plan
-regeneration problems. Preserve these examples as regression cases for v2 rather
-than copying the defects. Existing test passes do not remove these limitations.
-
-See [the audit](docs/analysis-2026-10-10/REPORT.md) and
-[the v2 build plan](https://github.com/kanishkpaul/horizon/blob/main/docs/BUILD_PLAN.md).
-Changes to this branch should be limited to preservation, documented migration,
-or explicitly requested maintenance.
-
-## Private workspace preservation
-
-Git preserves tracked files and history, not ignored databases, originals,
-simulation archives, or rendered media. A consistent SQLite backup and copies of
-the source originals, run arrays, media, and audit files were verified separately
-before the branch split on 13 October 2026. Preserve those private backups outside
-the repository. Use SQLite's backup API for databases in WAL mode.
-
-The branch contains personal context in tracked models and research material.
-The repository remains private; do not publish this history without a separate
-privacy and licensing review. The v2 source is intended to be free and open source.
-
-## Contribution rule
-
-Use the contributor's configured Git identity. Do not add coding-agent co-author
-trailers, generated-by signatures, or coding-agent attribution to commits, pull
-requests, documentation, or source. Preserve legitimate third-party license
-notices.
+Horizon is decision support under explicit assumptions. It does not establish
+personal outcome probabilities or predict a person's life.
