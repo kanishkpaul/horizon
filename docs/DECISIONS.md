@@ -16,6 +16,7 @@
 | D-010 | MIT source license; repository visibility stays private for now | License applied | Free/open-source intention does not authorize publishing personal history |
 | D-011 | Python research and OR-Tools are optional boundaries | Planned | Scientific flexibility without a mandatory Python runtime in the core |
 | D-012 | Tasteful code and comments require tools plus review | Applied policy | Formatting alone cannot verify rationale, correctness, or simplicity |
+| D-013 | Desktop and CLI presentation follow the shared design kit in `design/` | Applied | One system across the owner's projects; the master at `../design-kit` is copied in so the repository stands alone |
 
 ## Making a new decision
 
