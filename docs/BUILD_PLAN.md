@@ -147,7 +147,7 @@ Acceptance:
 - Pilot users can understand and use the loop; outcome benefits are not inferred
   from a small usability pilot.
 - Release contents, history, licenses, models, and fixtures pass the privacy and
-  redistribution review. Publishing the repository remains a separate action.
+  redistribution review.
 
 ## Working rhythm
 

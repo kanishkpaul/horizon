@@ -13,7 +13,7 @@
 | D-007 | Static capability composition before dynamic plugins | Planned | Narrow extension seams without speculative infrastructure |
 | D-008 | Deterministic simulation consumes immutable validated snapshots | Required, pending | Replay and comparisons must not depend on hidden I/O or live model output |
 | D-009 | No coding-agent attribution in new contributions | Applied policy | Explicit owner instruction; configured contributor identity remains authoritative |
-| D-010 | MIT source license; repository visibility stays private for now | License applied | Free/open-source intention does not authorize publishing personal history |
+| D-010 | MIT source license; repository public | Applied | The owner made the repository public on 2026-10-14; release contents still pass the privacy and redistribution review |
 | D-011 | Python research and OR-Tools are optional boundaries | Planned | Scientific flexibility without a mandatory Python runtime in the core |
 | D-012 | Tasteful code and comments require tools plus review | Applied policy | Formatting alone cannot verify rationale, correctness, or simplicity |
 | D-013 | Desktop and CLI presentation follow the shared design kit in `design/` | Applied | One system across the owner's projects; the master at `../design-kit` is copied in so the repository stands alone |

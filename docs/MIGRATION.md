@@ -55,13 +55,13 @@ restoration before adopting the new workspace.
 Do not claim old runs are replayable without their complete inputs and arrays.
 Changing embedding model, dimensions, or chunking requires rebuilding derived indexes.
 
-## Before making the repository public
+## Repository visibility
 
-The clean v2 tree does not remove personal information from Git history. The `old`
-branch and earlier commits contain tracked personal context and research records.
-Review release contents, all published refs/history, licenses, source documents,
-fixtures, contact information, and model redistribution rights.
+The owner made the repository public on 2026-10-14, with its existing history. The
+clean v2 tree does not remove personal information from that history: the `old`
+branch and earlier commits contain tracked personal context and research records,
+and they are public along with it.
 
-A clean public repository may be preferable to publishing this private history.
-That choice and any visibility change require a separate explicit instruction.
-No publication or historical metadata rewriting is part of this branch split.
+Before each release, review release contents, licenses, source documents, fixtures,
+contact information, and model redistribution rights. Rewriting published history
+requires a separate explicit instruction.

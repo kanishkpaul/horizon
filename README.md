@@ -80,7 +80,7 @@ export, or repository. Local mode never falls back to a cloud provider silently.
 
 Source code is licensed under [MIT](LICENSE). Private records and third-party
 materials do not become redistributable because the software is open source. The
-repository remains private until its history and release contents are reviewed.
+repository is public; release contents are still reviewed before each release.
 
 Horizon is decision support under explicit assumptions. It does not establish
 personal outcome probabilities or predict a person's life.
