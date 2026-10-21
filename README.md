@@ -1,17 +1,21 @@
 # Horizon
 
-Horizon is a free, open-source, local-first decision workstation. It helps people
-understand their options, inspect the evidence and assumptions behind them, compare
-adaptive plans, and revise those plans from experience.
+> 🏗️ **Under construction — v2 rebuild in progress.** This branch contains the
+> project design and empty Rust library foundations. There is no runnable desktop
+> app or CLI yet.
 
-The project has two parts:
+Horizon is being built as a free, open-source, local-first decision workstation to
+help people understand their options, inspect the evidence and assumptions behind
+them, compare adaptive plans, and revise those plans from experience.
 
-- **hsim** models actions, limited resources, uncertainty, and alternative policies.
-- **hdb** stores evidence and observations, retrieves relevant context, and provides
+The planned core has two independent libraries:
+
+- **hsim** will model actions, limited resources, uncertainty, and alternative policies.
+- **hdb** will store evidence and observations, retrieve relevant context, and provide
   replaceable access to BYOK and local models.
 
-The desktop and CLI applications compose these libraries. Essential workflows must
-work without a model, an account, a paid API, or a cloud service.
+The planned desktop and CLI applications will compose these libraries. Essential
+workflows must work without a model, an account, a paid API, or a cloud service.
 
 ## Current state
 
@@ -20,12 +24,16 @@ buildable Rust workspace. The libraries have no runtime APIs yet. Simulation,
 database operations, model adapters, and the desktop application are planned,
 not implemented. Do not interpret the scaffolding as a working product.
 
+The next milestone is **M1: contracts and a deterministic simulation slice**,
+including a synthetic case and a minimal CLI demonstration. See the
+[build plan](docs/BUILD_PLAN.md) for acceptance gates; later milestones remain pending.
+
 The previous Python/React workstation and the complete `lifesim` snapshot are
 preserved on [`old`](https://github.com/kanishkpaul/horizon/tree/old), with a new
 README and historical audit. Legacy behavior is reference material, not an
 acceptance oracle. New development belongs on `main`.
 
-## Target stack
+## Planned stack
 
 | Responsibility | Choice |
 |---|---|
@@ -47,6 +55,9 @@ checks. A vector index is derived data; source evidence remains authoritative.
 
 Read [AGENTS.md](AGENTS.md), [the architecture](docs/ARCHITECTURE.md),
 [the build plan](docs/BUILD_PLAN.md), and [the coding standard](docs/CODE_STYLE.md).
+
+To check the foundation, use Rust 1.85 or newer with edition 2024 support and
+Python 3.11 or newer:
 
 ```sh
 cargo fmt --all -- --check
