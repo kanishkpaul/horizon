@@ -11,5 +11,8 @@ contributor identity. Preserve third-party license notices.
 
 New development belongs on `main`. `old` is the preserved legacy implementation.
 Do not restore the old backend, personal models, or private data into the new tree.
-Build the next accepted milestone from `docs/BUILD_PLAN.md`; report actual checks
+Read `docs/THESIS.md` and `docs/STATUS.md`. The current public gate is in
+`docs/BUILD_PLAN.md`; detailed planning stays in ignored `.local/BUILD_PLAN.md`.
+Use the local plan when available for an assigned task, never publish its backlog,
+and continue from public acceptance conditions when it is absent. Report actual checks
 and remaining limitations without claiming planned abilities are implemented.

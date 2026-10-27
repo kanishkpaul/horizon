@@ -27,3 +27,9 @@
 *.db-journal
 *.log
 .DS_Store
+
+# Local planning and scratch material never enter public contributions.
+/.local/
+/docs/STRATEGY_REVIEW_2026-10-28.md
+/.impeccable/
+*.pyc

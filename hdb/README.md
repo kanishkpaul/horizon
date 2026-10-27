@@ -4,8 +4,8 @@ Horizon's independent evidence, database, retrieval, and model-access library. S
 holds authoritative records; optional vector adapters index derived chunks. BYOK and
 local models are replaceable, role-specific adapters, not a dependency of manual use.
 
-Current status: empty library foundation, with no runtime API. Start with M2 in
-[the build plan](../docs/BUILD_PLAN.md). Read [the contract](../docs/HDB.md),
+Current status: empty library foundation, with no runtime API. The [status](../docs/STATUS.md) records what exists; scope implementation through
+an assigned task and public contracts. Read [the contract](../docs/HDB.md),
 [model access](../docs/MODELS.md), [coding standard](../docs/CODE_STYLE.md), and
 [scoped instructions](AGENTS.md).
 

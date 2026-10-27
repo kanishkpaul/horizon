@@ -82,3 +82,22 @@ References: [Robust Decision Making](https://link.springer.com/chapter/10.1007/9
 [adaptive pathways](https://ris.utwente.nl/ws/files/247793059/Haasnoot2013dynamic.pdf),
 [regression EVPPI](https://journals.sagepub.com/doi/10.1177/0272989X13505910),
 [EVSI](https://journals.sagepub.com/doi/10.1177/0272989X15575286).
+
+## Social mechanisms and information
+
+A social model declares actors, available actions, information sets, incentives,
+resource ownership, response rules, and their sources or assumption status. Other
+actors may react to a policy. Alternatives such as bounded responses and different
+beliefs remain comparable; rationality, equilibrium uniqueness, and stable behavior
+are not defaults. Cooperation, bargaining, signalling, and competition are model
+families to validate, not implemented capabilities.
+
+Feedback scenarios explicitly state how aggregate adoption changes incentives or
+resources. Equilibria and scenario results are conditional model outputs, not
+observations or population predictions. Report consequences for affected actors
+in natural units rather than silently combining their priorities.
+
+Information actions declare costs, delays, observation quality, and the actions
+made available by learning. Keep sensitivity separate from expected information
+value. Analysis limits, unexamined mechanisms, and stopping diagnostics accompany
+results; more computation does not establish that omitted mechanisms are harmless.

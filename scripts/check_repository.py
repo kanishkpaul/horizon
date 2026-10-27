@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from html.parser import HTMLParser
 from pathlib import Path
 import re
 import subprocess
@@ -13,6 +14,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_DOCS = (
     "README.md", "AGENTS.md", "CLAUDE.md", "CONTRIBUTING.md", "SECURITY.md",
+    "docs/THESIS.md", "docs/STATUS.md",
     "docs/PROJECT.md", "docs/ARCHITECTURE.md", "docs/BUILD_PLAN.md",
     "docs/DECISIONS.md", "docs/CODE_STYLE.md", "docs/FEATURES.md",
     "docs/HSIM.md", "docs/HDB.md", "docs/MODELS.md", "docs/VALIDATION.md",
@@ -37,6 +39,19 @@ def repository_paths() -> list[Path]:
     return sorted({ROOT / name for name in names.split("\0") if name and (ROOT / name).is_file()})
 
 
+class DocumentLinks(HTMLParser):
+    """Collect local targets from the HTML that GitHub Markdown also renders."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.targets: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        for name, value in attrs:
+            if value and ((tag == "a" and name == "href") or (tag == "img" and name == "src")):
+                self.targets.append(value)
+
+
 def check_documents(paths: list[Path]) -> list[str]:
     errors = [f"Missing required document: {name}" for name in REQUIRED_DOCS if not (ROOT / name).is_file()]
     for path in paths:
@@ -44,7 +59,10 @@ def check_documents(paths: list[Path]) -> list[str]:
             continue
         text = path.read_text(encoding="utf-8")
         text = re.sub(r"(?ms)^```.*?^```[^\n]*", "", text)
-        for target in re.findall(r"\[[^\]]*\]\(([^\s)]+)\)", text):
+        html = DocumentLinks()
+        html.feed(text)
+        targets = re.findall(r"\[[^\]]*\]\(([^\s)]+)\)", text) + html.targets
+        for target in targets:
             target = target.strip("<>")
             parsed = urlsplit(target)
             if parsed.scheme or parsed.netloc or not parsed.path:
@@ -88,10 +106,10 @@ def check_boundaries() -> list[str]:
 
 def check_private_paths(paths: list[Path]) -> list[str]:
     errors = []
-    private_roots = {"data", "workspaces", "backups", "models", "indexes", "runs"}
+    private_roots = {".local", ".impeccable", "data", "work", "workspaces", "backups", "models", "indexes", "runs"}
     for path in paths:
         relative = path.relative_to(ROOT)
-        if relative.parts[0] in private_roots:
+        if relative.parts[0] in private_roots or relative.as_posix() == "docs/STRATEGY_REVIEW_2026-10-28.md":
             errors.append(f"Private workspace path in repository: {relative}")
         if path.name == ".env" or (path.name.startswith(".env.") and path.name != ".env.example"):
             errors.append(f"Environment secrets file in repository: {relative}")
@@ -113,20 +131,34 @@ def check_commits(commit_range: str | None) -> list[str]:
     return errors
 
 
+def check_message(path: Path) -> list[str]:
+    """Reject prohibited attribution before the message enters Git history."""
+    if ATTRIBUTION.search(path.read_text(encoding="utf-8")):
+        return ["Commit message contains prohibited coding-agent attribution."]
+    return []
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--commit-range", help="Override the range after the preserved legacy baseline")
+    parser.add_argument("--commit-message", type=Path, help="Check a proposed commit message only")
     args = parser.parse_args()
     try:
-        paths = repository_paths()
-        errors = check_documents(paths) + check_boundaries() + check_private_paths(paths) + check_commits(args.commit_range)
+        if args.commit_message:
+            errors = check_message(args.commit_message)
+        else:
+            paths = repository_paths()
+            errors = check_documents(paths) + check_boundaries() + check_private_paths(paths) + check_commits(args.commit_range)
     except (OSError, subprocess.CalledProcessError, ValueError, KeyError) as error:
         print(f"Repository check could not complete: {error}", file=sys.stderr)
         return 1
     if errors:
         print("\n".join(errors), file=sys.stderr)
         return 1
-    print("Repository contracts, local document links, private paths, and new commit messages checked.")
+    if args.commit_message:
+        print("Commit message policy checked.")
+    else:
+        print("Repository contracts, local document links, private paths, and new commit messages checked.")
     return 0
 
 

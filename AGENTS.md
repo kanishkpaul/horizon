@@ -6,13 +6,29 @@ here; it does not define a separate set of rules.
 
 ## Read before writing code
 
-1. `README.md` and `docs/PROJECT.md`: scope and actual implementation status.
+1. `README.md`, `docs/THESIS.md`, `docs/STATUS.md`, and `docs/PROJECT.md`:
+   purpose, scope, and actual implementation status.
 2. `docs/ARCHITECTURE.md` and the relevant `HSIM.md` or `HDB.md`: boundaries.
 3. `docs/CODE_STYLE.md`: required coding and commenting practice.
-4. `docs/BUILD_PLAN.md`: the current milestone and its acceptance gate.
+4. `docs/BUILD_PLAN.md`: the current public acceptance gate. Read
+   `.local/BUILD_PLAN.md` when available for an owner-assigned task; it is optional
+   for contributors.
 5. `docs/FEATURES.md`, `MODELS.md`, and `VALIDATION.md` when relevant.
 
 Do not start from legacy source without reading `docs/MIGRATION.md`.
+
+## Local planning and status
+
+The detailed build plan belongs in ignored `.local/BUILD_PLAN.md`. Never commit,
+publish, or mirror its backlog into public documents, issues, pull requests, or
+releases. A missing local plan does not block contribution: use the assigned
+behavior, public contracts, and acceptance conditions. Earlier tracked roadmaps
+remain in Git history; do not rewrite history to remove them.
+
+This branch contains two empty library crates and repository tooling. No runtime
+APIs, CLI, desktop, storage, retrieval, or simulation are implemented yet. Keep
+`docs/STATUS.md` and capability claims synchronized with actual code. Do not start
+implementation merely because a preparation task updates the thesis.
 
 ## Non-negotiable rules
 
@@ -23,6 +39,8 @@ Do not start from legacy source without reading `docs/MIGRATION.md`.
   inference, embeddings, reranking, scheduling workers, and media are optional.
 - `hsim` never calls a model or network service during simulation. Pass validated,
   immutable inputs and record all behavior-affecting inputs for replay.
+- Preserve living cases and distinguish current reasoning from frozen historical
+  expectations.
 - Treat source evidence, proposed model output, accepted claims, assumptions,
   observations, and simulated results as different types and states.
 - Keep personal originals read-only. Use a consistent SQLite backup for WAL
@@ -54,6 +72,7 @@ Do not start from legacy source without reading `docs/MIGRATION.md`.
 
 ## Before committing
 
+Install the commit-message hook with `git config --local core.hooksPath .githooks`.
 Run the relevant behavioral checks, then formatting, linting, documentation, and
 `python3 scripts/check_repository.py`. The full foundation commands are in
 `CONTRIBUTING.md`. Report unavailable checks honestly; do not claim skipped checks

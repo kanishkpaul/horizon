@@ -8,11 +8,15 @@ Status: required lifecycle; no runtime capabilities are implemented yet.
 |---|---|---|---|
 | Deterministic/stochastic simulation and analysis | hsim | Yes | Validated case and result APIs |
 | Evidence, observations, revisions, backup, export | hdb | Yes | Workspace service and versioned records |
-| Manual entry and lexical search | hdb | Yes | Importer and retrieval operations |
+| Structured, lexical, and dependency retrieval | hdb | Yes | Filtered queries and bounded revision traversal |
+| Manual entry and source import | hdb | Yes | Validated records and source locations |
 | Embeddings and vector retrieval | hdb | No | Embedding role and vector-index adapter |
 | Chat/extraction and reranking | hdb | No | Role-specific model adapters |
 | Domain dynamics | hsim | Selected by case | Declared state, resources, transitions, outputs |
 | Advanced scheduling | Application | No | Solver worker protocol |
+| Living cases, commitments, observations, review | Application | Yes | Shared services and frozen case/run mappings |
+| Social mechanisms and response feedback | hsim | Selected by case | Explicit actors, information, incentives, response rules |
+| Information actions and analysis budgets | hsim/Application | Progressive analysis | Conditional evaluation and orchestration limits |
 | Desktop/CLI | Application | Interface choice | Shared application services |
 | Python bindings and media | Application/tooling | No | Engine binding or exporter |
 

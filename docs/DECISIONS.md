@@ -28,3 +28,32 @@ For D-005, compare the same corpus, vector model, dimensions, filters, and queri
 Record cold/warm retrieval, peak memory, installed/index size, write/recovery behavior,
 and relevance. Approximate retrieval needs recall against exact search. No benchmark
 or default vector backend is claimed by this foundation.
+
+## D-014 — Living cases and the decision OS thesis
+
+28 October 2026. Direction accepted; runtime implementation pending.
+
+Problem: evidence, simulation, commitments, and outcomes need continuity as the
+world changes. Choose a living decision case composed by application services
+over independent hdb and hsim libraries. Preserve frozen expectations alongside
+current reasoning, distinct evidence states, explicit priorities, affected-person
+outcomes, and optional models. Social responses and adoption feedback are explicit
+model families with validation requirements.
+
+Alternative: make chat, task lists, or a universal outcome score the primary object.
+Those do not preserve the necessary reasoning and revision boundaries. Consequence:
+source dependencies, simulation/execution conformance, information timing, and
+conditional social-model interpretation become contract obligations. See
+[THESIS.md](THESIS.md), [ARCHITECTURE.md](ARCHITECTURE.md), and
+[VALIDATION.md](VALIDATION.md). The active gate remains deterministic cases.
+
+## D-015 — Local planning and public acceptance contracts
+
+28 October 2026. Applied to repository preparation.
+
+Keep detailed sequencing and owner backlog in ignored `.local/BUILD_PLAN.md`.
+Publish the thesis, status, contracts, and current acceptance gate so external
+contributors can work without private files. This replaces the full public roadmap;
+earlier versions remain in history. Do not mirror local planning into public issues
+or releases. The tradeoff is that clones lack owner scheduling detail; assigned
+tasks must therefore carry their own acceptance conditions.

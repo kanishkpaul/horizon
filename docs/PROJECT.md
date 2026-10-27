@@ -1,8 +1,18 @@
 # Project scope
 
 Horizon helps a person reason about alternatives, make feasible near-term
-commitments, and adapt to evidence. It is a decision workstation with explicit
-uncertainty, not a calibrated life predictor.
+commitments, and adapt to evidence. It is an open-source, local-first decision OS:
+infrastructure connecting
+knowledge, possibilities, commitments, and experience. "OS" describes this decision
+workflow; Horizon is an application and reusable libraries, not a host operating
+system. Read [the thesis](THESIS.md) for the full direction.
+
+## Living decision cases
+
+A case links evidence, assumptions, alternatives, resources, policies, commitments,
+and observations. Current reasoning can change while historical cases and prior
+expectations remain frozen. Decisions expose user priorities and consequences for
+affected people; there is no hidden aggregate measure of a person's worth.
 
 ## The useful loop
 
@@ -47,10 +57,23 @@ live integration check.
 
 ## Status and deferred scope
 
-The current tree provides instructions, contracts, a build plan, and empty Rust
-library foundations. It implements none of the loop above yet. Desktop UI, provider
+The current tree provides instructions, contracts, an acceptance gate, and empty Rust
+library foundations. It implements none of the loop above yet. See
+[current status](STATUS.md) for the implementation inventory. Desktop UI, provider
 integration, simulation, storage, and retrieval are future milestones.
 
 Autonomous outreach, general-purpose shell execution, cloud collaboration, clinical
 prediction, trading advice, and population ranking are outside the initial scope.
 Expand only after a concrete decision benefit and evidence justify the addition.
+
+## Research boundaries
+
+Social reasoning uses explicit, revisable models of other actors' information,
+incentives, and responses. Cooperation, bargaining, signalling, competition,
+and adoption feedback are part of the direction, with their own validation gates.
+Model equilibria do not establish how real people will behave.
+
+Analysis should focus on unknowns that could change a commitment, with visible
+attention and computation budgets. Information actions account for cost, delay,
+and imperfect observations. Novel methods and decision benefit require evidence;
+the thesis alone establishes neither.

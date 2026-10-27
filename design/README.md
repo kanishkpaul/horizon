@@ -1,6 +1,6 @@
 # horizon
 
-A local-first decision workstation. It helps a person compare alternatives under explicit
+An open-source, local-first decision OS. It helps a person compare alternatives under explicit
 uncertainty, commit to a feasible near-term plan, and revise it from what actually happened.
 Horizon borrows Hermes's quiet desktop dialect almost entirely and leaves the kawaii out.
 
@@ -19,7 +19,8 @@ Horizon borrows Hermes's quiet desktop dialect almost entirely and leaves the ka
   no decoration.
 - Assumptions are first-class. Anything that changes the recommendation is visible, editable,
   and labelled with where it came from.
-- Uncertainty is drawn, not hidden. Every outcome is a range, never a single number.
+- Uncertainty retains its meaning: exact deterministic values, bounds, scenarios, and
+  probability intervals are labelled differently. Never invent a range or probability.
 - The model is optional and looks optional: its suggestions sit in a distinct, dismissable
   style and never change a case without the user accepting them.
 
@@ -83,5 +84,14 @@ Plain, careful, never prescriptive. "Path C has the highest median under your as
 ## Don't
 
 - Don't show a single "score" for a life path, or rank paths by default.
-- Don't draw a point estimate without its interval.
+- Don't show an uncertain estimate without its uncertainty meaning and limitations.
+- Social-model outputs are conditional; show response assumptions and affected people.
 - Don't let the model's suggestion look like the user's own data.
+
+## Public documentation
+
+The README is a reading surface: a centered project name and thesis, compact
+links, an immediate construction notice, the decision questions, library roles,
+and a short verification path. Use native Markdown/HTML typography; the host owns
+font and color rendering. Do not fabricate application screenshots or turn planned
+capabilities into badges. The full thesis and actual status have separate homes.

@@ -86,3 +86,21 @@ with simple baselines using proper scores and uncertainty. Do not infer causal e
 from selectively logged successes or a few personal attempts.
 
 Reference: [proper scoring rules](https://sites.stat.washington.edu/people/raftery/Research/PDF/Gneiting2007jasa.pdf).
+
+## Continuity, social models, and analysis budgets
+
+- A source revision exposes dependent current conclusions while old cases and
+  forecasts retain the revisions used originally. Unknown applicability is explicit.
+- Simulation and execution conformance fixtures agree on windows, shared resources,
+  prerequisites, observation timing, completed work, and preserved user edits.
+- All retrieval paths enforce the same review/visibility/temporal constraints,
+  including negative cases and bounded traversal through cycles.
+- Small games with known solutions check information sets, responses, feasibility,
+  and multiplicity of equilibria where supported. Model solutions remain distinct
+  from evidence of behavior by real people.
+- Aggregate-feedback examples expose update rules, regime changes, convergence
+  failures, and sensitivity rather than promise population forecasts.
+- Analytic information-action cases include cost, delay, imperfect observation,
+  and stopping conditions. Sensitivity alone is not an information-value estimate.
+- Natural-unit outcomes for affected people remain visible under different explicit
+  preference profiles. Analysis budgets report truncation and unexplored mechanisms.

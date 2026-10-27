@@ -5,4 +5,4 @@ Each case should identify its decision, constraints, illustrative assumptions,
 expected behavior, and source/license where relevant. Never copy the old personal
 profile, contacts, workbooks, or private research into default fixtures.
 
-See [the build plan](../docs/BUILD_PLAN.md) and [validation](../docs/VALIDATION.md).
+See [the current acceptance gate](../docs/BUILD_PLAN.md) and [validation](../docs/VALIDATION.md).

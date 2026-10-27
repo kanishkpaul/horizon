@@ -1,8 +1,9 @@
 # hdb instructions
 
-Follow root `AGENTS.md` and `docs/CODE_STYLE.md`. Read `docs/HDB.md` and `MODELS.md`
+Follow root `AGENTS.md` and `docs/CODE_STYLE.md`. Read `docs/HDB.md` and `docs/MODELS.md`
 before changes. This library does not depend on hsim or a UI framework.
 
+- Preserve valid/recorded times, applicability, interpretations, and bounded dependency traversal.
 - Preserve original evidence and revision history. Model extraction creates proposed
   claims; it cannot silently accept facts or change simulation inputs.
 - Validate writes before a transaction; related mutations commit atomically.

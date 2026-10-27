@@ -11,5 +11,7 @@ Follow root `AGENTS.md` and `docs/CODE_STYLE.md`. Read `docs/HSIM.md` before cha
   links to evidence or derivations when relevant. Do not narrate ordinary loops.
 - Tests need analytic answers or meaningful counterexamples. Match the ranking
   statistic in explanations and uncertainty estimates; serialize ties finitely.
+- Social response models declare actors, information, incentives, and assumptions;
+  equilibria remain conditional results. Information actions include cost and delay.
 - Broader domains must declare resource ownership and avoid double-counting.
 - Never add coding-agent attribution or co-author trailers.

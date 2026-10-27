@@ -14,7 +14,8 @@ records, forecasts, indexing intent, and artifact manifests. Source originals re
 read-only or content-addressed. Corrections create revisions rather than erase history.
 
 An accepted claim retains subject, predicate, value/unit, source and location,
-recorded/access/valid times where available, verification method, origin, confidence
+recorded/access/valid times where available, applicability conditions, interpretation,
+verification method, origin, confidence
 meaning, review state, and supersession links. Do not merge confidence grades with
 statistical probabilities or treat repeated copies as independent evidence.
 
@@ -76,3 +77,18 @@ reindexing, permission isolation, and adapter failure.
 References: [SQLite](https://www.sqlite.org/whentouse.html),
 [SQLite backup API](https://www.sqlite.org/backup.html),
 [LanceDB](https://docs.lancedb.com/), [sqlite-vec](https://alexgarcia.xyz/sqlite-vec/).
+
+## Temporal evidence and decision retrieval
+
+Unknown validity or applicability remains unknown. A review accepting an assumption
+does not change its origin into an observation. Revisions retain both when a
+statement was recorded and when it applies, without silently overwriting earlier
+interpretations. Support, contradiction, and dependency edges cite their revisions
+and rationale; duplicated sources do not create independent support.
+
+Structured filters preserve exact constraints, lexical search preserves references,
+and bounded dependency traversal exposes support and affected conclusions. Optional
+semantic retrieval supplies associative reach over the same authorized records.
+All paths preserve source locations, review state, temporal/applicability filters,
+and query limits. A changed source can identify dependent current cases, runs, and
+commitments for application review; historical snapshots remain unchanged.

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Check the message before a new commit can enter local history.
+exec python3 scripts/check_repository.py --commit-message "$1"

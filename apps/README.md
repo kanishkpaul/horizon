@@ -1,6 +1,6 @@
 # Applications
 
-Desktop and CLI composition belongs here when M1/M6 introduces it. Neither app is
+Desktop and CLI composition belongs here as each interface is introduced. Neither app is
 implemented yet. Use the same application services to assemble hdb evidence into
 validated hsim cases and persist results. The desktop target is Tauri 2 with
 TypeScript/React/Vite; transport and UI dependencies remain outside the core libraries.

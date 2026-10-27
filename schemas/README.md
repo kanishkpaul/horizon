@@ -6,4 +6,4 @@ states, schema versions, compatibility, and invalid-input behavior before genera
 Rust or TypeScript boundary types. Keep personal data and provider SDK objects out
 of the contract definitions.
 
-See [the architecture](../docs/ARCHITECTURE.md) and [build plan](../docs/BUILD_PLAN.md).
+See [the architecture](../docs/ARCHITECTURE.md) and [current acceptance gate](../docs/BUILD_PLAN.md).

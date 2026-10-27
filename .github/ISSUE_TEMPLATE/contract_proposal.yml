@@ -1,0 +1,37 @@
+name: Contract or capability proposal
+description: Propose a concrete decision benefit with an acceptance example.
+title: "proposal: "
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: User behavior and decision benefit
+      description: What should a person be able to do? Include one synthetic example.
+    validations:
+      required: true
+  - type: dropdown
+    id: owner
+    attributes:
+      label: Owning component
+      options:
+        - hsim
+        - hdb
+        - Application
+        - Documentation or repository tooling
+        - Unsure
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: Contract and boundaries
+      description: Inputs, outputs, invariants, evidence meaning, permissions, and optional dependencies.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance and failure cases
+      description: Observable completion, invalid inputs, cancellation/recovery, and no-model behavior.
+    validations:
+      required: true

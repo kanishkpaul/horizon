@@ -25,7 +25,8 @@ apps/                 desktop and CLI composition (planned)
 schemas/              versioned interchange contracts (planned)
 examples/             synthetic decision cases (planned)
 scripts/              repository checks
-docs/                 design, build gates, standards, and decisions
+docs/                 thesis, status, contracts, active gate, standards, decisions
+.local/               ignored owner planning; absent from public clones
 ```
 
 Start each library with private modules, a small public API, and tests alongside
@@ -94,3 +95,19 @@ References: [Tauri architecture](https://v2.tauri.app/concept/architecture/),
 [SQLite application guidance](https://www.sqlite.org/whentouse.html),
 [LanceDB OSS](https://docs.lancedb.com/),
 [sqlite-vec](https://alexgarcia.xyz/sqlite-vec/).
+
+## Case continuity and consequences
+
+The application owns the living decision case and maps current hdb revisions to
+frozen hsim inputs. A run and commitment retain the revisions used at the time.
+New evidence marks dependent current results for review; it cannot mutate saved
+expectations or completed actions. Simulation and execution share explicit time,
+resource, prerequisite, and information-availability contracts through the
+application mapping and conformance fixtures.
+
+Support, contradiction, and dependency edges belong to hdb. A support edge records
+a stated relationship; it does not prove logical entailment or causal effect.
+Social mechanisms, other actors' policies, and aggregate-response scenarios belong
+to hsim's explicit input model. The application owns whose priorities are applied
+and displays outcomes for affected people separately. Model refinement and stopping
+choices belong to application orchestration; hsim remains bounded and free of I/O.
